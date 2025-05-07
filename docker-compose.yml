@@ -7,6 +7,15 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_USER=bn_wordpress
       - MYSQL_DATABASE=bitnami_wordpress
+
+  typesense:
+    image: typesense/typesense:28.0
+    restart: on-failure
+    ports:
+      - "8108:8108"
+    volumes:
+      - ./typesense-data:/data
+    command: '--data-dir /data --api-key=xyz --enable-cors'
   wordpress:
     image: docker.io/bitnami/wordpress:6
     ports:
