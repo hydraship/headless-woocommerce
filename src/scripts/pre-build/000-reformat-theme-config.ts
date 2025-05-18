@@ -152,7 +152,7 @@ export default async function execute() {
         acc[`${slugify(name)}`] = `var(--${name})`;
         return acc;
       }, {} as Record<string, string>),
-      fontFamilies: wpTheme.typography?.fontFamilies?.custom.reduce((acc, { slug }) => {
+      fontFamilies: wpTheme.typography?.fontFamilies?.theme.reduce((acc, { slug }) => {
         acc[`${slug}`] = `var(--font-${slug})`;
         return acc;
       }, {} as Record<string, string>),

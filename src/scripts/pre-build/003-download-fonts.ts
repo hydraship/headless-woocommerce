@@ -32,7 +32,7 @@ export default async function execute() {
     // Ensure the directory exists
     maybeCreateDir(fontPath);
     maybeDeleteFile(path.resolve(process.cwd(), 'public', 'fonts.ts'));
-    const fontFamilies = wpTheme.typography?.fontFamilies?.custom;
+    const fontFamilies = wpTheme.typography?.fontFamilies?.theme;
 
     if (fontFamilies) {
       let output = '// Generated fonts.ts file\n\n';
@@ -43,7 +43,7 @@ export default async function execute() {
         output += `export const ${camelCase(font.slug)} = localFont({\n`;
         output += '    src: [\n';
         font.fontFace.forEach((face) => {
-          const fontUrl = face.src;
+          const fontUrl = face.src[0];
           const fileName = path.basename(fontUrl);
           const filePath = path.join(process.cwd(), 'public', 'fonts', fileName);
 

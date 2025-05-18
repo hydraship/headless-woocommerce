@@ -59,7 +59,7 @@ const tailwindConfig = `module.exports = {
     container: {
       center: true,
       screens: {
-        '2xl': '${wptheme.layout.contentSize}',
+        '2xl': '${wptheme.layout?.contentSize}' || '1280px',
       },
     },
     extend: {
@@ -127,7 +127,7 @@ const themeVariables = `
 @layer base {
   :root {
     ${colorVars}
-    --container-width: ${wptheme.layout.contentSize};
+    --container-width: ${wptheme.layout?.contentSize || '1280px'};
   }
 }`;
 

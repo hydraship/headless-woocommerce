@@ -1,8 +1,23 @@
 import Color from 'color';
 
-export const hexToHslValue = (hexColor: string, separator = ' '): string => {
-  const [h, s, l] = hexToHslArray(hexColor);
+const CSS_VARIABLE_TO_HEX: Record<string, string> = {
+  'var(--contrast)': '#222222',
+  'var(--contrast-2)': '#575760',
+  'var(--contrast-3)': '#B2B2BE',
+  'var(--base)': '#F0F0F0',
+  'var(--base-2)': '#F7F8F9',
+  'var(--base-3)': '#FFFFFF',
+  'var(--accent)': '#1E73BE',
+};
 
+const getHexFromCssVar = (cssVar: string): string => {
+  return CSS_VARIABLE_TO_HEX[cssVar] || cssVar;
+};
+
+export const hexToHslValue = (hexColor: string, separator = ' '): string => {
+  // If it's a CSS variable, convert it to hex first
+  const actualHex = getHexFromCssVar(hexColor);
+  const [h, s, l] = hexToHslArray(actualHex);
   return `${h}${separator}${s}%${separator}${l}%`;
 };
 
