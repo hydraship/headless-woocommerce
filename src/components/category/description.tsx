@@ -15,7 +15,7 @@ export const Description = ({ description }: Props) => {
       {description && (
         <>
           <div
-            className={`space-y-10 mx-5 xl:mx-0 text-base font-normal text-[#585858] ${
+            className={`space-y-10 xl:mx-0 text-base font-normal text-[#585858] ${
               readMore === false ? '' : 'line-clamp-5'
             }`}
           >

@@ -28,7 +28,10 @@ export const AddToWishlistButton = ({ block }: AddToWishlistButtonProps) => {
   return (
     <button
       type="button"
-      className={cn('bottom-4 right-4 hover:text-red-500', attributes.className)}
+      className={cn(
+        'bottom-0 right-0 md:bottom-4 md:right-4 hover:text-red-500 p-4 md:p-0',
+        attributes.className
+      )}
       disabled={loading}
       onClick={() => {
         addProductToWishList({

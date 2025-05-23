@@ -3,6 +3,7 @@ import client from '@src/lib/typesense/client';
 import TS_CONFIG from '@src/lib/typesense/config';
 import { ITSPage } from '@src/lib/typesense/types';
 import { PageSlugs } from '@src/schemas/page-schema';
+import siteData from '@public/site.json';
 
 export type PostQueryVars = {
   page?: number;
@@ -83,6 +84,10 @@ export const getPosts = async (queryVars: PostQueryVars): Promise<GetPostsRespon
  */
 export const getPostSlugs = async (): Promise<string[]> => {
   const slugs: string[] = [];
+
+  if (!siteData.wpPostHeadless) {
+    return slugs;
+  }
 
   const perPage = 250;
   const fetchPageSlugs = async (page: number) => {

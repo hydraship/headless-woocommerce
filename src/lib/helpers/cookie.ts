@@ -1,4 +1,4 @@
-import siteSettings from '@public/site.json';
+import siteSettings from '@public/config.json';
 
 export const getCookie = (name: string, nameStartsWith = false) => {
   // Split cookie string and get all individual name=value pairs in an array

@@ -1,6 +1,10 @@
 /** Product Card */
 .product-card {
-  @apply bg-transparent !justify-start relative content-between transition-all ease-linear duration-300 h-full flex flex-col gap-4;
+  @apply bg-transparent transition-all ease-linear duration-300 h-full flex flex-col relative;
+}
+
+.product-card .product-card-inner {
+  @apply flex flex-col h-full !justify-start relative content-between gap-3 px-3;
 }
 
 .product-card .product-header {
@@ -12,7 +16,7 @@
 }
 
 .product-card .product-header .product-badges .badge {
-  @apply rounded-md uppercase text-white text-xs leading-6 block bg-[#333] px-4 py-1;
+  @apply font-primary rounded-none uppercase p-1 text-sm md:text-base text-white leading-6 block bg-[#333] md:py-1 md:px-2;
 }
 
 .product-card .product-header .product-badges .badge.sale-badge {
@@ -20,19 +24,27 @@
 }
 
 .product-card .product-header .wishlist-button-holder {
-  @apply absolute top-2 right-2 z-[1];
+  @apply absolute bottom-2 right-2 z-[1];
 }
 
 .product-card .product-header .wishlist-button-holder svg {
-  @apply fill-transparent stroke-[#777] cursor-pointer;
+  @apply fill-transparent stroke-primary cursor-pointer;
 }
 
 .product-card .product-header .wishlist-button-holder svg:hover {
-  @apply fill-[#1d1da5] stroke-[#1d1da5];
+  @apply fill-primary stroke-primary;
 }
 
 .product-card.has-border {
-  @apply border border-solid border-[#ECEEEF] max-w-xs;
+  @apply border border-solid rounded-none border-white;
+}
+
+.product-card.has-border.hovered {
+  @apply border-[#eceeef];
+}
+
+.product-card.has-border .product-card-inner {
+  @apply py-2 px-0 md:p-4;
 }
 
 .product-card.has-shadow:hover {
@@ -55,6 +67,10 @@
   @apply font-bold leading-6 text-[20px] text-foreground font-secondary;
 }
 
+.product-card .product-price .price {
+  @apply font-bold text-lg leading-6 text-foreground;
+}
+
 .product-card .product-card-label .product-category {
   @apply text-[#777] text-sm font-normal;
 }
@@ -63,8 +79,16 @@
   @apply flex mt-0 items-center space-x-2;
 }
 
+.product-card .product-rating svg {
+  @apply !stroke-primary;
+}
+
 .product-card .product-image-holder {
-  @apply aspect-w-1 relative overflow-hidden mx-auto flex justify-center items-center bg-transparent object-cover;
+  @apply relative overflow-hidden mx-auto flex justify-center items-center bg-transparent object-cover h-[120px] md:h-[220px];
+}
+
+.product-card.card-template .product-image-holder {
+  @apply h-[120px] md:h-[160px] xl:h-[220px];
 }
 
 .product-card .product-image-holder .wishlist-button {
@@ -79,12 +103,12 @@
   @apply block w-full h-full;
 }
 
-.product-card .product-image-holder a figure {
+.product-card .product-image-holder figure {
   @apply w-full h-full;
 }
 
 .product-card .product-image-holder img {
-  @apply object-cover object-center w-full h-full;
+  @apply object-cover md:object-contain object-center w-full h-full;
 }
 
 .product-card .product-variant-image-holder {
@@ -103,20 +127,16 @@
   @apply w-full h-full object-contain;
 }
 
-.product-card .product-image-holder .product-image {
-  @apply absolute;
-}
-
 .product-card .product-image-holder .product-image.is-hover-image {
-  @apply opacity-0;
+  @apply opacity-0 absolute;
 }
 
 .product-card .product-image-holder:hover .product-image.has-hover-image {
-  @apply !opacity-0 transition ease-linear duration-300;
+  @apply hidden transition ease-linear duration-300;
 }
 
 .product-card .product-image-holder:hover .product-image.is-hover-image {
-  @apply !opacity-100 transition ease-linear duration-300;
+  @apply !opacity-100 !static transition ease-linear duration-300;
 }
 
 .product-card .product-variants {
@@ -148,16 +168,28 @@
   top: calc(50% - 28px);
 }
 
+.product-card .product-title {
+  @apply font-bold font-secondary text-sm md:text-lg leading-6 md:leading-7 text-foreground;
+}
+
 .product-card .add-to-cart-container {
-  @apply relative mt-auto z-[8] flex-grow flex flex-col items-end justify-end;
+  @apply relative mt-auto z-[8] flex-grow flex flex-col items-end justify-end invisible;
+}
+
+.product-card.card-template .add-to-cart-container {
+  @apply visible;
+}
+
+.product-card.hovered .add-to-cart-container {
+  @apply visible animate-fade;
 }
 
 .product-card .add-to-cart-container .add-to-cart-button {
-  @apply flex justify-center items-center gap-2 p-2 md:p-4 text-sm md:text-lg md:leading-6 border w-full uppercase;
+  @apply flex justify-center items-center w-full;
 }
 
 .product-card .show-on-hover {
-  @apply !hidden;
+  @apply hidden;
 }
 
 .product-card:hover .show-on-hover,

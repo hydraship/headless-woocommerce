@@ -1,15 +1,11 @@
 import { ParsedBlock } from '@src/components/blocks';
-import { Content } from '@src/components/blocks/content';
 import { CartItemGlobalProps } from '@src/components/blocks/woocommerce/product-collection/product-template/cart-item';
-import { RecentlyViewedProductCollection } from '@src/components/blocks/woocommerce/product-collection/recently-viewed';
+import { CartItemSkeletonImage } from '@src/components/blocks/woocommerce/product-collection/product-template/cart-item-skeleton';
 import { useContentContext } from '@src/context/content-context';
 import { CardImage } from '@src/features/product/card-elements/image';
-import { getBlockName } from '@src/lib/block';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
 import { BlockAttributes } from '@src/lib/block/types';
 import { cn } from '@src/lib/helpers/helper';
-import { transformProductsForDisplay } from '@src/lib/helpers/product';
-import { ProductCartItem } from '@src/lib/hooks/cart';
 import { Product } from '@src/models/product';
 import { find } from 'lodash';
 import Image from 'next/image';
@@ -41,14 +37,7 @@ export const WooCommerceProductTemplateImage = ({
     const { cartItem, loading } = data as CartItemGlobalProps;
 
     if (loading) {
-      return (
-        <div
-          className={cn(
-            'w-[94px] h-[94px] flex-shrink-0 overflow-hidden bg-gray-300',
-            attributes.className
-          )}
-        ></div>
-      );
+      return <CartItemSkeletonImage className={attributes.className} />;
     }
     const isCartItemTypeComposite = cartItem.cartItemType === 'CompositeCartItem';
     const productType = cartItem.type.toLowerCase();
@@ -71,7 +60,11 @@ export const WooCommerceProductTemplateImage = ({
     }
 
     return (
-      <div className={cn('w-[94px] h-[94px] flex-shrink-0 overflow-hidden', attributes.className)}>
+      <div
+        className={cn('w-[94px] h-[94px] flex-shrink-0 overflow-hidden', attributes.className, {
+          invisible: !cartItem.image.sourceUrl,
+        })}
+      >
         <a href={'/product/' + cartItem.slug}>
           <Image
             src={cartItem.image.sourceUrl}

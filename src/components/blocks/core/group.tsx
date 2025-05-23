@@ -29,15 +29,69 @@ import { AppliedCartDiscountContainer } from '@src/components/blocks/woocommerce
 import { ProductCollectionPaginationDots } from '@src/components/blocks/woocommerce/product-collection/pagination-dots';
 import { SaveToPinterest } from '@src/components/blocks/woocommerce/product-collection/product-template/badges/save-to-pinterest';
 import { TaxonomyLoadMore } from '@src/components/blocks/woocommerce/taxonomy-load-more';
+import { CarouselBlock } from '@src/components/blocks/carousel';
+import {
+  CarouselContentBlock,
+  ProductCarouselContent,
+} from '@src/components/blocks/carousel/content';
+import { CarouselItemBlock } from '@src/components/blocks/carousel/item';
+import { VariationThumbnail } from '@src/components/blocks/woocommerce/product-collection/product-template/product-variation-thumbnail';
+import { TaxonomyProductFilter } from '@src/components/blocks/woocommerce/taxonomy-product-filter';
+import { TaxonomySortingTemplate } from '@src/components/blocks/woocommerce/taxonomy-sorting-template';
+import { TaxonomySortValues } from '@src/components/blocks/woocommerce/taxonomy-sort-values';
+import { CartItemFreeProductLabel } from '@src/components/blocks/woocommerce/product-collection/product-template/cart-item-free-product-label';
+import { CardBestSellerBadge } from '@src/components/blocks/woocommerce/product-collection/product-template/badges/best-seller';
+import { CardNewBadge } from '@src/components/blocks/woocommerce/product-collection/product-template/badges/new';
+import { FeaturedProductAd } from '@src/components/category/featured-product-ad';
+import { CarouselDotsBlock } from '@src/components/blocks/carousel/dots';
+import { NotLoggedInContainer } from '@src/components/blocks/account/not-logged-in-container copy';
+import { LoggedInContainer } from '@src/components/blocks/account/logged-in-container';
+import { WooCommerceProductTemplateCardOutOfStockBadge } from '@src/components/blocks/woocommerce/product-collection/product-template/badges/out-of-stock';
+import dynamic from 'next/dynamic';
+
+const ProductVariationColor = dynamic(() =>
+  import(
+    '@src/components/blocks/woocommerce/product-collection/product-template/product-variation-color'
+  ).then((mod) => mod.ProductVariationColor)
+);
+
+const ProductDescriptionContent = dynamic(() =>
+  import(
+    '@src/components/blocks/woocommerce/product-collection/product-template/product-description'
+  ).then((mod) => mod.ProductDescriptionContent)
+);
+
+const SortByFilter = dynamic(() =>
+  import('@src/components/blocks/woocommerce/taxonomy-catalog-sorting').then(
+    (mod) => mod.TaxonomyCatalogSortingIcon
+  )
+);
+
+const CheckboxGate = dynamic(() =>
+  import('@src/components/blocks/gravityforms/checkbox-gate').then((mod) => mod.CheckboxGate)
+);
+
+const CurrencySwitcher = dynamic(() =>
+  import('@src/components/blocks/currency-switcher').then((mod) => mod.CurrencySwitcherBlock)
+);
+
+const ClickDropDown = dynamic(() =>
+  import('@src/components/blocks/custom/ClickDropDown').then((mod) => mod.ClickDropDown)
+);
 
 const placeHolderBlocks = {
-  MiniCartContainer: MiniCartContainer,
-  WishlistContainer: WishlistContainer,
-  FreeShippingProgress: FreeShippingProgress,
-  NoCartItemsContainer: NoCartItemsContainer,
-  HasCartItemsContainer: HasCartItemsContainer,
-  NoWishlistContainer: NoWishlistContainer,
+  MiniCartContainer,
+  WishlistContainer,
+  FreeShippingProgress,
+  NoCartItemsContainer,
+  HasCartItemsContainer,
+  NoWishlistContainer,
+  NotLoggedInContainer,
+  LoggedInContainer,
   CardSaleBadge: WooCommerceProductTemplateCardSaleBadge,
+  CardOutOfStockBadge: WooCommerceProductTemplateCardOutOfStockBadge,
+  CardBestSellerBadge,
+  CardNewBadge,
   SaveToPinterest,
   ProductCardsLoadMore: TaxonomyLoadMore,
   ProductRatingIcons: WooCommerceProductRatingIconsTemplate,
@@ -55,7 +109,24 @@ const placeHolderBlocks = {
   CartDiscountContainer: CartDiscountContainer,
   AppliedCartDiscountContainer: AppliedCartDiscountContainer,
   ProductGrid: ProductGrid,
+  VariationColor: ProductVariationColor,
+  VariationThumbnail: VariationThumbnail,
   PaginationDots: ProductCollectionPaginationDots,
+  Carousel: CarouselBlock,
+  CarouselContent: CarouselContentBlock,
+  ProductCarouselContent,
+  CarouselItem: CarouselItemBlock,
+  CarouselDots: CarouselDotsBlock,
+  ProductFilters: TaxonomyProductFilter,
+  TaxonomySortingTemplate: TaxonomySortingTemplate,
+  TaxonomySortValues,
+  CartItemFreeProductLabel,
+  FeaturedProductAd,
+  DescriptionContent: ProductDescriptionContent,
+  SortByFilter,
+  CheckboxGate,
+  ClickDropDownMenu: ClickDropDown,
+  CurrencySwitcher,
 };
 
 export const getGroupClasses = (block: ParsedBlock) => {
@@ -82,6 +153,7 @@ export const getGroupClasses = (block: ParsedBlock) => {
 
 export const Group = ({ block }: BlockComponentProps) => {
   const { type, data } = useContentContext();
+
   if ('core/group' !== block.blockName) {
     return null;
   }

@@ -17,3 +17,16 @@
 .tab-panels .tab-content {
   @apply bg-white flex flex-col gap-2;
 }
+
+.tab-panels .tab-content h3 {
+  @apply text-lg font-medium;
+}
+
+.tab-panels .tab-content ol,
+.tab-panels .tab-content ul {
+  @apply pl-6;
+}
+
+.tab-panels .tab-content ol li {
+  @apply list-decimal;
+}

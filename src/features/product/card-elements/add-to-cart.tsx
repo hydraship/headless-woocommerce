@@ -13,13 +13,13 @@ export const CardAddToCart = (props: ICardAddToCart) => {
   const { product, hasAddToCart } = props;
   const { currentCurrency } = useSiteContext();
 
-  if (product.isFree(currentCurrency)) return null;
+  if (product.isFree(currentCurrency) && product.productType !== 'external') return null;
 
   return (
     <>
       {hasAddToCart &&
         product.productType &&
-        ['simple', 'variation', 'variable', 'bundle'].includes(product.productType) && (
+        ['simple', 'variation', 'variable', 'bundle', 'external'].includes(product.productType) && (
           <AddToCartButton product={product} />
         )}
     </>

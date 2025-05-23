@@ -18,6 +18,63 @@ type Props = {
   tabsCase?: string;
 };
 
+// Helper function to replace YouTube links with iframe
+import React from 'react';
+
+const processContent = (content: React.ReactNode): React.ReactNode => {
+  if (typeof content === 'string') {
+    const youtubeRegex =
+      /(https?:\/\/(?:www\.)?(youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]+))/g;
+
+    // Replace YouTube links with iframe and remove the link from the content
+    return content
+      .split(youtubeRegex)
+      .map((part, index) => {
+        if (youtubeRegex.test(part)) {
+          const videoIdMatch = part.match(
+            /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/
+          );
+          const videoId = videoIdMatch ? videoIdMatch[1] : null;
+          if (videoId) {
+            return (
+              <iframe
+                key={index}
+                width="100%"
+                height="315"
+                src={`https://www.youtube.com/embed/${videoId}`}
+                title="YouTube video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{ minHeight: '50vh' }}
+              ></iframe>
+            );
+          }
+        }
+        // Skip the YouTube link part (return null for it)
+        return part.trim() ? part : null;
+      })
+      .filter(Boolean); // Remove null values from the array
+  }
+
+  // If content is an array, process each child recursively
+  if (Array.isArray(content)) {
+    return content.map((child, index) => (
+      <React.Fragment key={index}>{processContent(child)}</React.Fragment>
+    ));
+  }
+
+  // If content is a React element, process its children recursively
+  if (React.isValidElement(content)) {
+    return React.cloneElement(content, {
+      ...(content.props.children && { children: processContent(content.props.children) }),
+    });
+  }
+
+  // Return content as is for other types
+  return content;
+};
+
 export const Accordion: React.FC<Props> = ({
   data,
   tabTitleStyle,
@@ -70,7 +127,7 @@ export const Accordion: React.FC<Props> = ({
                 <div
                   className={`tab-content w-full border-b border-brand-second-gray py-6 tab-${tab.title.toLowerCase()} ${contentClassname}`}
                 >
-                  {tab.content}
+                  {processContent(tab.content)}
                 </div>
               </Disclosure.Panel>
             </>

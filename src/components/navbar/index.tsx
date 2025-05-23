@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import { cn } from '@src/lib/utils';
 import { CSSProperties } from 'react';
 
 type NavbarProps = {
@@ -13,7 +13,7 @@ const defaultProps = {
 };
 
 export const Navbar: React.FC<NavbarProps> = ({ children, paddingless, className, style }) => {
-  const classes = cx('container mx-auto flex items-center relative w-full space-x-2.5', {
+  const classes = cn('container mx-auto flex items-center relative w-full space-x-2.5', {
     'py-4': !paddingless,
   });
   return (

@@ -3,7 +3,19 @@
 }
 
 .single-product .price {
-  @apply text-base md:text-2xl font-bold;
+  @apply text-base md:text-2xl font-bold text-black;
+}
+
+.single-product .simple-product-price {
+  @apply flex items-center gap-2 flex-row-reverse justify-end;
+}
+
+.single-product .simple-product-price.on-sale .price {
+  @apply font-bold;
+}
+
+.single-product .simple-product-price.on-sale .sale-price {
+  @apply font-normal md:text-xl line-through text-gray-500;
 }
 
 .single-product .discount-rules {

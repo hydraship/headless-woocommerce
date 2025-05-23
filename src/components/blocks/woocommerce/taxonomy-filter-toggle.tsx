@@ -66,7 +66,7 @@ export const TaxonomyFilterToggle = ({ block }: { block: ParsedBlock }) => {
             onClick={resetFilterAction}
             className="clear-button-holder"
           >
-            <span className="text-sm">Clear all</span>
+            <span className="text-sm text-foreground">Clear all</span>
           </button>
         )}
       </div>

@@ -1,9 +1,9 @@
 import { Tab } from '@headlessui/react';
-import cx from 'classnames';
 import { findIndex } from 'lodash';
 
 import { DialogItem } from '@src/features/product/product-dialogs';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
+import { cn } from '@src/lib/utils';
 
 export type AccordionItem = {
   title: string;
@@ -27,7 +27,7 @@ export const Tabs: React.FC<Props> = ({ data }) => {
               key={`${tab.title}-tab`}
               id={`button-${tab.key}-tab`}
               className={({ selected }) =>
-                cx('tab-item', {
+                cn('tab-item', {
                   active: selected,
                 })
               }

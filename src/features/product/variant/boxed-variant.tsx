@@ -1,14 +1,18 @@
+import { cn } from '@src/lib/utils';
 import { useProductContext } from '@src/context/product-context';
 import { useAttributeParams } from '@src/lib/hooks/product';
 import { Attribute } from '@src/models/product/types';
 import { find, isEmpty } from 'lodash';
 import { useEffect, useState } from 'react';
+import { useEffectOnce } from 'usehooks-ts';
 
 type Props = {
   attribute: Attribute;
+  onChange: (attributeName: string, optionValue: string) => void;
+  firstOption?: boolean;
 };
 
-export const BoxedVariant: React.FC<Props> = ({ attribute }) => {
+export const BoxedVariant: React.FC<Props> = ({ attribute, onChange, firstOption }) => {
   const attributeParams = useAttributeParams();
 
   const {
@@ -34,13 +38,26 @@ export const BoxedVariant: React.FC<Props> = ({ attribute }) => {
 
   const handleOnChange = (value: string, label: string) => {
     setCurrentAttributeLabel(label);
-    onAttributeSelect(name, value);
+    onChange(name, value);
   };
 
+  useEffectOnce(() => {
+    if (firstOption) {
+      const firstOption = options[0];
+      if (firstOption) {
+        handleOnChange(firstOption.name, firstOption.label);
+      }
+    }
+  });
+
+  if (isEmpty(product?.variantImageSrc)) return null;
+
   return (
-    <div className="mb-4">
-      <label className="block text-sm font-bold mb-1 capitalize">{label}:</label>
-      <div className="flex flex-wrap gap-2">
+    <>
+      <label className="text-foreground text-base md:text-lg leading-7 font-semibold">
+        {label}: {currentAttributeLabel}
+      </label>
+      <div className="flex flex-wrap gap-4">
         {options.map((option, index) => (
           <label
             htmlFor={`${name}-${option.name}`}
@@ -56,13 +73,22 @@ export const BoxedVariant: React.FC<Props> = ({ attribute }) => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 handleOnChange(e.target.value, option.label);
               }}
+              disabled={!option.isAvailable}
             />
-            <div className="cursor-pointer rounded border peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:border-2 py-2 px-8 h-full flex items-center justify-center text-center text-black/80 ">
+            <div
+              className={cn(
+                'p-3 rounded border border-foreground font-semibold cursor-pointer text-base leading-7 text-foreground text-center peer-checked:text-foreground peer-checked:bg-primary min-w-[100px] md:min-w-[120px] peer-checked:shadow-sm peer-checked:shadow-black/10 peer-checked:border-t peer-checked:border-black/10',
+                {
+                  'border-[#f4f4f5] bg-[#f4f4f5] cursor-not-allowed text-[#9ca3af]':
+                    !option.isAvailable,
+                }
+              )}
+            >
               {option.label}
             </div>
           </label>
         ))}
       </div>
-    </div>
+    </>
   );
 };

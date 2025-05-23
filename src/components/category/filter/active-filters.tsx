@@ -27,22 +27,27 @@ const ActiveFilter: React.FC<Props> = ({
 }) => {
   return (
     <span
-      className={cn('filter-label', isRoundedBorder && 'rounded-full', borderColor && 'border')}
+      className={cn(
+        'filter-label bg-primary text-foreground',
+        isRoundedBorder && 'rounded-full',
+        borderColor && 'border'
+      )}
     >
       <ReactHTMLParser html={label} />
       <button
         type="button"
-        className="remove-filter"
+        className="remove-filter border-2 border-foreground rounded-full scale-[0.8]"
         onClick={onRemove}
       >
         <svg
           stroke={`${color}`}
           fill="none"
           viewBox="0 0 8 8"
+          className="stroke-foreground"
         >
           <path
             strokeLinecap="round"
-            strokeWidth="1.5"
+            strokeWidth="2"
             d="M1 1l6 6m0-6L1 7"
           />
         </svg>

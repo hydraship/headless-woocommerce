@@ -17,14 +17,14 @@ type Props = {
   items: TypesenseMenuItem[];
 };
 
-export const NormalSubMenu: React.FC<Props> = ({ items, attributes }) => {
+export const NormalSubMenu: React.FC<Props> = ({ items, attributes, className }) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
   return (
     <MegaMenuSubMenuWrapper
       $mainNavigationBackgroundColor={attributes.submenuContainerBackgroundColor}
       $padding={attributes.submenuContainerPadding}
-      className="mega-menu normal-sub-menu-wrapper flex-col w-max"
+      className={cn('mega-menu normal-sub-menu-wrapper flex-col w-full md:w-max', className)}
       ref={ref}
     >
       <ul>
@@ -38,6 +38,7 @@ export const NormalSubMenu: React.FC<Props> = ({ items, attributes }) => {
               $backgroundColor={attributes.submenuLinkBackgroundColor}
               $hoverBackgroundColor={attributes.submenuLinkHoverBackgroundColor}
               $fontWeight={attributes.fontWeight}
+              $fontSize={attributes.fontSize ? attributes.fontSize : 14}
               $letterCase={attributes.letterCase}
               className={cn('flex cursor-pointer items-center rounded', attributes.submenuClasses)}
               href={menuItem.url}

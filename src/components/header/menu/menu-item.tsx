@@ -12,6 +12,8 @@ import type { DisplayType, MegaMenuItem } from '@src/lib/helpers/menu';
 import { getDisplayTypeValues } from '@src/lib/helpers/menu';
 import { cn, makeLinkRelative } from '@src/lib/helpers/helper';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
+import { env } from '@src/lib/env';
+const { NEXT_PUBLIC_MENU_LINK_RELATIVE } = env();
 
 export type MenuItemType = {
   href?: string;
@@ -54,7 +56,10 @@ export const MenuItem: React.FC<MenuItemType> = ({
   const isVisible = !!entry?.isIntersecting;
 
   const [isOpen, setIsOpen] = useState(false);
-  const relativeLink = makeLinkRelative(href as string);
+  const relativeLink =
+    NEXT_PUBLIC_MENU_LINK_RELATIVE && NEXT_PUBLIC_MENU_LINK_RELATIVE === 'true'
+      ? makeLinkRelative(href as string)
+      : (href as string);
   const [isHovering, setIsHovering] = useState(false);
   const [isTouching, setIsTouching] = useState(false);
 

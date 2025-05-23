@@ -33,13 +33,9 @@ export const ProductPrice: React.FC<Props> = ({ id, className }) => {
   const { product } = useProductContext();
   const { settings, currentCurrency } = useSiteContext();
 
-  if (!product) return null;
+  if (!product || product.productType === 'external') return null;
 
   const priceDisplaySuffix = settings?.priceDisplaySuffix || '';
-
-  if (product.isFree(currentCurrency as string)) {
-    return <div className={cn('price ', className)}>Free</div>;
-  }
 
   return (
     <>
@@ -59,6 +55,8 @@ export const ProductPrice: React.FC<Props> = ({ id, className }) => {
             product={product}
             isTaxExclusive={settings?.isTaxExclusive as boolean}
           />
+        ) : product.isFree(currentCurrency as string) ? (
+          <div className={cn('price ', className)}>Free</div>
         ) : (
           <SimplePrice
             product={product}
@@ -69,21 +67,6 @@ export const ProductPrice: React.FC<Props> = ({ id, className }) => {
       </div>
 
       {product.discountRules && <DiscountRules />}
-      {product?.categoriesArray?.includes('patches') && (
-        <>
-          <p>
-            Customization available with a minimum order of 25 patches. Contact us at{' '}
-            <a
-              href="mailto:support@squadronnostalgia.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              support@squadronnostalgia.com
-            </a>{' '}
-            for details
-          </p>
-        </>
-      )}
     </>
   );
 };

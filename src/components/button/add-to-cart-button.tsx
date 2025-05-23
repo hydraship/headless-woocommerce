@@ -79,6 +79,19 @@ export const AddToCartButton = (props: Props) => {
     );
   }
 
+  if (product.productType === 'external') {
+    return (
+      <a
+        href={product?.metaData?.externalUrl}
+        target="_blank"
+        rel="noreferrer"
+        className={ctaClasses}
+      >
+        {product?.metaData?.buttonText}
+      </a>
+    );
+  }
+
   return (
     <button
       disabled={loading || unavailable}

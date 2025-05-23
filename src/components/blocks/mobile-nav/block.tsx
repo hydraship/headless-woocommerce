@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import cx from 'classnames';
-import Image from 'next/image';
 import { useState } from 'react';
 import { FiSearch, FiX } from 'react-icons/fi';
 
@@ -44,38 +42,6 @@ export const MobileNav: React.FC<Props> = ({ block }) => {
     results,
   };
 
-  const renderPhoneMenuItem = () => {
-    const { value, displayType, valueDisplayText, label } = options.phoneNumber;
-    const { showText, showIcon } = getDisplayTypeValues(displayType);
-    const linkText = valueDisplayText || label;
-    return (
-      <NavbarLink href={`tel:${value}`}>
-        <div className="flex items-center gap-2 h-full">
-          {showIcon && <PhoneIcon />}
-          <span className="hidden lg:inline-block">{showText && linkText}</span>
-          {showText && valueDisplayText && label && (
-            <span className="hidden lg:inline-block font-bold">{label}</span>
-          )}
-        </div>
-      </NavbarLink>
-    );
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-  const renderEmailMenuItem = () => {
-    if (!options.email) return null;
-    const { value, displayType, label } = options.email;
-    const { showText, showIcon } = getDisplayTypeValues(displayType);
-    return (
-      <NavbarLink href={`mailto:${value}`}>
-        <div className="flex items-center gap-2 h-full">
-          {showIcon && <EmailIcon />}
-          <span className="hidden lg:inline-block">{showText && label}</span>
-        </div>
-      </NavbarLink>
-    );
-  };
-
   const renderCourtesyNavMenu = () => {
     if (!options.courtesyNav || !options.courtesyNav.enabled) return null;
     const { menuId } = options.courtesyNav;
@@ -106,55 +72,6 @@ export const MobileNav: React.FC<Props> = ({ block }) => {
           )}
         </NavbarItems>
       </NavbarLink>
-    );
-  };
-
-  const renderMyAccount = () => {
-    if (!options.email) return null;
-    const { displayType, label } = options.myAccount;
-    return (
-      <NavbarItem>
-        <div>
-          <div className="inline-flex items-center gap-2 h-full 3">
-            <LoginMenuPopup
-              displayType={displayType}
-              label={label}
-            />
-          </div>
-        </div>
-      </NavbarItem>
-    );
-  };
-
-  const renderWishlistMenuItem = () => {
-    if (!options.wishlist || !store?.wishlist?.enabled) return null;
-    const { displayType, label } = options.wishlist;
-    const { showText, showIcon } = getDisplayTypeValues(displayType);
-    return (
-      <WishListIcon
-        action="open"
-        showIcon={showIcon}
-        showText={showText}
-        label={label}
-        buttonStrokeColor={settings?.header?.customColors?.link?.color || ''}
-      />
-    );
-  };
-
-  const renderCartMenuItem = () => {
-    if (!options.cart) return null;
-    const { displayType, label } = options.cart;
-    const { showText, showIcon } = getDisplayTypeValues(displayType);
-    return (
-      <NavbarItem>
-        <div className="flex items-center gap-2 h-full">
-          <CartBasketIcon
-            showText={showText}
-            showIcon={showIcon}
-            label={label}
-          />
-        </div>
-      </NavbarItem>
     );
   };
 

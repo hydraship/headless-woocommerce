@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import { isEmpty, uniqueId } from 'lodash';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
@@ -113,7 +112,7 @@ export const CustomerTestimonials = ({ testimonials }: Props) => {
       <div className="my-12 block w-full relative group">
         <div
           ref={leftArrow}
-          className={cx(
+          className={cn(
             'absolute z-10 lg:z-[2] top-1/2 -translate-y-4 cursor-pointer ml-2 md:ml-4 opacity-70 hover:opacity-100',
             {
               'opacity-100': isMouseDown,
@@ -158,7 +157,7 @@ export const CustomerTestimonials = ({ testimonials }: Props) => {
 
         <div
           ref={rightArrow}
-          className={cx(
+          className={cn(
             'absolute z-10 lg:z-0 top-1/2 -translate-y-4 right-0 cursor-pointer mr-2 md:mr-4 opacity-70 hover:opacity-100',
             {
               'opacity-100': isMouseDown,

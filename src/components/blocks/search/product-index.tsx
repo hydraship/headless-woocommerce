@@ -4,6 +4,7 @@ import { Content } from '@src/components/blocks/content';
 import { HitsPerPage, Index } from 'react-instantsearch-hooks-web';
 import TS_CONFIG from '@src/lib/typesense/config';
 import { BlockAttributes } from '@src/lib/block/types';
+import { getAttributeValue } from '@src/lib/block';
 
 type SearchProductIndexProps = {
   block: ParsedBlock;
@@ -11,6 +12,9 @@ type SearchProductIndexProps = {
 
 export const SearchProductIndex = ({ block }: SearchProductIndexProps) => {
   const attribute = block.attrs as BlockAttributes;
+  const htmlAttributes = attribute.htmlAttributes ?? [];
+  const perPage = getAttributeValue(htmlAttributes, 'data-hits-per-page');
+
   return (
     <div className={attribute.className}>
       <Index indexName={TS_CONFIG.collectionNames.product}>
@@ -19,7 +23,7 @@ export const SearchProductIndex = ({ block }: SearchProductIndexProps) => {
           items={[
             {
               label: 'hits per page',
-              value: 10,
+              value: perPage ? parseInt(perPage) : 10,
               default: true,
             },
           ]}

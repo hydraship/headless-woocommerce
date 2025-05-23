@@ -44,6 +44,26 @@ import { TaxonomyCatalogSorting } from '@src/components/blocks/woocommerce/taxon
 import { TaxonomyResultsCount } from '@src/components/blocks/woocommerce/taxonomy-results-count';
 import { ProductAddToCartButton } from '@src/components/blocks/woocommerce/product-collection/product-template/product-add-to-cart-button';
 import { Table } from '@src/components/blocks/core/table';
+import { GruumSiteIcons } from '@src/components/blocks/custom/gruum/site-icons';
+import { GruumProductSale } from '@src/components/blocks/custom/gruum/product-sale';
+import { GruumLogo } from '@src/components/blocks/custom/gruum/logo';
+import { GruumUserMenu } from '@src/components/blocks/custom/gruum/user-menu';
+import { GruumMenu } from '@src/components/blocks/custom/gruum/menu';
+import { GruumMobileNav } from '@src/components/blocks/custom/gruum/mobile-nav';
+import { AddToCartButtonBlock } from '@src/components/blocks/woocommerce/add-to-cart-button';
+import { CarouselContentBlock } from '@src/components/blocks/carousel/content';
+import { CarouselItemBlock } from '@src/components/blocks/carousel/item';
+import { WooCommerceProductPage } from '@src/components/blocks/woocommerce/product-page';
+import { GruumMarketingOptin } from '@src/components/blocks/custom/gruum/marketing-optin';
+import { GruumAccordion } from '@src/components/blocks/custom/gruum/accordion';
+const CurrencySwitcherBlock = dynamic(() =>
+  import('@src/components/blocks/currency-switcher').then((mod) => mod.CurrencySwitcherBlock)
+);
+import { NavigationSubmenu } from '@src/components/blocks/core/navigation-submenu';
+import { NavigationLink } from '@src/components/blocks/core/navigation-link';
+import { SocialLinks } from '@src/components/blocks/core/social-links';
+import { SocialLink } from '@src/components/blocks/core/social-link';
+import { GruumTicker } from '@src/components/blocks/custom/gruum/ticker';
 
 const PostTerms = dynamic(() =>
   import('@src/components/blocks/core/post-terms').then((mod) => mod.PostTerms)
@@ -131,6 +151,10 @@ export const blocks = {
   'core/list-item': ListItem,
   'core/list': List,
   'core/navigation': Navigation,
+  'core/navigation-submenu': NavigationSubmenu,
+  'core/navigation-link': NavigationLink,
+  'core/social-links': SocialLinks,
+  'core/social-link': SocialLink,
   'core/paragraph': Paragraph,
   'core/site-logo': SiteLogo,
   'fibosearch/search': Search,
@@ -173,6 +197,23 @@ export const blocks = {
   'woocommerce/catalog-sorting': TaxonomyCatalogSorting,
   'woocommerce/product-results-count': TaxonomyResultsCount,
   'woocommerce/product-button': ProductAddToCartButton,
+
+  // Custom Blocks From gruum
+  'sg-gutenberg-customisations/theme-blocks-site-icons': GruumSiteIcons,
+  'sg-gutenberg-customisations/theme-blocks-product-sale': GruumProductSale,
+  'sg-gutenberg-customisations/theme-blocks-logo': GruumLogo,
+  'sg-gutenberg-customisations/theme-blocks-menu': GruumMenu,
+  'sg-gutenberg-customisations/theme-blocks-mobile-nav': GruumMobileNav,
+  'sg-gutenberg-customisations/theme-blocks-user-menu': GruumUserMenu,
+  'sg-gutenberg-customisations/theme-blocks-sub-menu-container': GruumMenu,
+  'sg-gutenberg-customisations/add-to-cart-custom': AddToCartButtonBlock,
+  'sg-gutenberg-customisations/static-carousel': CarouselContentBlock,
+  'sg-gutenberg-customisations/static-carousel-slide': CarouselItemBlock,
+  'sg-gutenberg-customisations/legacy-layout': WooCommerceProductPage,
+  'sg-gutenberg-customisations/sg-marketing-optin': GruumMarketingOptin,
+  'sg-gutenberg-customisations/ticker': GruumTicker,
+  'pb/accordion-item': GruumAccordion,
+  'sg-gutenberg-customisations/currency-switcher': CurrencySwitcherBlock,
 };
 
 // Define type alias for block names
@@ -195,6 +236,7 @@ export const blockDataHandler = {
   'generateblocks/container': innerBlocksDataHandler,
   'core/group': innerBlocksDataHandler,
   'woocommerce/product-collection': wooCommerceProductCollectionDataHandler,
+  ProductCarousel: wooCommerceProductCollectionDataHandler,
 };
 
 export type BlockDataHandler = keyof typeof blockDataHandler;

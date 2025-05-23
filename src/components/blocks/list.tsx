@@ -1,7 +1,7 @@
 import { Dictionary } from '@reduxjs/toolkit';
-import classNames from 'classnames';
 
 import { PrefetchLink } from '@src/components/common/prefetch-link';
+import { cn } from '@src/lib/utils';
 
 type ListItem = {
   redirectUrl: string;
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const List = ({ list, config }: Props) => {
-  const listClass = classNames('flex flex-col', config?.listClass);
+  const listClass = cn('flex flex-col', config?.listClass);
   return (
     <div className={listClass}>
       {list.map((listItem) => {

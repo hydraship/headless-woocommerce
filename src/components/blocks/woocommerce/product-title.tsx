@@ -7,5 +7,9 @@ export const ProductTitle = () => {
     return null;
   }
 
-  return <>{product.name}</>;
+  const productName = product?.metaData?.acf?.product_code
+    ? `${product.name} - ${product.metaData?.acf?.product_code}`
+    : product.name;
+
+  return <>{productName}</>;
 };

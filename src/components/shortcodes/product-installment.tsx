@@ -9,6 +9,7 @@ export const ShortcodeProductInstallment = ({
   const defaultAttributes: { [key: string]: string } = {
     provider: 'all',
     installment: '4',
+    color: 'normal',
   };
 
   attributes.forEach((attribute: ShortcodeAttribute) => {

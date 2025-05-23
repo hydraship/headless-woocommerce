@@ -19,6 +19,19 @@ function loadEnvFile() {
 // Call the function to load the environment file
 loadEnvFile();
 
+export const scriptRunner = async (script: string | undefined) => {
+  if (script) {
+    const { default: defaultFunc } = await import(`./pre-build/${script}`);
+    try {
+      console.log(`Running pre-build script '${script}'`);
+      await defaultFunc({ env: process.env });
+    } catch (e) {
+      console.error(`SCRIPT RUNNER: failed to execute pre-build script '${script}'`);
+      console.error(e);
+    }
+  }
+};
+
 export const runAsync = async () => {
   const processArgs = process.argv.slice(2);
   const files = fs
@@ -26,31 +39,22 @@ export const runAsync = async () => {
     .filter((file) => file.endsWith('.ts'))
     .sort();
 
+  if (processArgs.includes('custom-css')) {
+    const blocksScript = files.find((file) => file.includes('download-custom-css.ts'));
+    await scriptRunner(blocksScript);
+    // return early so that other scripts will not be executed
+    return;
+  }
+
   if (processArgs.includes('blocks')) {
     const blocksScript = files.find((file) => file.includes('generate-blocks-data.ts'));
-    if (blocksScript) {
-      const { default: defaultFunc } = await import(`./pre-build/${blocksScript}`);
-      try {
-        console.log(`Running pre-build script '${blocksScript}'`);
-        await defaultFunc({ env: process.env });
-      } catch (e) {
-        console.error(`SCRIPT RUNNER: failed to execute pre-build script '${blocksScript}'`);
-        console.error(e);
-      }
-      // return early so that other scripts will not be
-      return;
-    }
+    await scriptRunner(blocksScript);
+    // return early so that other scripts will not be executed
+    return;
   }
 
   for (const file of files) {
-    const { default: defaultFunc } = await import(`./pre-build/${file}`);
-    try {
-      console.log(`Running pre-build script '${file}'`);
-      await defaultFunc({ env: process.env });
-    } catch (e) {
-      console.error(`SCRIPT RUNNER: failed to execute pre-build script '${file}'`);
-      console.error(e);
-    }
+    await scriptRunner(file);
   }
 };
 

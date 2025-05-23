@@ -7,7 +7,7 @@
 }
 
 .offcanvas-dialog .offcanvas-content-holder {
-  @apply fixed top-0 left-0 right-auto h-[100dvh] max-w-[calc(100%-3rem)] md:max-w-full;
+  @apply fixed top-0 left-0 right-auto h-[100dvh] max-w-[calc(100%-3rem)] w-full md:w-auto md:max-w-full;
 }
 
 .offcanvas-dialog .offcanvas-content-holder.position-right {

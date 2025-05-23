@@ -14,16 +14,17 @@ export const SearchBlogHits = ({ block }: SearchBlogHitsProps) => {
   const { hits } = useHits();
   const attribute = block.attrs as BlockAttributes;
   return (
-    <div className={attribute.className}>
+    <div className={cn(attribute.className, 'blog-hits')}>
       {hits.length > 0 &&
         hits.map((hit: any) => (
           <PrefetchLink
             key={hit.objectID}
             unstyled
             href={hit.permalink}
+            className="blog-hit"
           >
             <div className="group flex justify-start items-center py-1 cursor-pointer mb-2.5 hover:bg-[#F2F2F2]">
-              <p className={cn('text-[#585858] text-sm font-normal')}>
+              <p className={cn('text-[#585858] text-sm font-normal blog-name')}>
                 <ReactHTMLParser html={hit.name} />
               </p>
             </div>

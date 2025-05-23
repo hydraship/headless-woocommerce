@@ -1,17 +1,17 @@
 import { ApolloClient, ApolloLink, InMemoryCache, createHttpLink } from '@apollo/client';
+import { getWooSession, setWooSession } from '@src/lib/helpers/session';
 import { isEmpty } from 'lodash';
-
-import { getCookie, setCookie } from '@src/lib/helpers/cookie';
 
 /**
  * Middleware operation
- * If we have a session token in localStorage, add it to the GraphQL request as a Session header.
+ * If we have a session token in localStorage or cookies, add it to the GraphQL request as a Session header.
  */
 export const middleware = new ApolloLink((operation, forward) => {
+  const isBrowser = typeof window !== 'undefined';
   /**
-   * If session data exist in local storage, set value as session header.
+   * If session data exists in localStorage or cookies, set value as session header.
    */
-  const session = process.browser ? getCookie('woo-session') : null;
+  const session = isBrowser ? getWooSession() : null;
 
   let customHeaders = {};
 
@@ -21,9 +21,7 @@ export const middleware = new ApolloLink((operation, forward) => {
     };
   }
 
-  const yithSession = process.browser
-    ? getCookie('yith-wcwl-session') || localStorage.getItem('yith-wcwl-session')
-    : null;
+  const yithSession = isBrowser ? localStorage.getItem('yith-wcwl-session') : null;
 
   if (yithSession) {
     customHeaders = {
@@ -45,11 +43,13 @@ export const middleware = new ApolloLink((operation, forward) => {
 /**
  * Afterware operation.
  *
- * This catches the incoming session token and stores it in localStorage, for future GraphQL requests.
+ * This catches the incoming session token and stores it in both localStorage and cookies,
+ * for future GraphQL requests.
  */
 export const afterware = new ApolloLink((operation, forward) => {
   return forward(operation).map((response) => {
-    if (!process.browser) {
+    const isBrowser = typeof window !== 'undefined';
+    if (!isBrowser) {
       return response;
     }
 
@@ -64,7 +64,7 @@ export const afterware = new ApolloLink((operation, forward) => {
     const session = headers.get('woocommerce-session');
     if (session) {
       // Update session new data if changed.
-      setCookie('woo-session', headers.get('woocommerce-session'), 30);
+      setWooSession(headers.get('woocommerce-session'), 30);
     }
 
     const yithSession = headers.get('yith-wcwl-session');

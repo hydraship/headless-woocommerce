@@ -174,11 +174,11 @@ export const CardImage = (props: ICardImage) => {
       )}
       style={{ width: imageMaxWidth !== 0 && !imgError ? `${imageMaxWidth}px` : '100%' }}
     >
-      <RawLink
-        href={productLink}
-        title={product.name}
-      >
-        <figure>
+      <figure>
+        <RawLink
+          href={productLink}
+          title={product.name}
+        >
           {imgError &&
             renderEmptyImagePlaceholder({
               mainImage,
@@ -213,8 +213,8 @@ export const CardImage = (props: ICardImage) => {
           {!imgError &&
             product.hasVariableImages() &&
             renderVariableImages({ product, imgError, setImgError, showImageVariant })}
-        </figure>
-      </RawLink>
+        </RawLink>
+      </figure>
     </div>
   );
 };

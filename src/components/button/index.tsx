@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import { cn } from '@src/lib/utils';
 import React, { ReactNode } from 'react';
 
 type ButtonTypes = 'primary' | 'secondary';
@@ -18,7 +18,7 @@ const defaultProps = {
 
 export const Button: React.FC<ButtonProps> = ({ children, onClick, loading, full, type }) => (
   <button
-    className={cx('border rounded p-4 font-medium mt-4', {
+    className={cn('border rounded p-4 font-medium mt-4', {
       'w-full': full,
       'bg-brand-primary text-white': type === 'primary',
     })}

@@ -1,9 +1,9 @@
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
-import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import { v4 } from 'uuid';
 
 import { PrefetchLink } from '@src/components/common/prefetch-link';
+import { cn } from '@src/lib/utils';
 
 type LinkItems = {
   classes: string;
@@ -23,7 +23,7 @@ export const MultipleLinks = ({ links }: Props) => {
   return (
     <div className="mt-8 w-full flex flex-row justify-center flex-wrap">
       {links?.map((link) => {
-        const classNames = cx(link?.classes, 'gap-2.5');
+        const classNames = cn(link?.classes, 'gap-2.5');
         const fontColor = link?.classes?.match(/text-\[(.*)\]/)?.pop();
         const textStyle = {
           color: fontColor ? fontColor : '',

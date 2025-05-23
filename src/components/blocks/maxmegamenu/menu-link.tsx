@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useIntersectionObserver } from 'usehooks-ts';
-import { makeLinkRelative } from '@src/lib/helpers/helper';
-import { useSiteContext } from '@src/context/site-context';
-import { useRouter } from 'next/router';
 import type { BoxControlProps } from '@components/blocks/maxmegamenu/block';
 import Link from 'next/link';
+import { cn } from '@src/lib/utils';
+import { useMenuLink } from '@src/hooks/useMenuLink';
 
 type StyledMenuProps = {
   $padding?: BoxControlProps;
@@ -17,6 +16,8 @@ type StyledMenuProps = {
   $letterCase?: string;
   $hoverColor?: string;
   $hoverBackgroundColor?: string;
+  $activeColor?: string;
+  $activeBackgroundColor?: string;
 };
 
 export const StyledMenuLink = styled(Link)<StyledMenuProps>`
@@ -38,6 +39,13 @@ export const StyledMenuLink = styled(Link)<StyledMenuProps>`
   font-size: ${(props) => (props.$fontSize ? `${props.$fontSize}px` : '14px')};
   ${(props) => props.$letterCase && `text-transform:${props.$letterCase}`};
 
+  &.active {
+    color: ${(props) => props.$activeColor || props.$hoverColor} !important;
+    svg.chevron-down {
+      fill: ${(props) => props.$activeColor || props.$hoverColor} !important;
+    }
+  }
+
   svg.chevron-down {
     fill: ${(props) => props.$color || '#000'};
   }
@@ -55,24 +63,25 @@ export const StyledMenuLink = styled(Link)<StyledMenuProps>`
         transform: rotate(180deg);
       }
     }
+
+    &.active {
+      color: ${(props) => props.$activeColor || props.$hoverColor} !important;
+      background-color: ${(props) => props.$activeBackgroundColor || props.$hoverBackgroundColor} !important;
+      svg.chevron-down {
+        fill: ${(props) => props.$activeColor || props.$hoverColor} !important;
+      }
+    }
   }
 `;
 
 type Props = React.LinkHTMLAttributes<HTMLAnchorElement> & StyledMenuProps;
 
 export const MenuLink: React.FC<Props> = ({ children, href, onClick, as, ...props }) => {
-  const { currentCountry } = useSiteContext();
-  const { push, prefetch } = useRouter();
+  // Use our custom hook for link management
+  const { relativeLink, isActive } = useMenuLink(href as string);
 
   const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {});
-  const isVisible = !!entry?.isIntersecting;
-
-  useEffect(() => {
-    if (isVisible && href) {
-      prefetch(`/${currentCountry}${makeLinkRelative(href)}`);
-    }
-  }, [currentCountry, href, isVisible, prefetch]);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (onClick) {
@@ -81,12 +90,22 @@ export const MenuLink: React.FC<Props> = ({ children, href, onClick, as, ...prop
     }
   };
 
+  // Check if active colors are provided
+  const hasActiveColors = props.$activeColor || props.$activeBackgroundColor;
+
+  // Only apply active class if link is active and we have active colors or hover colors as fallback
+  const shouldApplyActive = isActive && (hasActiveColors || props.$hoverColor || props.$hoverBackgroundColor);
+
   return (
-    <div ref={ref}>
+    <div
+      ref={ref}
+      className="menu-link h-full"
+    >
       <StyledMenuLink
-        href={href ? makeLinkRelative(href) : '#'}
+        href={relativeLink}
         onClick={handleClick}
         {...props}
+        className={cn('h-full', shouldApplyActive && 'active', props.className)}
       >
         {children}
       </StyledMenuLink>

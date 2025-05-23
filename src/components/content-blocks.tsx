@@ -20,6 +20,7 @@ import { HeroBanner } from '@src/components/blocks/hero-banner';
 import { HtmlContent } from '@src/components/blocks/html-content';
 import { Testimonial } from '@src/components/blocks/testimonial';
 import { VideoBanner } from '@src/components/blocks/video-banner';
+import { CurrencySwitcher } from '@src/components/blocks/currency-switcher';
 import { ContentBlock, ContentBlockMetaData } from '@src/types';
 import TSProduct from '@src/lib/typesense/product';
 
@@ -205,6 +206,9 @@ export const ContentBlocks = ({
       case 'customerTestimonials':
         metaData = generateData(content.metaData as ContentBlockMetaData[]);
         return <CustomerTestimonials testimonials={metaData} />;
+      case 'currencySwitcher':
+        metaData = TSProduct.generateMetaDataObject(content.metaData, currentCountry, baseCountry);
+        return <CurrencySwitcher attributes={[]} />;
       default:
         break;
     }

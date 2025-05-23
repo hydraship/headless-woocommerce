@@ -1,6 +1,5 @@
-import cx from 'classnames';
-
 import { useSiteContext } from '@src/context/site-context';
+import { cn } from '@src/lib/utils';
 import { Settings } from '@src/models/settings';
 
 type NavbarItemProps = {
@@ -16,7 +15,7 @@ const defaultProps = {
 export const NavbarItem: React.FC<NavbarItemProps> = ({ children, className, onClick }) => {
   const { settings } = useSiteContext();
   const { header } = settings as Settings;
-  const classes = cx('navbar-item flex items-center', className, {
+  const classes = cn('navbar-item flex items-center', className, {
     'cursor-pointer': !!onClick,
     'after:content-["|"] last-of-type:after:content-[""] after:text-2xl after:font-thin after:text-[#EBEBEB]':
       header?.layout?.navIconSeparator,

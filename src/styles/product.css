@@ -26,6 +26,14 @@
   @apply text-sm;
 }
 
+.single-product .stock-status-label {
+  @apply text-sm flex items-center gap-2;
+}
+
+.single-product .stock-status-label label {
+  @apply font-bold;
+}
+
 .single-product.out-of-stock .hide-if-out-of-stock,
 .single-product.simple-product .hide-if-simple-product {
   @apply !hidden;
@@ -48,7 +56,11 @@
 }
 
 .single-product .add-to-cart-form .product-variant-container {
-  @apply flex flex-col gap-4;
+  @apply flex flex-col gap-2;
+}
+
+.single-product hr + hr {
+  @apply hidden;
 }
 
 /** Variant Select */
@@ -70,7 +82,11 @@
 }
 
 .single-product .product-unavailable-message {
-  @apply flex items-center gap-4 justify-center bg-[#f9f8f8] border-accent-3 border-t-2 py-2 px-4 text-xs leading-6 font-primary;
+  @apply flex items-center gap-4 justify-center bg-[#f9f8f8] border-accent-3 border-t-2 py-2 px-4 text-sm leading-6 font-primary;
+}
+
+.single-product .product-description-content {
+  @apply pb-6;
 }
 
 /** Add to Cart - Wishlist Button */
@@ -102,7 +118,7 @@
 }
 
 .single-product .product-popup-info {
-  @apply p-3 h-auto;
+  @apply h-auto;
 }
 
 .single-product .product-popup-info .button-open {
@@ -110,15 +126,19 @@
 }
 
 .single-product .product-installment {
-  @apply flex flex-col font-normal text-xs text-[#6F6F6F] gap-2;
+  @apply flex flex-col  font-normal text-xs text-[#6F6F6F] gap-2;
 }
 
 .single-product .product-installment .provider {
-  @apply flex items-center gap-2;
+  @apply flex flex-wrap items-center gap-1 justify-between md:gap-4;
 }
 
 .single-product .product-installment .provider svg {
   @apply w-auto;
+}
+
+.single-product .product-installment .provider.greyscale svg {
+  filter: grayscale(100%);
 }
 
 .single-product .product-installment a {
@@ -127,15 +147,23 @@
 
 /* Product Quantity */
 .quantity {
-  @apply flex border border-[#C0C0C0] items-center;
+  @apply flex border border-foreground items-center;
 }
 
 .quantity-control {
-  @apply cursor-pointer w-6 text-xl text-black h-11;
+  @apply px-4 cursor-pointer text-lg text-foreground h-11;
 }
 
 .quantity-input {
-  @apply w-10 px-2 text-center border-y-0 outline-none border-inherit bg-transparent text-black text-base font-normal h-full;
+  @apply w-16 px-2 text-center border-y-0 outline-none border-inherit bg-transparent text-black text-base font-normal h-full;
+}
+
+.increment-control {
+  @apply !border-solid border-l border-foreground;
+}
+
+.decrement-control {
+  @apply !border-solid border-r border-foreground;
 }
 
 /* End Product Quantity */

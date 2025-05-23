@@ -21,7 +21,6 @@ import { cn } from '@src/lib/helpers/helper';
 import { NormalSubMenu } from '@src/components/blocks/maxmegamenu/normal-sub-menu';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
 import { isBlockNameA } from '@src/lib/block';
-
 export const MAXMEGAMENU_BLOCK_NAME = 'maxmegamenu/location';
 
 export type BoxControlProps = Partial<{
@@ -45,6 +44,8 @@ export type MaxMegaMenuAttributes = Partial<{
   menuLinkColor: string;
   menuLinkHoverBackgroundColor: string;
   menuLinkHoverColor: string;
+  menuLinkActiveBackgroundColor: string;
+  menuLinkActiveColor: string;
   mobileMenuLinkColor: string;
   menuLinkMargin: BoxControlProps;
   menuLinkPadding: BoxControlProps;
@@ -63,12 +64,18 @@ export type MaxMegaMenuAttributes = Partial<{
 }>;
 
 export const MaxMegaMenu = ({ block }: BlockComponentProps) => {
-  const { asPath } = useRouter();
+  const router = useRouter();
+  const [currentPath, setCurrentPath] = useState('');
   const [linkHovered, setLinkHovered] = useState(false);
 
   useEffect(() => {
-    setLinkHovered(false);
-  }, [asPath]);
+    const raw = router.asPath.split('?')[0];
+    setCurrentPath(raw.replace(/\/$/, ''));
+  }, [router.asPath]);
+
+  useEffect(() => {
+    setLinkHovered(false); // Reset hover state when the path changes
+  }, [currentPath]);
 
   if (MAXMEGAMENU_BLOCK_NAME !== block.blockName) {
     return null;
@@ -86,24 +93,15 @@ export const MaxMegaMenu = ({ block }: BlockComponentProps) => {
   const mainMenuItems = filter(mainMenu.items, (item) => !!item.title);
 
   if (isBlockNameA(block, 'MobileMaxMegaMenu')) {
-    return (
-      <Menu className="relative overlaywats">
-        {Object.values(mainMenuItems).map((menuItem, index) => (
-          <MobileMenuListItem
-            key={`${menuItem.url}-${index}`}
-            menuItem={menuItem}
-            attributes={attributes}
-            originalItems={mainMenu.items}
-          />
-        ))}
-      </Menu>
-    );
+    // Use the MobileMenu component which has proper state management
+    const { MobileMenu } = require('@src/components/blocks/maxmegamenu/mobile-menu');
+    return <MobileMenu mainMenu={mainMenu} attributes={attributes} />;
   }
 
   return (
     <>
       <MenuWrapper
-        className={cn(`nav hidden lg:flex w-full h-full ${attributes.className}`, {
+        className={cn(`main-navigation-wrapper nav hidden w-full h-full ${attributes.className}`, {
           hovered: linkHovered,
           'justify-center': attributes.menuCentered,
         })}
@@ -113,10 +111,11 @@ export const MaxMegaMenu = ({ block }: BlockComponentProps) => {
           $isCentered={attributes.menuCentered}
           $isFullWidth={attributes.menuFullWidth}
           $menuMaxWidth={attributes.menuMaxWidth}
-          className={cn('flex items-center', {
+          className={cn('main-navigation flex items-center', {
             'w-full': attributes.submenuFullWidth,
             relative: !attributes.menuFullWidth,
           })}
+          aria-label="Main Navigation"
         >
           {Object.values(mainMenuItems).map((item, index) => {
             const childMenus = item.children || [];
@@ -139,8 +138,10 @@ export const MaxMegaMenu = ({ block }: BlockComponentProps) => {
                   $letterCase={attributes.letterCase}
                   $hoverColor={attributes.menuLinkHoverColor}
                   $hoverBackgroundColor={attributes.menuLinkHoverBackgroundColor}
+                  $activeColor={attributes.menuLinkActiveColor}
+                  $activeBackgroundColor={attributes.menuLinkActiveBackgroundColor}
                   $fontSize={attributes.fontSize ? attributes.fontSize : 14}
-                  className="flex cursor-pointer items-center gap-2.5 rounded"
+                  className="flex cursor-pointer items-center gap-2.5"
                   href={item.url}
                 >
                   <ReactHTMLParser html={item.title || ''} />
@@ -153,6 +154,7 @@ export const MaxMegaMenu = ({ block }: BlockComponentProps) => {
                     items={childMenus}
                     originalItems={mainMenu.items}
                     attributes={attributes}
+                    menuItems={mainMenu.menuItems}
                   />
                 )}
                 {hasChildMenus && !isMegaMenu && (

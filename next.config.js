@@ -8,7 +8,6 @@ if (process.env.NODE_ENV === 'development' && !process.env.VERCEL) {
 const envParsedURL = new URL(process.env.NEXT_PUBLIC_WORDPRESS_SITE_URL);
 
 const nextConfig = {
-  output: 'standalone',
   reactStrictMode: true,
   images: {
     remotePatterns: [

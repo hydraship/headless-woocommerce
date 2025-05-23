@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import classNames from 'classnames';
+import { cn } from '@src/lib/utils';
 import { Fragment } from 'react';
 
 type Props = {
@@ -31,7 +31,7 @@ export const Modal: React.FC<Props> = ({ open, setOpen, name, children, position
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div
-              className={classNames('pointer-events-none fixed inset-y-0 flex max-w-full', {
+              className={cn('pointer-events-none fixed inset-y-0 flex max-w-full', {
                 'left-0 pr-10': position === 'left',
                 'right-0 pl-10': position === 'right',
               })}
@@ -39,14 +39,14 @@ export const Modal: React.FC<Props> = ({ open, setOpen, name, children, position
               <Transition.Child
                 as={Fragment}
                 enter="transform transition ease-in-out duration-500 sm:duration-700"
-                enterFrom={classNames({
+                enterFrom={cn({
                   '-translate-x-full': position === 'left',
                   'translate-x-full': position === 'right',
                 })}
                 enterTo="translate-x-0"
                 leave="transform transition ease-in-out duration-500 sm:duration-700"
                 leaveFrom="translate-x-0"
-                leaveTo={classNames({
+                leaveTo={cn({
                   '-translate-x-full': position === 'left',
                   'translate-x-full': position === 'right',
                 })}

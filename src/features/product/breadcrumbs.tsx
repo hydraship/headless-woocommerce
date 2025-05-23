@@ -16,7 +16,10 @@ export const Separator = ({ separator = '/', className = '' }) => {
 
 const BCLink = ({ uri, name, className }: { uri: string; name: string; className?: string }) => {
   return (
-    <RawLink href={uri}>
+    <RawLink
+      href={uri}
+      className="nav-link"
+    >
       <span className={className}>
         <ReactHTMLParser html={name} />
       </span>
@@ -105,7 +108,7 @@ export const BreadCrumbs: React.FC<Props> = (props) => {
           </Fragment>
         ))}
         <Separator separator={separator} />
-        <span>
+        <span className="current-page">
           <ReactHTMLParser html={productName as string} />
         </span>
       </>
@@ -143,13 +146,10 @@ export const BreadCrumbs: React.FC<Props> = (props) => {
         'hidden md:flex': !store?.breadcrumbMobile?.enabled,
       })}
     >
-      <span className="home-link">
-        <HomeIcon />
-        <BCLink
-          uri="/"
-          name="Home"
-        />
-      </span>
+      <BCLink
+        uri="/"
+        name="Home"
+      />
       {renderDefaultBreadcrumbs()}
       {renderProductBreadcrumbs()}
       {renderShopPagesBreadcrumbs()}

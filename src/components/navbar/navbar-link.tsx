@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
@@ -7,6 +6,7 @@ import { useIntersectionObserver, useMediaQuery } from 'usehooks-ts';
 import { ChevronDown } from '@components/svg/chevron-down';
 import { useSiteContext } from '@src/context/site-context';
 import { Settings } from '@src/models/settings';
+import { cn } from '@src/lib/utils';
 
 type NavbarLinkProps = {
   children: React.ReactNode;
@@ -34,7 +34,7 @@ export const NavbarLink = ({ children, href, hasChevronDownIcon }: NavbarLinkPro
   const entry = useIntersectionObserver(ref, {});
   const isVisible = !!entry?.isIntersecting;
 
-  const classes = cx('text-xs', 'group-[.vertical]:border-b group-[.vertical]:after:content-[""]', {
+  const classes = cn('text-xs', 'group-[.vertical]:border-b group-[.vertical]:after:content-[""]', {
     'navbar-has-submenu': !!submenu,
     'h-full': !!submenu,
     open: isOpen,

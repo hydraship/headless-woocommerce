@@ -4,7 +4,6 @@ import { getBlockName } from '@src/lib/block';
 import { BlockAttributes } from '@src/lib/block/types';
 import { Product } from '@src/models/product';
 import { PinterestSaveButton } from '@src/features/pinterest-save-button';
-import siteData from '@public/site.json';
 
 type Props = {
   block: ParsedBlock;

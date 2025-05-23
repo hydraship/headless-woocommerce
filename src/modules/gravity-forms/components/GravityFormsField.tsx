@@ -124,6 +124,10 @@ export default function GravityFormsField({ field, fieldErrors }: Props) {
           fieldErrors={fieldErrors}
         />
       );
+    case 'submit':
+    case 'SUBMIT':
+      // Since the submit button have its own query field we will ignore any field that is submit button
+      return null;
     default:
       return <p>{`Field type not supported: ${field.type}.`}</p>;
   }

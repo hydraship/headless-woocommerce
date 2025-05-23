@@ -1,6 +1,5 @@
 import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
-import classNames from 'classnames';
 import { find, includes, isEmpty, reduce } from 'lodash';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -10,6 +9,7 @@ import { CategoryFilterOptions } from '@src/components/category/filter/category-
 import { useTaxonomyContext } from '@src/context/taxonomy-context';
 import { CategoryFilterProps } from '@src/lib/types/filters';
 import { IFilterOptionData } from '@src/lib/types/taxonomy';
+import { cn } from '@src/lib/utils';
 
 export const RefinedSelection = ({ filters }: CategoryFilterProps) => {
   const taxonomyCtx = useTaxonomyContext();
@@ -84,15 +84,12 @@ export const RefinedSelection = ({ filters }: CategoryFilterProps) => {
                     className="flex items-center w-full justify-between text-left focus:outline-none focus-visible:ring focus-visible:ring-brand-primary-light focus-visible:ring-opacity-75 py-3"
                   >
                     <span
-                      className={classNames(
-                        'uppercase text-base font-bold text-brand-primary',
-                        classes
-                      )}
+                      className={cn('uppercase text-base font-bold text-brand-primary', classes)}
                     >
                       {title}
                     </span>
                     <ChevronUpIcon
-                      className={classNames('h-5 w-5 text-[#3F3F46]', {
+                      className={cn('h-5 w-5 text-[#3F3F46]', {
                         'rotate-180 transform': !open,
                       })}
                     />

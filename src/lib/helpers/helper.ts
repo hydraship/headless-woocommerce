@@ -1,13 +1,17 @@
 import axios from 'axios';
-import clsx, { ClassValue } from 'clsx';
+import { ClassValue } from 'clsx';
 import { find } from 'lodash';
 import { parse } from 'node-html-parser';
-import { twMerge } from 'tailwind-merge';
 
 import { Image, ProductPrice } from '@src/models/product/types';
 import { imageExtensions } from '@src/lib/constants/image';
 import regionSettings from '@public/region.json';
 import { numberFormat } from '@src/lib/helpers/product';
+import { cn as shadCn } from '@src/lib/utils';
+import { env } from '@src/lib/env';
+const { NEXT_PUBLIC_MENU_LINK_RELATIVE, NEXT_PUBLIC_WORDPRESS_SITE_URL } = env();
+import { TGeoLocationData } from '@src/types';
+import { Product } from '@src/models/product';
 
 export function getEndpointUrl(link: string) {
   let endpoint = link.replace(process.env.NEXT_PUBLIC_WORDPRESS_SITE_URL as string, '');
@@ -134,6 +138,21 @@ export const makeLinkRelative = (link: string) => {
   }
 };
 
+export const getFinalLink = (link: string) => {
+  if (!link) {
+    return link;
+  }
+
+  if (NEXT_PUBLIC_MENU_LINK_RELATIVE === 'true') {
+    return makeLinkRelative(link);
+  }
+
+  if (!link.startsWith('http') && !link.startsWith('#') && !link.startsWith('/#')) {
+    return `${NEXT_PUBLIC_WORDPRESS_SITE_URL}${link}`;
+  }
+  return link;
+};
+
 export const formatTextWithNewline = (text: string) => {
   const replaceNoBreakSpace = text.replace(/&nbsp;/g, '&nbsp; <br />');
   const replaceUnorderedList = replaceNoBreakSpace.replace(/<\/ul>/, '</ul><br />');
@@ -203,17 +222,19 @@ const priceOrder = ['symbol', 'price'];
 
 export const formatPrice = (price: ProductPrice = {}, currency: string) => {
   const matchedCurrency = regionSettings.find((item) => item.currency === currency);
+
   const percision =
     (typeof matchedCurrency?.precision === 'string'
       ? parseInt(matchedCurrency?.precision)
       : matchedCurrency?.precision) || 2;
+
   const thousandSeparator = matchedCurrency?.thousandSeparator || ',';
   return priceOrder.map((component) => {
     switch (component) {
       case 'symbol':
         return matchedCurrency?.symbol || '$';
       case 'price':
-        return `${price[currency]?.toFixed(percision)}`.replace(
+        return `${Number(price[currency])?.toFixed(percision)}`.replace(
           /\B(?=(\d{3})+(?!\d))/g,
           thousandSeparator
         );
@@ -286,7 +307,7 @@ export const stringToBoolean = (value: string): boolean | undefined => {
 };
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return shadCn(inputs);
 }
 
 export const isStagingSite = () => {
@@ -367,7 +388,7 @@ export const sanitizeTitle = (text: string): string => {
   return text
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9\s-]/g, '') // Remove non-alphanumeric characters
+    .replace(/[^a-z0-9\s-_]/g, '') // Remove non-alphanumeric characters except underscores
     .replace(/\s+/g, '-') // Replace spaces with hyphens
     .replace(/-+/g, '-'); // Replace multiple hyphens with a single hyphen
 };
@@ -390,4 +411,49 @@ export const parseLink = (htmlString: string): string | null => {
 
   // If match is found, return the src value
   return match && match.length > 1 ? match[1] : null;
+};
+
+export const getMediaFromThirdParty = (url: string, media = 'video'): string | false => {
+  if (media === 'video') {
+    if (url.includes('vimeo.com')) {
+      const videoId = url.split('/').pop();
+      return `https://player.vimeo.com/video/${videoId}`;
+    } else if (url.includes('youtube.com') || url.includes('youtu.be')) {
+      const videoId = url.split('v=')[1] || url.split('/').pop();
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+  } else if (media === 'image') {
+    if (url.includes('vimeo.com')) {
+      const videoId = url.split('/').pop();
+      return `https://vumbnail.com/${videoId}.webp`;
+    } else if (url.includes('youtube.com') || url.includes('youtu.be')) {
+      const videoId = url.split('v=')[1] || url.split('/').pop();
+      return `https://img.youtube.com/vi/${videoId}/0.jpg`;
+    }
+  }
+  return false;
+};
+
+export const getPriceFromTaxMap = (locationData: TGeoLocationData, product: Product) => {
+  const { countryCode, subDivisionCode } = locationData;
+  const pricesByLocation = product.metaData?.pricesByLocation;
+  const matchedLocation = find(pricesByLocation?.with_tax?.locations, (location) => {
+    if (location.state === '') {
+      return location.country === countryCode;
+    }
+
+    return location.country === countryCode && location.state === subDivisionCode;
+  });
+
+  if (matchedLocation) {
+    return {
+      regularPrice: pricesByLocation?.with_tax?.regularPrice,
+      salePrice: pricesByLocation?.with_tax?.salePrice,
+    };
+  }
+
+  return {
+    regularPrice: pricesByLocation?.without_tax?.regularPrice,
+    salePrice: pricesByLocation?.without_tax?.salePrice,
+  };
 };

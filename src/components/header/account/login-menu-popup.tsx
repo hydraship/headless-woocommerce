@@ -13,11 +13,13 @@ import { REMOVE_CART_ITEM } from '@src/lib/graphql/queries';
 import { FormattedCart } from '@src/lib/hooks/cart';
 import { setCookie } from '@src/lib/helpers/cookie';
 import { DisplayType } from '@src/lib/helpers/menu';
+import { removeWooSession } from '@src/lib/helpers/session';
 import { useAuth } from '@src/lib/hooks';
 import { Html } from '@src/components/blocks/core/html';
 import { ParsedBlock } from '@src/components/blocks';
 import { Paragraph } from '@src/components/blocks/core/paragraph';
 import { isString } from 'lodash';
+import { IconBlock } from '@src/components/blocks/outermost/IconBlock';
 
 type Props = {
   displayType?: DisplayType | string | null;
@@ -74,10 +76,10 @@ export const LoginMenuPopup: React.FC<Props> = ({
     };
 
     if (query.action === 'logout') {
-      setCookie('woo-session', '', -30);
       setCookie('woocommerce_customer_session_id', '', -30);
       if (!isLoggedOut) {
         localStorage.removeItem('woo-next-cart');
+        removeWooSession();
 
         handleLogout();
       }
@@ -98,6 +100,8 @@ export const LoginMenuPopup: React.FC<Props> = ({
     <>
       {iconBlock && iconBlock.blockName === 'core/html' ? (
         <Html block={iconBlock} />
+      ) : iconBlock && iconBlock.blockName === 'outermost/icon-block' ? (
+        <IconBlock block={iconBlock} />
       ) : (
         <AccountIcon fillColor={color || ''} />
       )}

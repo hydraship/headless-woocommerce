@@ -1,0 +1,147 @@
+# Blaze Commerce Frontend Guidelines
+
+This document provides guidelines for AI assistants working with the Blaze Commerce frontend codebase.
+
+## Project Overview
+
+Blaze Commerce is an open-source headless WooCommerce platform built with Next.js and TypeScript. It provides a high-performance, customizable e-commerce solution with features like Typesense for search functionality.
+
+## Tech Stack
+
+- **Framework**: Next.js
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Search**: Typesense
+- **UI Components**: Mix of custom components and shadcn/ui
+- **State Management**: React Context
+- **Data Fetching**: Apollo Client (GraphQL)
+
+## Code Organization
+
+### Directory Structure
+
+- `src/`: Main source code
+  - `components/`: Reusable UI components
+    - `blocks/`: Components for rendering WordPress blocks
+    - `ui/`: Shadcn UI components
+    - `layouts/`: Page layout components
+  - `context/`: React context providers
+  - `features/`: Feature-specific components and logic
+  - `hooks/`: Custom React hooks
+  - `lib/`: Utility functions and services
+    - `typesense/`: Typesense client and related utilities
+    - `helpers/`: Helper functions
+    - `constants/`: Constant values
+  - `models/`: Type definitions and data models
+  - `pages/`: Next.js pages
+  - `scripts/`: Build and utility scripts
+    - `pre-build/`: Scripts that run before the build process
+  - `styles/`: Global styles and CSS files
+
+## Coding Conventions
+
+### General
+
+1. Use TypeScript for type safety
+2. Follow ESLint and Prettier configurations
+3. Use single quotes for strings
+4. Use functional components with React hooks
+5. Use named exports for components
+
+### Component Structure
+
+1. Components should be organized in their own directories when they have related files
+2. Use TypeScript interfaces for component props
+3. Use default props when appropriate
+4. Export components as named exports
+
+### Styling
+
+1. Use Tailwind CSS for styling components
+2. Avoid creating separate CSS files when possible
+3. Use the `cn()` utility for conditional class names
+4. Follow the project's design system and color scheme
+
+### Data Fetching
+
+1. Use Apollo Client for GraphQL queries
+2. Use Typesense for search functionality
+3. Follow established patterns for data fetching and state management
+
+## Navigation Data Handling
+
+1. The project uses a Typesense collection called 'navigation'
+2. Navigation data should be pulled and saved as JSON in the public folder during prebuild
+3. When generating navigation JSON files, create them with empty arrays if there is no navigation data
+4. Import navigation data directly from navigation.json file instead of fetching it with useEffect
+
+## Best Practices
+
+### Performance
+
+1. Optimize component rendering to minimize re-renders
+2. Use proper image optimization techniques
+3. Implement code splitting where appropriate
+4. Follow Next.js best practices for performance
+
+### Accessibility
+
+1. Ensure all components are accessible
+2. Use semantic HTML elements
+3. Provide appropriate ARIA attributes
+4. Ensure proper keyboard navigation
+
+### Testing
+
+1. Don't create test files when implementing components (per project guidelines)
+2. If tests are needed, follow the existing testing patterns
+
+### Git Workflow
+
+1. Follow conventional commit messages as defined in commitlint.config.js
+2. Keep commits focused and atomic
+3. Use appropriate commit types (feat, fix, refactor, etc.)
+
+## Common Patterns
+
+### Block Rendering
+
+The project uses a component registry pattern for rendering WordPress blocks:
+
+```typescript
+export const blocks = {
+  'core/table': Table,
+  'core/column': Column,
+  // ...other block mappings
+};
+```
+
+### Context Usage
+
+The project uses several context providers for global state:
+
+```typescript
+<TypesenseContextProvider>
+  <SiteContextProvider>
+    <UserContextProvider>
+      {/* Application content */}
+    </UserContextProvider>
+  </SiteContextProvider>
+</TypesenseContextProvider>
+```
+
+### Component Implementation
+
+When implementing new components:
+
+1. Create a TypeScript interface for props
+2. Use functional components
+3. Use Tailwind for styling
+4. Follow the existing component patterns
+
+## Important Notes
+
+1. The project uses a prebuild process to generate necessary files
+2. Navigation data is handled through Typesense and stored as JSON
+3. The project follows a block-based approach for rendering content
+4. Use Tailwind CSS for styling instead of creating separate CSS files

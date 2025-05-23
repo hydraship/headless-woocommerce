@@ -39,6 +39,9 @@ export const Image = ({ block }: ImageProps) => {
   const imageClasses = cn(attribute.className, parseImageClass(block.innerHTML));
   const imageLink = parseImageLink(block.innerHTML);
 
+  const isHighQuality = imageClasses.includes('high-quality');
+  const priority = imageClasses.includes('priority');
+
   if (imageLink && imageLink != imageSource) {
     return (
       <Link
@@ -48,6 +51,8 @@ export const Image = ({ block }: ImageProps) => {
         <NextImage
           alt={altText}
           src={imageSource}
+          priority={priority}
+          quality={isHighQuality ? 90 : 75}
           className={cn('', imageClasses)}
           {...(fill ? { fill: true } : { width: finalWidth, height: finalHeight })}
         />
@@ -59,7 +64,8 @@ export const Image = ({ block }: ImageProps) => {
     <NextImage
       alt={altText}
       src={imageSource}
-      priority
+      priority={priority}
+      quality={90}
       className={cn('object-center object-cover', imageClasses)}
       {...(fill ? { fill: true } : { width: finalWidth, height: finalHeight })}
     />

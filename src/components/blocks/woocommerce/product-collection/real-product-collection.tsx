@@ -1,6 +1,7 @@
 import { ParsedBlock } from '@src/components/blocks';
 import { Content } from '@src/components/blocks/content';
 import { productCollectionPlaceHolderBlocks } from '@src/components/blocks/woocommerce/product-collection';
+import { Carousel } from '@src/components/ui/carousel';
 import { getBlockName } from '@src/lib/block';
 import { BlockAttributes } from '@src/lib/block/types';
 import { useFetchTsTaxonomyProducts } from '@src/lib/hooks';
@@ -26,8 +27,13 @@ export const wooCommerceProductCollectionDataHandler = async (
   block: ParsedBlock
 ): Promise<ParsedBlock> => {
   const blockName = getBlockName(block);
+
+  // Placeholder blocks are usually a client side blocks
   const placeHolderBlocks = Object.keys(productCollectionPlaceHolderBlocks);
-  if (blockName && placeHolderBlocks.includes(blockName)) {
+
+  // These blocks that needs to query data on the server level
+  const serverBlocks = ['ProductCarousel'];
+  if (blockName && placeHolderBlocks.includes(blockName) && !serverBlocks.includes(blockName)) {
     // This is for server query and since we don't have server query for this block we will return the block as it is
     return block;
   }
@@ -100,6 +106,8 @@ export const RealWooCommerceProductCollection = ({ block }: { block: ParsedBlock
     }
   }, [data]);
 
+  const modifiedBlockName = getBlockName(block);
+
   if ('woocommerce/product-collection' !== block.blockName) {
     return null;
   }
@@ -114,6 +122,18 @@ export const RealWooCommerceProductCollection = ({ block }: { block: ParsedBlock
     queryState: [tsQueryVars, setTsQueryVars],
     data,
   };
+
+  if ('ProductCarousel' === modifiedBlockName) {
+    return (
+      <Carousel className={attributes.className}>
+        <Content
+          type="products-query-response"
+          globalData={globalData}
+          content={block.innerBlocks}
+        />
+      </Carousel>
+    );
+  }
 
   return (
     <div className={attributes.className}>

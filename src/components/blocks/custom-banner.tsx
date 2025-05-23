@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { isEmpty } from 'lodash';
 import Image from 'next/image';
 import { v4 } from 'uuid';
@@ -6,6 +5,7 @@ import { v4 } from 'uuid';
 import { PrefetchLink } from '@src/components/common/prefetch-link';
 import { useSiteContext } from '@src/context/site-context';
 import { Settings } from '@src/models/settings';
+import { cn } from '@src/lib/utils';
 
 type Props = {
   image: string;
@@ -64,7 +64,7 @@ export const CustomBanner = ({
     return title || subtitle || CTAText;
   };
 
-  const containerClass = classNames({
+  const containerClass = cn({
     'w-screen left-[calc(-50vw+50%)]': homepage?.layout?.banner?.fullWidth,
   });
 
@@ -78,18 +78,18 @@ export const CustomBanner = ({
         {renderImage()}
         {hasContent() && (
           <div
-            className={classNames('absolute inset-x-0 mt-[200px] block px-12', {})}
+            className={cn('absolute inset-x-0 mt-[200px] block px-12', {})}
             style={{
               maxWidth: settings?.store?.containerWidth?.desktop,
             }}
           >
-            <div className={classNames(TitleClasses)}>{title}</div>
+            <div className={cn(TitleClasses)}>{title}</div>
 
-            {subtitle && <div className={classNames(SubtitleClasses)}>{subtitle}</div>}
+            {subtitle && <div className={cn(SubtitleClasses)}>{subtitle}</div>}
             {CTAUrl && CTAText && (
               <PrefetchLink
                 unstyled
-                className={classNames('p-4 mt-4 block w-64', CTATextClasses)}
+                className={cn('p-4 mt-4 block w-64', CTATextClasses)}
                 href={CTAUrl}
               >
                 {CTAText}

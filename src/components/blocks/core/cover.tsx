@@ -44,13 +44,18 @@ export const Cover = ({ block }: CoverProps) => {
     return null;
   }
 
+  const priority = attributes.className?.includes('priority');
+
   return (
     <div className={cn('cover relative isolate overflow-hidden', attributes.className)}>
       <Image
         src={coverImageUrl}
+        priority={priority}
         fill
         alt={attributes.alt ?? 'cover'}
-        className="inset-0 -z-10 size-full object-cover h-full object-center !static"
+        className={cn('inset-0 -z-10 size-full object-cover h-full object-center !static', {
+          priority: priority,
+        })}
       />
       {attributes.isUserOverlayColor && (
         <div
@@ -58,7 +63,7 @@ export const Cover = ({ block }: CoverProps) => {
           style={{ backgroundColor }}
         ></div>
       )}
-      <div className={cn('absolute w-full h-full top-0', parseCoverClass(block.innerHTML))}>
+      <div className={cn('absolute w-full h-full top-0 cover-content')}>
         <Content
           type={type}
           content={block.innerBlocks}

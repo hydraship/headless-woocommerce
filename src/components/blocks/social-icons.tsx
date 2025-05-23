@@ -1,10 +1,10 @@
-import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import { v4 } from 'uuid';
 
 import { FacebookIconDefault } from '@components/svg/social/facebook';
 import { InstagramIconDefault } from '@components/svg/social/instragram';
 import { PinterestIconDefault } from '@components/svg/social/pinterest';
+import { cn } from '@src/lib/utils';
 
 type SocialItem = {
   classes?: string;
@@ -24,7 +24,7 @@ export const SocialIcons = ({ items }: Props) => {
     <div className="mt-5 flex flex-row gap-5">
       {items?.map((item) => {
         if (!item?.icon) return null;
-        const classNames = cx(item?.classes, 'h-12 w-12');
+        const classNames = cn(item?.classes, 'h-12 w-12');
 
         const renderIcon = () => {
           switch (item?.icon) {

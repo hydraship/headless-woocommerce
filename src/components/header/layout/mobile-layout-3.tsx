@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import Image from 'next/image';
 
 import { Navbar, NavbarItem, NavbarItems, NavbarLink } from '@src/components/navbar';
@@ -16,6 +15,7 @@ import { useSiteContext } from '@src/context/site-context';
 import { getDisplayTypeValues, getMenuById } from '@src/lib/helpers/menu';
 import { Header } from '@src/models/settings/header';
 import { Search as SearchProps } from '@src/models/settings/search';
+import { cn } from '@src/lib/utils';
 
 export const MobileLayout3 = () => {
   const { settings } = useSiteContext();
@@ -180,7 +180,7 @@ export const MobileLayout3 = () => {
     </>
   );
 
-  const classes = cx({
+  const classes = cn({
     sticky: options?.isSticky,
     'top-0': options?.isSticky,
     'z-20': options?.isSticky,

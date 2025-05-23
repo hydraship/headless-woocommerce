@@ -1,0 +1,62 @@
+.main-navigation li > div > a.active {
+  @apply text-secondary;
+}
+
+.main-navigation li.nav-item.active .mega-menu {
+  @apply block;
+}
+
+.main-navigation li > div > a.active svg {
+  @apply fill-secondary;
+}
+
+/* Mobile menu styles */
+.mobile-navigation li.is-open .mega-menu,
+.mobile-navigation li.is-open .normal-sub-menu-wrapper {
+  @apply flex flex-col;
+}
+
+.mobile-navigation li.is-open svg.chevron-down {
+  @apply rotate-180;
+}
+
+/* Mobile mega menu specific styles */
+.mobile-navigation .mega-menu-row {
+  @apply w-full flex flex-col;
+}
+
+.mobile-navigation .mega-menu-column {
+  @apply w-full;
+}
+
+.mobile-navigation .mega-menu-sub-menu-wrapper {
+  @apply bg-white;
+}
+
+@screen lg {
+  .submenu {
+    background-color: var(--main-menu-sub-menu-background);
+  }
+
+  .group:hover .mega-menu {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    display: flex;
+    width: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    @apply p-4;
+  }
+
+  .mega-menu .mega-menu-row:not(:last-of-type) {
+    margin-bottom: 20px;
+  }
+
+  .mega-menu .mega-menu-row {
+    display: flex;
+  }
+
+  .mega-menu-widget-content {
+    color: var(--header-link-color);
+  }
+}

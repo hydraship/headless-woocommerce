@@ -8,6 +8,7 @@ export default async function execute() {
   console.log('generating category permalinks');
   try {
     const permalinks = await getCategoryPermalinks();
+    permalinks.push('========================================');
 
     const categoryPermalinksPath = path.join(process.cwd(), 'public', 'categorypaths.json');
     fs.writeFileSync(categoryPermalinksPath, JSON.stringify(permalinks), {

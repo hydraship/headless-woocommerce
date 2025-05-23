@@ -103,19 +103,19 @@ export const Login: React.FC<Props> = ({ onClose }) => {
       </div>
       <div>
         <a
-          className="button-signin h-10 px-4 py-2 bg-[#000180] rounded-md justify-center items-center gap-2.5 inline-flex text-center text-white text-sm font-bold leading-norma w-full"
+          className="button-signin h-10 px-4 py-2 bg-secondary rounded-md justify-center items-center gap-2.5 inline-flex text-center text-white text-sm font-bold leading-norma w-full"
           onClick={handleLogin}
         >
           {loggingIn ? logInLoadingIndicator() : 'SIGN IN'}
         </a>
       </div>
-      <div className="text-[#777777] text-base font-normal leading-normal">
+      <div className="text-foreground text-sm font-normal leading-normal">
         Not yet a member? &nbsp;
         <Link
           href="/my-account/"
-          className="button-register text-center text-[#777777] text-base font-bold underline leading-normal"
+          className="button-register text-center text-foreground font-semibold underline leading-normal"
         >
-          Register
+          Join Us
         </Link>
       </div>
     </form>

@@ -31,8 +31,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-.vscode/
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts
@@ -48,6 +46,8 @@ public/images/banner/
 public/images/blog/
 public/images/homepage/
 public/images/product/
+public/permalinks/*.*
+public/routes/*.*
 public/page/*.*
 public/post/*.*
 public/*.json
@@ -56,14 +56,19 @@ tailwind.config.js
 
 public/styles/styles.css
 src/styles/theme-variables.css
+src/styles/custom/
+src/styles/custom/*.css
 build-storybook.log
 .env
 public/archive-product.json
 public/taxonomy-product-cat.json
 public/pageslugs.json
+public/frontend.css
 
 .vercel
 .env*.local
 
 .vercel
 .env*.local
+
+.vercel

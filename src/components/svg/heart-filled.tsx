@@ -1,5 +1,5 @@
 import { COLOR_CLASSES, Icon } from './index';
-import siteData from '@public/site.json';
+import siteData from '@public/config.json';
 
 export const HeartFilledIcon = ({ fillColor, color, className, strokeColor }: Icon) => {
   if (siteData.cookieDomain.includes('byronbaycandles')) {

@@ -7,7 +7,6 @@ import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactElement, ReactNode, useEffect } from 'react';
-import TagManager from 'react-gtm-module';
 
 import { YotpoRewards } from '@src/features/yotpo-rewards';
 import { MetaPixelScript } from '@src/components/track/meta/meta-pixel-script';
@@ -18,6 +17,7 @@ import { client } from '@src/lib/apollo-client';
 import { env } from '@src/lib/env';
 import { ErrorBoundary } from '@src/components/error-boundary';
 import { useMetaPageView } from '@src/lib/hooks';
+import { UrlCartHandler } from '@src/components/cart/url-cart-handler';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import * as fonts from '@public/fonts';
@@ -40,12 +40,6 @@ type AppPropsWithLayout = AppProps & {
 function App({ Component, pageProps }: AppPropsWithLayout) {
   useMetaPageView();
 
-  useEffect(() => {
-    if (process.env.NODE_ENV !== 'development') {
-      TagManager.initialize({ gtmId: NEXT_PUBLIC_GTM_ID as string });
-    }
-  }, []);
-
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
     <ErrorBoundary>
@@ -66,6 +60,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           <TypesenseContextProvider>
             <SiteContextProvider>
               <UserContextProvider>
+                <UrlCartHandler />
                 {getLayout(<Component {...pageProps} />)}
                 <YotpoRewards />
               </UserContextProvider>

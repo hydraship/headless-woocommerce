@@ -7,8 +7,8 @@ import { Product } from '@src/models/product';
 import { RawLink } from '@src/components/common/raw-link';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
 import { seoUrlParser } from '@src/components/page-seo';
-import { ProductCartItem } from '@src/lib/hooks/cart';
 import { CartItemGlobalProps } from '@src/components/blocks/woocommerce/product-collection/product-template/cart-item';
+import { CartItemSkeletonName } from '@src/components/blocks/woocommerce/product-collection/product-template/cart-item-skeleton';
 
 type WooCommerceProductNameTemplateProps = {
   block: ParsedBlock;
@@ -31,16 +31,15 @@ export const WooCommerceProductNameTemplate = ({ block }: WooCommerceProductName
   if ('product-cart-item' === type) {
     const { cartItem, loading } = data as CartItemGlobalProps;
     if (loading) {
-      return <div className={cn('w-full h-8 bg-gray-300')}></div>;
+      return <CartItemSkeletonName />;
     }
     const productType = cartItem.type.toLowerCase();
 
     return (
-      <TagName className={cn(`product-name ${productType}`, className)}>
-        <RawLink
-          href={`/product/${cartItem.slug}`}
-          className={cn('text-base font-bold font-secondary')}
-        >
+      <TagName
+        className={cn(`product-name ${productType} text-base font-bold font-secondary`, className)}
+      >
+        <RawLink href={`/product/${cartItem.slug}`}>
           <ReactHTMLParser html={cartItem.name as string} />
         </RawLink>
       </TagName>
@@ -54,6 +53,9 @@ export const WooCommerceProductNameTemplate = ({ block }: WooCommerceProductName
   // Below are the default component when type is product
   const product = data as Product;
   const productLink = seoUrlParser(product?.permalink || '');
+  const productName = product?.metaData?.acf?.product_code
+    ? `${product.name} - ${product.metaData?.acf?.product_code}`
+    : product.name;
 
   return (
     <TagName className={cn('product-name', className)}>
@@ -62,7 +64,7 @@ export const WooCommerceProductNameTemplate = ({ block }: WooCommerceProductName
           aria-hidden="true"
           className=" absolute inset-x-auto inset-y-5 z-[8] cursor-pointer"
         />
-        <ReactHTMLParser html={product.name as string} />
+        <ReactHTMLParser html={productName as string} />
       </RawLink>
     </TagName>
   );

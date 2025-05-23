@@ -1,16 +1,19 @@
-import { isEmpty } from 'lodash';
+import { isEmpty, sortBy } from 'lodash';
 import { useEffect, useRef } from 'react';
 
 import { useProductContext } from '@src/context/product-context';
-import { Attribute, Image } from '@src/models/product/types';
+import { Attribute, AttributeOptions, Image } from '@src/models/product/types';
 import { useAttributeParams } from '@src/lib/hooks/product';
+import { useEffectOnce } from 'usehooks-ts';
 
 type Props = {
   attribute: Attribute;
   image?: Image[];
+  onChange: (attributeName: string, optionValue: string) => void;
+  firstOption?: boolean;
 };
 
-export const SelectVariant: React.FC<Props> = ({ attribute }) => {
+export const SelectVariant: React.FC<Props> = ({ attribute, onChange, firstOption }) => {
   const attributeParams = useAttributeParams();
 
   const {
@@ -31,11 +34,28 @@ export const SelectVariant: React.FC<Props> = ({ attribute }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attributeParams]);
 
+  useEffectOnce(() => {
+    if (firstOption) {
+      const firstOption = options[0];
+      if (firstOption) {
+        onAttributeSelect(name, firstOption.name);
+      }
+    }
+  });
+
   if (isEmpty(product?.variantImageSrc)) return null;
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    onAttributeSelect(name, e.target.value);
+    onChange(name, e.target.value);
     selectedRef.current = e.target.value;
+  };
+
+  const sortOptions = (options: AttributeOptions[]) => {
+    if (product?.metaData?.wsc_gift_card) {
+      return sortBy(options, (option) => parseInt(option.name));
+    }
+
+    return options;
   };
 
   return (
@@ -54,7 +74,7 @@ export const SelectVariant: React.FC<Props> = ({ attribute }) => {
         value={selectedRef.current}
       >
         <option value="">Select Variant</option>
-        {options.map((option) => (
+        {sortOptions(options).map((option) => (
           <option
             key={option.name}
             value={option.name}

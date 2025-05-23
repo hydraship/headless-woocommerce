@@ -6,9 +6,22 @@
   @apply text-sm font-bold;
 }
 
-.mini-cart input[type="number"]::-webkit-inner-spin-button,
-.mini-cart input[type="number"]::-webkit-outer-spin-button {
+/* Remove number input spinner arrows for elements with class "appearance-none" */
+
+/* Chrome, Safari, Edge, Opera */
+.mini-cart input.appearance-none[type="number"]::-webkit-inner-spin-button,
+.mini-cart input.appearance-none[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
-  appearance: none;
   margin: 0;
+}
+
+/* Firefox */
+.mini-cart input.appearance-none[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Edge */
+.mini-cart input.appearance-none[type="number"]::-ms-clear,
+.mini-cart input.appearance-none[type="number"]::-ms-reveal {
+  display: none;
 }

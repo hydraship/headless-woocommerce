@@ -9,7 +9,7 @@
 }
 
 .product-archive-page .container {
-  @apply w-screen mx-auto;
+  @apply mx-auto;
 }
 
 .product-archive-page header {
@@ -80,7 +80,7 @@
 }
 
 .product-archive-filter .filter-widget .filter-widget-header .filter-widget-title {
-  @apply text-sub-title font-bold font-secondary text-lg;
+  @apply font-semibold text-lg leading-6;
 }
 
 .product-archive-filter .filter-widget .filter-widget-header .open-filter {
@@ -114,6 +114,24 @@
 
 .product-archive-filter .filter-widget .filter-widget-content .fieldset .option input {
   @apply h-4 w-4 mt-1 border-gray-300 focus:ring-brand-primary rounded;
+}
+
+.product-archive-filter .filter-widget .filter-widget-content .fieldset .option input:checked {
+  @apply border-primary bg-white relative;
+}
+
+.product-archive-filter
+  .filter-widget
+  .filter-widget-content
+  .fieldset
+  .option
+  input:checked::after {
+  @apply text-primary absolute;
+  content: '✔';
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
 }
 
 .product-archive-filter .filter-widget .filter-widget-content .fieldset .option input.hasProduct {
@@ -158,4 +176,22 @@
 
 .product-archive-display .product-filter-and-sort .button-sort-by label {
   @apply font-bold text-[#333];
+}
+
+.product-archive-page .category-description {
+  @apply py-10 block md:flex gap-6;
+}
+
+.product-archive-page .category-description > div:nth-child(1) {
+  @apply w-[360px] hidden xl:block flex-col md:flex-row;
+}
+
+.product-archive-page .category-description > div:nth-child(2) {
+  @apply block md:flex-grow;
+}
+
+button.button-sort-by {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }

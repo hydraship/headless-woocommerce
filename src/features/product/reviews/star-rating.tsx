@@ -1,7 +1,7 @@
-import classNames from 'classnames';
 import { times } from 'lodash';
 import { EmptyStar } from '@src/components/svg/icons/empty-star';
 import { Star } from '@src/components/svg/icons/star';
+import { cn } from '@src/lib/utils';
 
 export const StarRating = ({
   rating,
@@ -18,7 +18,7 @@ export const StarRating = ({
     {times(rating, (index) => (
       <Star
         key={index}
-        className={classNames(className, {
+        className={cn(className, {
           'w-5 h-5': !className,
         })}
         color={color ? 'none' : 'default'}
@@ -30,7 +30,7 @@ export const StarRating = ({
       times(emptyRating, (index) => (
         <EmptyStar
           key={index}
-          className={classNames(className, {
+          className={cn(className, {
             'w-5 h-5': !className,
           })}
           color={color ? 'none' : 'default'}

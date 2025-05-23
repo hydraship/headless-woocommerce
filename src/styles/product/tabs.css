@@ -3,16 +3,20 @@
 }
 
 .woocommerce-product-attributes {
-  @apply w-full min-w-[320px] text-left text-sm border-collapse;
+  @apply w-auto min-w-[320px] text-left text-sm border-collapse;
 }
 
 .woocommerce-product-attributes th {
-  color: #777777;
-  @apply text-sm px-2.5 py-4 border-b border-border text-left font-medium;
+  @apply font-semibold text-foreground;
 }
 
 .woocommerce-product-attributes td {
-  @apply text-sm px-2.5 py-4 border-b border-border text-black/80;
+  @apply text-foreground/80;
+}
+
+.woocommerce-product-attributes th,
+.woocommerce-product-attributes td {
+  @apply text-sm p-1;
 }
 
 .woocommerce-product-attributes tr:nth-last-child(1) td,
@@ -22,4 +26,25 @@
 
 .tab-additional h2 {
   @apply hidden;
+}
+
+.tab-content {
+  overflow-x: auto;
+}
+
+.tab-content table tr {
+  @apply border-b;
+}
+
+.tab-content table {
+  @apply border rounded-sm;
+}
+
+.tab-content table tr:first-of-type td {
+  @apply bg-primary font-bold;
+}
+
+.tab-content table tr td,
+.tab-content table tr th {
+  @apply text-foreground px-5 py-3 text-lg;
 }

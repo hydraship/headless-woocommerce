@@ -1,6 +1,5 @@
-import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import Counter from 'yet-another-react-lightbox/plugins/counter';
 import { GoZoomIn } from 'react-icons/go';
@@ -13,6 +12,7 @@ import { NextJsImage } from '@src/components/next-js-image';
 import { Image as ImageType } from '@src/models/product/types';
 import { isMp4 } from '@src/lib/helpers/helper';
 import 'yet-another-react-lightbox/styles.css';
+import { cn } from '@src/lib/utils';
 
 type Props = {
   images: ImageType[];
@@ -20,18 +20,19 @@ type Props = {
   height?: number;
   imageIndex?: number;
   className?: string;
+  lightBox: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 };
 
 const imageSizes = [16, 32, 48, 64, 96, 128, 256, 384];
 const deviceSizes = [640, 750, 828, 1080, 1200, 1920, 2048, 3840];
 
 export const SlideImages = (props: Props) => {
-  const { images, width = 3840, height = 3840, imageIndex, className } = props;
+  const { images, width = 3840, height = 3840, imageIndex, className, lightBox } = props;
   const { basePath } = useRouter();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = lightBox;
 
   const nextImageUrl = (src: string, size: number) => {
-    const currentEnv = process.env.VERCEL_ENV;
+    const currentEnv = process.env.NODE_ENV;
     let baseUrl = basePath;
     switch (currentEnv) {
       case 'development':
@@ -39,7 +40,7 @@ export const SlideImages = (props: Props) => {
         break;
     }
 
-    if (!process.env.VERCEL_URL && currentEnv === 'development') return src;
+    if (currentEnv === 'development') return src;
 
     return `${baseUrl}/_next/image?url=${encodeURIComponent(src)}&w=${size}&q=75`;
   };
@@ -76,18 +77,13 @@ export const SlideImages = (props: Props) => {
   });
 
   return (
-    <div
-      className={classNames(
-        className,
-        'absolute flex w-full overflow-hidden p-4 z-[7] justify-end'
-      )}
-    >
+    <div className={cn(className, 'absolute flex w-full overflow-hidden p-4 z-[7] justify-end')}>
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="bg-white border border-foreground w-12 h-12 flex justify-center items-center"
+        className="bg-white border border-foreground w-6 h-6 lg:w-12 lg:h-12 flex justify-center items-center"
       >
-        <GoZoomIn className="w-6 h-6" />
+        <GoZoomIn className="h-4 w-4 md:w-6 md:h-6" />
       </button>
       <Lightbox
         open={open}

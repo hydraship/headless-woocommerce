@@ -11,8 +11,8 @@ import { Product } from '@src/models/product';
 import { Shop } from '@src/models/settings/shop';
 import { cn } from '@src/lib/helpers/helper';
 
-const DynamicDefaultProductCard = dynamic(() =>
-  import('@src/features/product/cards/default').then((mod) => mod.DefaultProductCard)
+const DynamicDefaultProductCard = dynamic(
+  () => import('@src/features/product/cards/default').then((mod) => mod.DefaultProductCard) // later i will improve with the guttenberg block
 );
 
 import { transformProductsForDisplay } from '@src/lib/helpers/product';

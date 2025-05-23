@@ -1,5 +1,4 @@
 import { Dictionary } from '@reduxjs/toolkit';
-import classNames from 'classnames';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';

@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import { cn } from '@src/lib/utils';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -25,7 +25,7 @@ const Menu: FC<Props> = ({ className, isSubmenu, children }) => {
     }
   }, [isShowing]);
 
-  const classes = cx(className, {
+  const classes = cn(className, {
     'flex relative': !isSubmenu,
     'lg:hidden lg:absolute lg:top submenu lg:top-full lg:z-[100] -left-2/3': isSubmenu,
     'lg:group-hover:grid shadow p-4 auto-rows-max': isSubmenu && isShowing,

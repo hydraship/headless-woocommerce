@@ -1,0 +1,1409 @@
+{
+  "additionalTabs": [
+    {
+      "content": "\n\t<h2>Additional information</h2>\n\n\t<h4 class=\"bundled_product_attributes_title\">såpa Body Bar – Orange &amp; Grapefruit | 95g</h4>\n<table class=\"woocommerce-product-attributes shop_attributes\" aria-label=\"Product Details\">\n\t\t\t<tr class=\"woocommerce-product-attributes-item woocommerce-product-attributes-item--attribute_scent\">\n\t\t\t<th class=\"woocommerce-product-attributes-item__label\" scope=\"row\">Scent</th>\n\t\t\t<td class=\"woocommerce-product-attributes-item__value\"><p>Lavender, Aloe Vera, Orange &amp; Grapefruit, Peppermint &amp; Poppy Seed, Patchouli &amp; Sandalwood</p>\n</td>\n\t\t</tr>\n\t</table>\n\t<h4 class=\"bundled_product_attributes_title\">glôs Conditioner Bar - Nourishing | 50g</h4>\n<table class=\"woocommerce-product-attributes shop_attributes\" aria-label=\"Product Details\">\n\t\t\t<tr class=\"woocommerce-product-attributes-item woocommerce-product-attributes-item--attribute_scent\">\n\t\t\t<th class=\"woocommerce-product-attributes-item__label\" scope=\"row\">Scent</th>\n\t\t\t<td class=\"woocommerce-product-attributes-item__value\"><p>Lemon &amp; Sweet Almond, Simply Coconut, Cocoa Butter, Henna &amp; Juniper</p>\n</td>\n\t\t</tr>\n\t</table>\n\t<h4 class=\"bundled_product_attributes_title\">såpa Body Bar - Patchouli &amp; Sandalwood | 95g</h4>\n<table class=\"woocommerce-product-attributes shop_attributes\" aria-label=\"Product Details\">\n\t\t\t<tr class=\"woocommerce-product-attributes-item woocommerce-product-attributes-item--attribute_scent\">\n\t\t\t<th class=\"woocommerce-product-attributes-item__label\" scope=\"row\">Scent</th>\n\t\t\t<td class=\"woocommerce-product-attributes-item__value\"><p>Lavender, Aloe Vera, Orange &amp; Grapefruit, Peppermint &amp; Poppy Seed, Patchouli &amp; Sandalwood</p>\n</td>\n\t\t</tr>\n\t</table>\n",
+      "isOpen": 0,
+      "location": "",
+      "title": "Additional information"
+    }
+  ],
+  "addons": [],
+  "backorder": "no",
+  "bundle": {
+    "bundleInfo": {
+      "description": "<!-- wp:spacer {\"height\":\"10px\"} -->\n<div style=\"height:10px\" aria-hidden=\"true\" class=\"wp-block-spacer\"></div>\n<!-- /wp:spacer -->\n\n<!-- wp:heading {\"textAlign\":\"center\",\"style\":{\"typography\":{\"fontSize\":\"28px\"}}} -->\n<h2 class=\"wp-block-heading has-text-align-center\" id=\"h-5-secret-spring-sale\" style=\"font-size:28px\">£5 Secret Spring Sale ????</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph {\"align\":\"center\"} -->\n<p class=\"has-text-align-center\">Grab bestsellers starting from ONLY £5! Stock up now.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph {\"align\":\"center\"} -->\n<p class=\"has-text-align-center\"><a href=\"/checkout/\"><span style=\"text-decoration: underline;\">No thanks &gt;</span></a></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:spacer {\"height\":\"17px\"} -->\n<div style=\"height:17px\" aria-hidden=\"true\" class=\"wp-block-spacer\"></div>\n<!-- /wp:spacer -->\n\n<!-- wp:html -->\n<script>\ndocument.addEventListener(\"DOMContentLoaded\", function () {\n    var offSiteSidebar = document.querySelector(\".off-site-sidebar\");\n    var triggerElement = document.querySelector(\".off-site-sidebar-trigger\");\n    triggerElement.addEventListener(\"click\", function () {\n        offSiteSidebar.style.display = \"block\";\n    });\n});\n</script>\n<!-- /wp:html -->\n\n<!-- wp:html -->\n<style>\n.wcsatt-sub-options {display: none;}\n.bundle-shipping {display: none;}\n.off-site-sidebar {display: none;}\n.entry-summary h1 {display:none;}\n</style>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p>sdfsdfdsfsdf</p>\n<!-- /wp:paragraph -->",
+      "id": 5430374,
+      "image": "https://gruums1.blz.onl/wp-content/uploads/2023/02/GRUUM_SOCIAL_V2-300x300-1.jpg",
+      "name": "Spring £5 Secret Sale77777",
+      "permalink": "https://gruums1.blz.onl/product/offer-winter-5-secret-sale",
+      "productType": "bundle",
+      "sku": "WINTER-£5-SECRET-SALE",
+      "slug": "offer-winter-5-secret-sale",
+      "stockStatus": "instock"
+    },
+    "maxPrice": {
+      "GBP": 0
+    },
+    "minPrice": {
+      "GBP": 4
+    },
+    "products": [
+      {
+        "product": {
+          "bundleId": 11793,
+          "id": 1323651,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/05/har_nourishing_1.png",
+          "link": "https://gruums1.blz.onl/product/har-shampoo-bar-nourishing-50g",
+          "name": "hår Shampoo Bar - Nourishing | 50g",
+          "price": {
+            "GBP": "9"
+          },
+          "shortDescription": "<span class=\"TextRun SCXW172687513 BCX0\" lang=\"EN-GB\" xml:lang=\"EN-GB\" data-contrast=\"none\"><span class=\"NormalTextRun SCXW172687513 BCX0\">Our </span></span><span class=\"TextRun SCXW172687513 BCX0\" lang=\"EN-GB\" xml:lang=\"EN-GB\" data-contrast=\"auto\"><span class=\"NormalTextRun SCXW172687513 BCX0\">haircare cult hero.</span><span class=\"NormalTextRun SCXW172687513 BCX0\"> </span><span class=\"NormalTextRun SCXW172687513 BCX0\">This wonderfully effective</span><span class=\"NormalTextRun SCXW172687513 BCX0\"> </span><span class=\"NormalTextRun SCXW172687513 BCX0\">all-rounder</span> <span class=\"NormalTextRun SCXW172687513 BCX0\">is </span><span class=\"NormalTextRun SCXW172687513 BCX0\">packed with </span><span class=\"NormalTextRun SCXW172687513 BCX0\">frizz taming, hydrating and naturally antimicrobial coconut oil, </span><span class=\"NormalTextRun SCXW172687513 BCX0\">making it</span> <span class=\"NormalTextRun SCXW172687513 BCX0\">pa</span><span class=\"NormalTextRun SCXW172687513 BCX0\">rticularly soothing for irritated, itchy scalps. </span></span>",
+          "sku": "HAR-SHAMPOO-NOURISHING-50G-1323651",
+          "slug": "har-shampoo-bar-nourishing-50g",
+          "status": "publish",
+          "stockQuantity": -672,
+          "stockStatus": "onbackorder",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our haircare cult hero. This wonderfully effective all-rounder is packed with frizz taming, hydrating and naturally antimicrobial coconut oil, making it particularly soothing for irritated, itchy scalps. \n",
+          "discountPercent": 44.44,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "hår Shampoo Bar - Nourishing | 50g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11798,
+          "id": 4859706,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2024/05/harvekst_1.png",
+          "link": "https://gruums1.blz.onl/product/harvekst-hair-density-serum-30ml",
+          "name": "hårvekst Hair Density Serum | 30ml",
+          "price": {
+            "GBP": "13"
+          },
+          "shortDescription": "<span data-sheets-root=\"1\" data-sheets-value=\"{\" data-sheets-userformat=\"{\">Lightweight, leave-in serum. Enriched with targeted ingredients formulated to support the scalp, leaving you with thicker, denser, fuller, and healthier-looking hair.</span>",
+          "sku": "HARVEKST-HAIR-DENSITY-SERUM-30ML-4859706",
+          "slug": "harvekst-hair-density-serum-30ml",
+          "status": "publish",
+          "stockQuantity": 3024,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Lightweight, leave-in serum. Enriched with targeted ingredients formulated to support the scalp, leaving you with thicker, denser, fuller, and healthier-looking hair.\n",
+          "discountPercent": 61.54,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "hårvekst Hair Density Serum | 30ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 12300,
+          "id": 4404339,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/12/hand_bottle_1.png",
+          "link": "https://gruums1.blz.onl/product/hand-hydrating-hand-cream-50ml",
+          "name": "händ Hydrating Hand Cream | 50ml",
+          "price": {
+            "GBP": "8"
+          },
+          "shortDescription": "Treat hard working hands to a deeply nourishing blend of mother nature's most hydrating ingredients. Refreshing yet warm aromatic notes soothe and energise.",
+          "sku": "HAND-HYDRATING-HAND-CREAM-50ML-4404339",
+          "slug": "hand-hydrating-hand-cream-50ml",
+          "status": "publish",
+          "stockQuantity": 1965,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Treat hard working hands to a deeply nourishing blend of mother nature's most hydrating ingredients. Refreshing yet warm aromatic notes soothe and energise.\n",
+          "discountPercent": 37.5,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "händ Hydrating Hand Cream | 50ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11794,
+          "id": 2619200,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2022/02/oka_youth_restoring_1.png",
+          "link": "https://gruums1.blz.onl/product/oka-gel-serum-youth-restoring-30ml",
+          "name": "öka Gel Serum - Youth Restoring | 30ml",
+          "price": {
+            "GBP": "13"
+          },
+          "shortDescription": "Dip into the fountain of youth. Vitamins A, C &amp; E, work alongside an elite selection of naturally anti-aging ingredients. With hyaluronic acid and retinol.",
+          "sku": "OKA-GEL-SERUM-YOUTH-RESTORING-30ML-2619200",
+          "slug": "oka-gel-serum-youth-restoring-30ml",
+          "status": "publish",
+          "stockQuantity": 1116,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Dip into the fountain of youth. Vitamins A, C &amp; E, work alongside an elite selection of naturally anti-aging ingredients. With hyaluronic acid and retinol.\n",
+          "discountPercent": 38.4615,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "öka Gel Serum - Youth Restoring | 30ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11800,
+          "id": 5223666,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2024/09/pumpkin_oil_1-png.webp",
+          "link": "https://gruums1.blz.onl/product/botanisk-pumpkin-seed-oil-30ml",
+          "name": "botanisk Pumpkin Seed Oil | 30ml",
+          "price": {
+            "GBP": "15"
+          },
+          "shortDescription": "<span data-sheets-root=\"1\">Our nutty, hydrating, dual-use oil. Naturally high in a wealth of skin and hair loving components, including vitamin E, linoleic acid, fatty acids, zinc, and carotenoids.\r\n</span>",
+          "sku": "BOTANISK-PUMPKIN-SEED-OIL-30ML-5223666",
+          "slug": "botanisk-pumpkin-seed-oil-30ml",
+          "status": "publish",
+          "stockQuantity": 0,
+          "stockStatus": "outofstock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our nutty, hydrating, dual-use oil. Naturally high in a wealth of skin and hair loving components, including vitamin E, linoleic acid, fatty acids, zinc, and carotenoids.\n\n",
+          "discountPercent": 66.66,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "botanisk Pumpkin Seed Oil | 30ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11801,
+          "id": 1252089,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2019/05/kyra_face_wash_1.png",
+          "link": "https://gruums1.blz.onl/product/kyra-gentle-face-wash-120ml",
+          "name": "kÿra Gentle Face Wash | 120ml",
+          "price": {
+            "GBP": "9.00"
+          },
+          "shortDescription": "Our gentle daily face wash. Lavender, aloe vera &amp; eucalyptus soothe and repair while encouraging vibrance. Perfect for sensitive skin.",
+          "sku": "KYRA-GENTLE-FACE-WASH-120ML-1252089",
+          "slug": "kyra-gentle-face-wash-120ml",
+          "status": "publish",
+          "stockQuantity": -1,
+          "stockStatus": "outofstock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our gentle daily face wash. Lavender, aloe vera &amp; eucalyptus soothe and repair while encouraging vibrance. Perfect for sensitive skin.\n",
+          "discountPercent": 44.44,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "kÿra Gentle Face Wash | 120ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11805,
+          "id": 2784024,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2022/04/klar_brightening_90_1.png",
+          "link": "https://gruums1.blz.onl/product/klar-brightening-facial-cleanser-90g",
+          "name": "klår Brightening Facial Cleanser | 90g",
+          "price": {
+            "GBP": "10"
+          },
+          "shortDescription": "Our naturally exfoliating bar. Activated charcoal gently draws out impurities while vitamin C brightens and soothes. Perfect for acne prone and oily skin.",
+          "sku": "KLAR-BRIGHTENING-FACIAL-CLEANSER-90G-2784024",
+          "slug": "klar-brightening-facial-cleanser-90g",
+          "status": "publish",
+          "stockQuantity": 1911,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our naturally exfoliating bar. Activated charcoal gently draws out impurities while vitamin C brightens and soothes. Perfect for acne prone and oily skin.\n",
+          "discountPercent": 50,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "klår Brightening Facial Cleanser | 90g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11795,
+          "id": 4401412,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/12/vadra_sandalwood_1.png",
+          "link": "https://gruums1.blz.onl/product/vadra-reed-diffuser-set-sandalwood-30ml",
+          "name": "vädra Reed Diffuser Set - Sandalwood | 30ml",
+          "price": {
+            "GBP": "9"
+          },
+          "shortDescription": "<span data-sheets-root=\"1\" data-sheets-value=\"{\" data-sheets-userformat=\"{\">Rich patchouli and warm cedarwood meet fresh rosemary and clarifying eucalyptus. Together they encourage focus, while grounding and soothing the senses.</span>",
+          "sku": "VADRA-REED-DIFFUSER-SANDALWOOD-30ML-4401412",
+          "slug": "vadra-reed-diffuser-set-sandalwood-30ml",
+          "status": "publish",
+          "stockQuantity": 7444,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Rich patchouli and warm cedarwood meet fresh rosemary and clarifying eucalyptus. Together they encourage focus, while grounding and soothing the senses.\n",
+          "discountPercent": 22.222,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "vädra Reed Diffuser Set - Sandalwood | 30ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11802,
+          "id": 2197666,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2021/03/daily_defence_lotion_1.png",
+          "link": "https://gruums1.blz.onl/product/skyda-spf50-daily-defence-lotion-50ml",
+          "name": "skyda SPF50 Daily Defence Lotion | 50ml",
+          "price": {
+            "GBP": "12"
+          },
+          "shortDescription": "<span style=\"font-weight: 400;\">Our dermatologist-developed SPF50 Daily Defence Lotion. Offering lightweight, 5* protection against UV rays, pollution and free radicals. Infused with vitamin E.</span>",
+          "sku": "SKYDA-SPF-50-DAILY-DEFENCE-50ML-2197666",
+          "slug": "skyda-spf50-daily-defence-lotion-50ml",
+          "status": "publish",
+          "stockQuantity": 8138,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our dermatologist-developed SPF50 Daily Defence Lotion. Offering lightweight, 5* protection against UV rays, pollution and free radicals. Infused with vitamin E.\n",
+          "discountPercent": 41.67,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "skyda SPF50 Daily Defence Lotion | 50ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11803,
+          "id": 4281,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2016/08/kare_moisturiser_1.png",
+          "link": "https://gruums1.blz.onl/product/kare-daily-moisturiser-50ml",
+          "name": "kåre Daily Moisturiser | 50ml",
+          "price": {
+            "GBP": "9"
+          },
+          "shortDescription": "Our lightweight daily moisturiser. Easily absorbable, this anti-pollution miracle worker hydrates, protects and repairs, leaving you with a youthful glow.",
+          "sku": "KARE-DAILY-MOISTURISER-50ML-4281",
+          "slug": "kare-daily-moisturiser-50ml",
+          "status": "publish",
+          "stockQuantity": 3232,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our lightweight daily moisturiser. Easily absorbable, this anti-pollution miracle worker hydrates, protects and repairs, leaving you with a youthful glow.\n",
+          "discountPercent": 44.44,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "kåre Daily Moisturiser | 50ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11804,
+          "id": 2385386,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/05/har_antidandruff_1.png",
+          "link": "https://gruums1.blz.onl/product/har-shampoo-bar-anti-dandruff-50g",
+          "name": "hår Shampoo Bar - Anti-Dandruff | 50g",
+          "price": {
+            "GBP": "9"
+          },
+          "shortDescription": "<span style=\"font-weight: 400;\">Our cult hero, planet-saving shampoo bar. Plant-based actives and coconut extract work together to soothe the scalp and tackle dandruff.</span>",
+          "sku": "HAR-SHAMPOO-ANTI-DANDRUFF-50G-2385386",
+          "slug": "har-shampoo-bar-anti-dandruff-50g",
+          "status": "publish",
+          "stockQuantity": 353,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our cult hero, planet-saving shampoo bar. Plant-based actives and coconut extract work together to soothe the scalp and tackle dandruff.\n",
+          "discountPercent": 44.44,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "hår Shampoo Bar - Anti-Dandruff | 50g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11806,
+          "id": 820988,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2018/07/solsken_spf50_50ml_1-1-png.webp",
+          "link": "https://gruums1.blz.onl/product/spf50-uva-face-sunscreen-50ml",
+          "name": "SPF50 5* UVA Face Sunscreen | 50ml",
+          "price": {
+            "GBP": "10"
+          },
+          "shortDescription": "Our gentle SPF50 facial sunscreen. Offering lightweight, non-greasy 5* UVA &amp; high UVB protection. Pocket sized for convenience.",
+          "sku": "SPF-50-FACE-SUNSCREEN-50ML-820988",
+          "slug": "spf50-uva-face-sunscreen-50ml",
+          "status": "publish",
+          "stockQuantity": 3231,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our gentle SPF50 facial sunscreen. Offering lightweight, non-greasy 5* UVA &amp; high UVB protection. Pocket sized for convenience.\n",
+          "discountPercent": 30,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "SPF50 5* UVA Face Sunscreen | 50ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11807,
+          "id": 1706166,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/05/sapa_orange_1.png",
+          "link": "https://gruums1.blz.onl/product/sapa-body-bar-orange-grapefruit-95g",
+          "name": "såpa Body Bar – Orange &amp; Grapefruit | 95g",
+          "price": {
+            "GBP": "8"
+          },
+          "shortDescription": "Awaken your senses with our zero waste body wash bar. Invigorating, creamy and caring, packed with vitamin-rich grapefruit and orange oil.",
+          "sku": "SAPA-BODY-BAR-ORANGE-GRAPEFRUIT-95G-1706166",
+          "slug": "sapa-body-bar-orange-grapefruit-95g",
+          "status": "publish",
+          "stockQuantity": 6134,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Awaken your senses with our zero waste body wash bar. Invigorating, creamy and caring, packed with vitamin-rich grapefruit and orange oil.\n",
+          "discountPercent": 37.5,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "såpa Body Bar – Orange &amp; Grapefruit | 95g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 12301,
+          "id": 5389778,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2024/11/kyra_solid_xmas_1-png.webp",
+          "link": "https://gruums1.blz.onl/product/kyra-winter-face-wash-bar-35g",
+          "name": "kÿra Winter Face Wash Bar | 35g",
+          "price": {
+            "GBP": "9"
+          },
+          "shortDescription": "<span data-sheets-root=\"1\">A seasonal twist on our much-loved solid cleanser. Revitalize, refresh, and inspire wherever your winter adventures take you with this travel-friendly, zero-plastic complexion caresser.</span>",
+          "sku": "KYRA-WINTER-FACE-WASH-BAR-35G-5389778",
+          "slug": "kyra-winter-face-wash-bar-35g",
+          "status": "publish",
+          "stockQuantity": 292,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "A seasonal twist on our much-loved solid cleanser. Revitalize, refresh, and inspire wherever your winter adventures take you with this travel-friendly, zero-plastic complexion caresser.\n",
+          "discountPercent": 44.44,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "kÿra Winter Face Wash Bar | 35g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11808,
+          "id": 1727097,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/05/glos_nourishing_1.png",
+          "link": "https://gruums1.blz.onl/product/glos-conditioner-bar-nourishing-50g",
+          "name": "glôs Conditioner Bar - Nourishing | 50g",
+          "price": {
+            "GBP": "10"
+          },
+          "shortDescription": "<span style=\"font-weight: 400;\">The perfect partner to our Nourishing shampoo bar. Coconut oil and cocoa butter hydrate and protect. With a fresh tropical scent. </span>",
+          "sku": "GLOS-CONDITIONER-NOURISHING-50G-1727097",
+          "slug": "glos-conditioner-bar-nourishing-50g",
+          "status": "publish",
+          "stockQuantity": 2641,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "The perfect partner to our Nourishing shampoo bar. Coconut oil and cocoa butter hydrate and protect. With a fresh tropical scent. \n",
+          "discountPercent": 40,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "glôs Conditioner Bar - Nourishing | 50g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11809,
+          "id": 3827425,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/08/har_pro_hair_growth_1.png",
+          "link": "https://gruums1.blz.onl/product/har-pro-shampoo-bar-hair-growth-50g",
+          "name": "hår Pro Shampoo Bar - Hair Growth | 50g",
+          "price": {
+            "GBP": "12"
+          },
+          "shortDescription": "<span data-sheets-value=\"{\" data-sheets-userformat=\"{\">Bring your barnet back to life! Featuring a wealth of remarkable naturally restoring ingredients that are clinically proven to increase growth by up to 11.7%. </span>",
+          "sku": "HAR-PRO-SHAMPOO-HAIR-GROWTH-50G-3827425",
+          "slug": "har-pro-shampoo-bar-hair-growth-50g",
+          "status": "publish",
+          "stockQuantity": 74,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Bring your barnet back to life! Featuring a wealth of remarkable naturally restoring ingredients that are clinically proven to increase growth by up to 11.7%. \n",
+          "discountPercent": 50,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "hår Pro Shampoo Bar - Hair Growth | 50g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11797,
+          "id": 5281280,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2024/10/room_spray_citrus_eclipse_1-png.webp",
+          "link": "https://gruums1.blz.onl/product/room-home-fragrance-citrus-eclipse",
+          "name": "röom Home Fragrance - Citrus Eclipse | 50ml",
+          "price": {
+            "GBP": "9"
+          },
+          "shortDescription": "Create a warm ambiance and neutralise odours with every spritz! Uplifting sweet orange couples beautifully with scintillating, warm cedarwood and ginger for an adventurous afterglow.",
+          "sku": "ROOM-HOME-FRAGRANCE-CITRUS-ECLIPSE-50ML-5281280",
+          "slug": "room-home-fragrance-citrus-eclipse",
+          "status": "publish",
+          "stockQuantity": 4207,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Create a warm ambiance and neutralise odours with every spritz! Uplifting sweet orange couples beautifully with scintillating, warm cedarwood and ginger for an adventurous afterglow.\n",
+          "discountPercent": 33.33,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "röom Home Fragrance - Citrus Eclipse | 50ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11810,
+          "id": 3864438,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/08/glos_pro_hair_growth_1.png",
+          "link": "https://gruums1.blz.onl/product/glos-pro-conditioner-bar-hair-growth-50g",
+          "name": "glôs Pro Conditioner Bar - Hair Growth | 50g",
+          "price": {
+            "GBP": "13"
+          },
+          "shortDescription": "<span data-sheets-value=\"{\" data-sheets-userformat=\"{\">Bring your barnet back to life, naturally. We've combined the best ingredients clinically proven to encourage healthy growth, while preventing hair loss. </span>",
+          "sku": "GLOS-PRO-CONDITIONER-HAIR-GROWTH-50G-3864438",
+          "slug": "glos-pro-conditioner-bar-hair-growth-50g",
+          "status": "publish",
+          "stockQuantity": 1441,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Bring your barnet back to life, naturally. We've combined the best ingredients clinically proven to encourage healthy growth, while preventing hair loss. \n",
+          "discountPercent": 46.15,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "glôs Pro Conditioner Bar - Hair Growth | 50g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11811,
+          "id": 3826607,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/08/har_pro_mega_moisture_1.png",
+          "link": "https://gruums1.blz.onl/product/har-pro-shampoo-bar-mega-moisture-50g",
+          "name": "hår Pro Shampoo Bar - Mega Moisture | 50g",
+          "price": {
+            "GBP": "12"
+          },
+          "shortDescription": "The ultimate thirsty hair saviour. Transform dry, damaged, heat treated hair into silky sleek locks thanks to an ultra hydrating blend of 8 natural oils.",
+          "sku": "HAR-PRO-SHAMPOO-MEGA-MOISTURE-50G-3826607",
+          "slug": "har-pro-shampoo-bar-mega-moisture-50g",
+          "status": "publish",
+          "stockQuantity": 959,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "The ultimate thirsty hair saviour. Transform dry, damaged, heat treated hair into silky sleek locks thanks to an ultra hydrating blend of 8 natural oils.\n",
+          "discountPercent": 50,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "hår Pro Shampoo Bar - Mega Moisture | 50g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11812,
+          "id": 3864410,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/08/glos_pro_mega_moisture_1.png",
+          "link": "https://gruums1.blz.onl/product/glos-pro-conditioner-bar-mega-moisture-50g",
+          "name": "glôs Pro Conditioner Bar - Mega Moisture | 50g",
+          "price": {
+            "GBP": "13"
+          },
+          "shortDescription": "<span data-sheets-value=\"{\" data-sheets-userformat=\"{\">The ultimate thirsty hair saviour. Transform dry, damaged, heat treated hair into silky sleek locks thanks to an ultra hydrating blend of 8 natural oils. </span>",
+          "sku": "GLOS-PRO-CONDITIONER-MEGA-MOISTURE-50G-3864410",
+          "slug": "glos-pro-conditioner-bar-mega-moisture-50g",
+          "status": "publish",
+          "stockQuantity": 1229,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "The ultimate thirsty hair saviour. Transform dry, damaged, heat treated hair into silky sleek locks thanks to an ultra hydrating blend of 8 natural oils. \n",
+          "discountPercent": 46.15,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "glôs Pro Conditioner Bar - Mega Moisture | 50g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11813,
+          "id": 5357548,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2024/11/prala1000-png.webp",
+          "link": "https://gruums1.blz.onl/product/prala-radiance-facial-cream-50ml",
+          "name": "pråla Radiance Facial Cream | 50ml",
+          "price": {
+            "GBP": "9"
+          },
+          "shortDescription": "Get glowing with a burst of hydration! Infused with niacinamide, carotene, and sea buckthorn oil to brighten and hydrate for a naturally radiant look.",
+          "sku": "PRALA-RADIANCE-FACIAL-CREAM-50ML-5357548",
+          "slug": "prala-radiance-facial-cream-50ml",
+          "status": "publish",
+          "stockQuantity": -936,
+          "stockStatus": "onbackorder",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Get glowing with a burst of hydration! Infused with niacinamide, carotene, and sea buckthorn oil to brighten and hydrate for a naturally radiant look.\n",
+          "discountPercent": 44.44,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "pråla Radiance Facial Cream | 50ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11814,
+          "id": 3046891,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2022/08/klar_clairfying_1.png",
+          "link": "https://gruums1.blz.onl/product/klar-clarifying-facial-cleanser-90g",
+          "name": "klår Clarifying Facial Cleanser | 90g",
+          "price": {
+            "GBP": "14"
+          },
+          "shortDescription": "<span style=\"font-weight: 400;\">Our clarifying facial cleanser, perfect for acne prone skin. With turmeric, tea tree and shea butter to heal, nourish and brighten your complexion.</span>",
+          "sku": "KLAR-CLARIFYING-FACIAL-CLEANSER-90G-3046891",
+          "slug": "klar-clarifying-facial-cleanser-90g",
+          "status": "publish",
+          "stockQuantity": 3374,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our clarifying facial cleanser, perfect for acne prone skin. With turmeric, tea tree and shea butter to heal, nourish and brighten your complexion.\n",
+          "discountPercent": 64.29,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "klår Clarifying Facial Cleanser | 90g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11815,
+          "id": 1894618,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/05/sapa_sandalwood_1.png",
+          "link": "https://gruums1.blz.onl/product/sapa-body-bar-patchouli-sandalwood-95g",
+          "name": "såpa Body Bar - Patchouli &amp; Sandalwood | 95g",
+          "price": {
+            "GBP": "8"
+          },
+          "shortDescription": "Our luxuriously rich, beautifully scented body bar. Soothing patchouli calms irritation while sandalwood defends and protects.",
+          "sku": "SAPA-BODY-BAR-PATCHOULI-SANDALWOOD-95G-1894618",
+          "slug": "sapa-body-bar-patchouli-sandalwood-95g",
+          "status": "publish",
+          "stockQuantity": 4040,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our luxuriously rich, beautifully scented body bar. Soothing patchouli calms irritation while sandalwood defends and protects.\n",
+          "discountPercent": 37.5,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "såpa Body Bar - Patchouli &amp; Sandalwood | 95g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 12063,
+          "id": 3074445,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2022/09/fotter_foot_cream_1.png",
+          "link": "https://gruums1.blz.onl/product/fotter-luxurious-foot-cream-80ml",
+          "name": "fötter Luxurious Foot Cream | 80ml",
+          "price": {
+            "GBP": "9"
+          },
+          "shortDescription": "<span style=\"font-weight: 400;\">Our deeply soothing and restoring foot cream. Enjoy the tingle of peppermint, while cocoa butter and arnica extract repair and nourish.</span>",
+          "sku": "FOTTER-LUXURIOUS-FOOT-CREAM-80ML-3074445",
+          "slug": "fotter-luxurious-foot-cream-80ml",
+          "status": "publish",
+          "stockQuantity": 14,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our deeply soothing and restoring foot cream. Enjoy the tingle of peppermint, while cocoa butter and arnica extract repair and nourish.\n",
+          "discountPercent": 44.44,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "fötter Luxurious Foot Cream | 80ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11816,
+          "description": "<!-- wp:html /-->",
+          "id": 3617250,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/04/puls_roller_ball_1.png",
+          "link": "https://gruums1.blz.onl/product/puls-pulse-point-roller-ball-deep-relaxation-9ml",
+          "name": "puls Pulse Point Roller Ball - Deep Relaxation | 9ml",
+          "price": {
+            "GBP": "12"
+          },
+          "shortDescription": "<p>Find your peaceful place, at night and even throughout the day. Rich, woody aromas ground you, while lavender and chamomile soothe the nervous system. Mmmm.</p>",
+          "sku": "PULS-ROLLER-BALL-DEEP-RELAXATION-9ML-3617250",
+          "slug": "puls-pulse-point-roller-ball-deep-relaxation-9ml",
+          "status": "publish",
+          "stockQuantity": -8300,
+          "stockStatus": "onbackorder",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Find your peaceful place, at night and even throughout the day. Rich, woody aromas ground you, while lavender and chamomile soothe the nervous system. Mmmm.\n",
+          "discountPercent": 50,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "puls Pulse Point Roller Ball - Deep Relaxation | 9ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11817,
+          "id": 2155309,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2021/02/somn_spray_1.png",
+          "link": "https://gruums1.blz.onl/product/somn-relaxing-sleep-mist-50ml",
+          "name": "sömn Relaxing Sleep Mist | 50ml",
+          "price": {
+            "GBP": "10"
+          },
+          "shortDescription": "Forget counting sheep, spritz a little of our sleep mist onto your pillow and head straight to dreamland.",
+          "sku": "SOMN-RELAXING-SLEEP-MIST-50ML-2155309",
+          "slug": "somn-relaxing-sleep-mist-50ml",
+          "status": "publish",
+          "stockQuantity": -5957,
+          "stockStatus": "onbackorder",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Forget counting sheep, spritz a little of our sleep mist onto your pillow and head straight to dreamland.\n",
+          "discountPercent": 50,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "sömn Relaxing Sleep Mist | 50ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11818,
+          "id": 4278,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2016/08/kori_face_wash_1.png",
+          "link": "https://gruums1.blz.onl/product/kori-exfoliating-face-wash-120ml",
+          "name": "kóri Exfoliating Face Wash | 120ml",
+          "price": {
+            "GBP": "9.00"
+          },
+          "shortDescription": "Our naturally exfoliating face wash, perfect for more oily skin. Keep blemishes at bay thanks to brightening orange, restoring eucalyptus and soothing witch hazel.",
+          "sku": "KORI-EXFOLIATING-FACE-WASH-120ML-4278",
+          "slug": "kori-exfoliating-face-wash-120ml",
+          "status": "publish",
+          "stockQuantity": 5794,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our naturally exfoliating face wash, perfect for more oily skin. Keep blemishes at bay thanks to brightening orange, restoring eucalyptus and soothing witch hazel.\n",
+          "discountPercent": 44.44,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "kóri Exfoliating Face Wash | 120ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11819,
+          "id": 2619063,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2022/02/oka_clear_complexion_1.png",
+          "link": "https://gruums1.blz.onl/product/oka-gel-serum-clear-complexion-30ml",
+          "name": "öka Gel Serum - Clear Complexion | 30ml",
+          "price": {
+            "GBP": "13"
+          },
+          "shortDescription": "A powerful ally for acne prone skin. Naturally gentle ingredients reduce redness, heal and soothe, while encouraging a healthy glow. With hyaluronic acid.",
+          "sku": "OKA-GEL-SERUM-CLEAR-COMPLEXION-30ML-2619063",
+          "slug": "oka-gel-serum-clear-complexion-30ml",
+          "status": "publish",
+          "stockQuantity": 135,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "A powerful ally for acne prone skin. Naturally gentle ingredients reduce redness, heal and soothe, while encouraging a healthy glow. With hyaluronic acid.\n",
+          "discountPercent": 38.4615,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "öka Gel Serum - Clear Complexion | 30ml"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11820,
+          "id": 4404219,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/12/rena_cleanser_1-1.png",
+          "link": "https://gruums1.blz.onl/product/rena-lipophilic-makeup-cleanser-35g",
+          "name": "rena Lipophilic Makeup Remover | 35g",
+          "price": {
+            "GBP": "11"
+          },
+          "shortDescription": "<span data-sheets-root=\"1\" data-sheets-value=\"{\" data-sheets-userformat=\"{\">Formulated with lipophilic (oil-loving) molecules that gently yet very effectively draw excess oil, impurities and makeup from the skin while strengthening and hydrating.</span>",
+          "sku": "RENA-LIPOPHILIC-MAKEUP-REMOVER-35G-4404219",
+          "slug": "rena-lipophilic-makeup-cleanser-35g",
+          "status": "publish",
+          "stockQuantity": 2341,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Formulated with lipophilic (oil-loving) molecules that gently yet very effectively draw excess oil, impurities and makeup from the skin while strengthening and hydrating.\n",
+          "discountPercent": 54.54,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "rena Lipophilic Makeup Remover | 35g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11824,
+          "id": 2957274,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/05/resa_1.png",
+          "link": "https://gruums1.blz.onl/product/resa-3-in-1-travel-bar-60g",
+          "name": "resa 3-in-1 Travel Bar | 60g",
+          "price": {
+            "GBP": "8"
+          },
+          "shortDescription": "Our space-saving travel bar. A luxurious hand soap, shampoo and body wash all in one, here to revive the adventurer in you. With antibacterial tea tree and restoring coconut oil.",
+          "sku": "RESA-3-IN-1-TRAVEL-BAR-60G-2957274",
+          "slug": "resa-3-in-1-travel-bar-60g",
+          "status": "publish",
+          "stockQuantity": 395,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Our space-saving travel bar. A luxurious hand soap, shampoo and body wash all in one, here to revive the adventurer in you. With antibacterial tea tree and restoring coconut oil.\n",
+          "discountPercent": 37.5,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "resa 3-in-1 Travel Bar | 60g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 12302,
+          "id": 5257648,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2024/10/travhast_1-png.webp",
+          "link": "https://gruums1.blz.onl/product/travhast-intensive-hydrating-balm-35g",
+          "name": "travhäst Intensive Hydrating Balm | 35g",
+          "price": {
+            "GBP": "10"
+          },
+          "shortDescription": "This handy little bar has a soft spot for looking after your paws. It's mess free, zero plastic, and absolutely loaded with natural skin soothers.",
+          "sku": "TRAVHAST-INTENSIVE-HYDRATION-BALM-35G-5257648",
+          "slug": "travhast-intensive-hydrating-balm-35g",
+          "status": "publish",
+          "stockQuantity": 1238,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "This handy little bar has a soft spot for looking after your paws. It's mess free, zero plastic, and absolutely loaded with natural skin soothers.\n",
+          "discountPercent": 50,
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "travhäst Intensive Hydrating Balm | 35g"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 11825,
+          "id": 1902127,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/05/saval_soap_bag_1.png",
+          "link": "https://gruums1.blz.onl/product/sava-sisal-soap-bag",
+          "name": "säva Sisal Soap Bag",
+          "price": {
+            "GBP": "4.00"
+          },
+          "shortDescription": "<span style=\"font-weight: 400;\">A great way to store solid bars, or make the most of your solid soap. This waste-free alternative to shower pouffes is a fantastic exfoliation tool. Biodegradable.</span>",
+          "sku": "SAVA-SISAL-SOAP-BAG-1902127",
+          "slug": "sava-sisal-soap-bag",
+          "status": "publish",
+          "stockQuantity": 5762,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "A great way to store solid bars, or make the most of your solid soap. This waste-free alternative to shower pouffes is a fantastic exfoliation tool. Biodegradable.\n",
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "säva Sisal Soap Bag"
+        }
+      },
+      {
+        "product": {
+          "bundleId": 12065,
+          "description": "<!-- wp:html /-->",
+          "id": 4192314,
+          "image": "https://gruums1.blz.onl/wp-content/uploads/2023/12/1.png",
+          "link": "https://gruums1.blz.onl/product/lagga-soap-dish",
+          "name": "lagga Soap Dish",
+          "price": {
+            "GBP": "5"
+          },
+          "shortDescription": "<p><span style=\"font-weight: 400;\">Extend the shelf life of your grüum goodies in planet-friendly style. Made from sustainable bamboo, naturally water resistant and easy to clean.</span></p>",
+          "sku": "LAGGA-SOAP-DISH-4192314",
+          "slug": "lagga-soap-dish",
+          "status": "publish",
+          "stockQuantity": 12838,
+          "stockStatus": "instock",
+          "type": "simple"
+        },
+        "settings": {
+          "defaultQuantity": 1,
+          "description": "Extend the shelf life of your grüum goodies in planet-friendly style. Made from sustainable bamboo, naturally water resistant and easy to clean.\n",
+          "hideThumbnail": true,
+          "minQuantity": 1,
+          "optional": true,
+          "overrideTitle": false,
+          "priceVisible": true,
+          "pricedIndividually": true,
+          "productVisible": true,
+          "shippedIndividually": false,
+          "title": "lagga Soap Dish"
+        }
+      }
+    ],
+    "settings": {
+      "editInCart": false,
+      "formLocation": "default",
+      "layout": "grid",
+      "minBundleSize": 1
+    }
+  },
+  "createdAt": 1732723005,
+  "crossSellProducts": [],
+  "relatedProducts": [
+    5699355,
+    5704057,
+    5700597,
+    5688509,
+    5686441,
+    5686979,
+    5664787,
+    5655908,
+    5684904,
+    5669499
+  ],
+  "upsellProducts": [],
+  "description": "<p><!-- wp:spacer {\"height\":\"10px\"} --></p>\n<div style=\"height:10px\" aria-hidden=\"true\" class=\"wp-block-spacer\"></div>\n<p><!-- /wp:spacer --></p>\n<p><!-- wp:heading {\"textAlign\":\"center\",\"style\":{\"typography\":{\"fontSize\":\"28px\"}}} --></p>\n<h2 class=\"wp-block-heading has-text-align-center\" id=\"h-5-secret-spring-sale\" style=\"font-size:28px\">£5 Secret Spring Sale ????</h2>\n<p><!-- /wp:heading --></p>\n<p><!-- wp:paragraph {\"align\":\"center\"} --></p>\n<p class=\"has-text-align-center\">Grab bestsellers starting from ONLY £5! Stock up now.</p>\n<p><!-- /wp:paragraph --></p>\n<p><!-- wp:paragraph {\"align\":\"center\"} --></p>\n<p class=\"has-text-align-center\"><a href=\"/checkout/\"><span style=\"text-decoration: underline;\">No thanks &gt;</span></a></p>\n<p><!-- /wp:paragraph --></p>\n<p><!-- wp:spacer {\"height\":\"17px\"} --></p>\n<div style=\"height:17px\" aria-hidden=\"true\" class=\"wp-block-spacer\"></div>\n<p><!-- /wp:spacer --></p>\n<p><!-- wp:html --><br />\n<script>\ndocument.addEventListener(\"DOMContentLoaded\", function () {\n    var offSiteSidebar = document.querySelector(\".off-site-sidebar\");\n    var triggerElement = document.querySelector(\".off-site-sidebar-trigger\");\n    triggerElement.addEventListener(\"click\", function () {\n        offSiteSidebar.style.display = \"block\";\n    });\n});\n</script><br />\n<!-- /wp:html --></p>\n<p><!-- wp:html --></p>\n<style>\n.wcsatt-sub-options {display: none;}\n.bundle-shipping {display: none;}\n.off-site-sidebar {display: none;}\n.entry-summary h1 {display:none;}\n</style>\n<p><!-- /wp:html --></p>\n<p><!-- wp:paragraph --></p>\n<p>sdfsdfdsfsdf</p>\n<p><!-- /wp:paragraph --></p>\n",
+  "galleryImages": [
+    {
+      "altText": "GRUUM_SOCIAL_V2-300x300",
+      "id": 3542607,
+      "src": "https://gruums1.blz.onl/wp-content/uploads/2023/02/GRUUM_SOCIAL_V2-300x300-1.jpg",
+      "title": "GRUUM_SOCIAL_V2-300x300"
+    }
+  ],
+  "id": "5430374",
+  "isFeatured": false,
+  "metaData": {
+    "priceWithTax": {
+      "GBP": 0
+    },
+    "pricesByLocation": {
+      "with_tax": {
+        "locations": [
+          {
+            "country": "AT",
+            "state": ""
+          },
+          {
+            "country": "BE",
+            "state": ""
+          },
+          {
+            "country": "BG",
+            "state": ""
+          },
+          {
+            "country": "CY",
+            "state": ""
+          },
+          {
+            "country": "CZ",
+            "state": ""
+          },
+          {
+            "country": "DE",
+            "state": ""
+          },
+          {
+            "country": "DK",
+            "state": ""
+          },
+          {
+            "country": "EE",
+            "state": ""
+          },
+          {
+            "country": "ES",
+            "state": ""
+          },
+          {
+            "country": "FI",
+            "state": ""
+          },
+          {
+            "country": "FR",
+            "state": ""
+          },
+          {
+            "country": "GB",
+            "state": ""
+          },
+          {
+            "country": "GR",
+            "state": ""
+          },
+          {
+            "country": "HR",
+            "state": ""
+          },
+          {
+            "country": "HU",
+            "state": ""
+          },
+          {
+            "country": "IE",
+            "state": ""
+          },
+          {
+            "country": "IT",
+            "state": ""
+          },
+          {
+            "country": "LT",
+            "state": ""
+          },
+          {
+            "country": "LU",
+            "state": ""
+          },
+          {
+            "country": "LV",
+            "state": ""
+          },
+          {
+            "country": "MT",
+            "state": ""
+          },
+          {
+            "country": "NL",
+            "state": ""
+          },
+          {
+            "country": "PL",
+            "state": ""
+          },
+          {
+            "country": "PT",
+            "state": ""
+          },
+          {
+            "country": "RO",
+            "state": ""
+          },
+          {
+            "country": "SE",
+            "state": ""
+          },
+          {
+            "country": "SI",
+            "state": ""
+          },
+          {
+            "country": "SK",
+            "state": ""
+          }
+        ],
+        "regularPrice": 0,
+        "salePrice": 0
+      }
+    },
+    "subscriptionsATT": {
+      "has_scheme": false,
+      "schemes": []
+    }
+  },
+  "name": "Spring £5 Secret Sale77777",
+  "onSale": true,
+  "permalink": "/product/offer-winter-5-secret-sale",
+  "price": {
+    "GBP": 0
+  },
+  "productId": "5430374",
+  "productType": "bundle",
+  "publishedAt": 1732665600,
+  "regularPrice": {
+    "GBP": 0
+  },
+  "salePrice": {
+    "GBP": 0
+  },
+  "seoFullHead": "&lt;!-- This site is optimized with the Yoast SEO Premium plugin v24.5 (Yoast SEO v24.5) - https://yoast.com/wordpress/plugins/seo/ --&gt;\n&lt;title&gt;Secret £5 Winter Sale | grüum&lt;/title&gt;\n&lt;meta name=&quot;description&quot; content=&quot;£5 Secret Spring Sale ???? Grab bestsellers starting from ONLY £5! Stock up now. No thanks &amp;gt; sdfsdfdsfsdf&quot; /&gt;\n&lt;meta name=&quot;robots&quot; content=&quot;noindex, nofollow&quot; /&gt;\n&lt;meta property=&quot;og:locale&quot; content=&quot;en_GB&quot; /&gt;\n&lt;meta property=&quot;og:type&quot; content=&quot;article&quot; /&gt;\n&lt;meta property=&quot;og:title&quot; content=&quot;Spring £5 Secret Sale77777&quot; /&gt;\n&lt;meta property=&quot;og:description&quot; content=&quot;£5 Secret Spring Sale ???? Grab bestsellers starting from ONLY £5! Stock up now. No thanks &amp;gt; sdfsdfdsfsdf&quot; /&gt;\n&lt;meta property=&quot;og:url&quot; content=&quot;https://gruums1.blz.onl/product/offer-winter-5-secret-sale/&quot; /&gt;\n&lt;meta property=&quot;og:site_name&quot; content=&quot;grüum&quot; /&gt;\n&lt;meta property=&quot;article:publisher&quot; content=&quot;https://en-gb.facebook.com/gruumHQ/&quot; /&gt;\n&lt;meta property=&quot;article:modified_time&quot; content=&quot;2025-05-07T07:09:26+00:00&quot; /&gt;\n&lt;meta property=&quot;og:image&quot; content=&quot;https://gruums1.blz.onl/wp-content/uploads/2023/02/GRUUM_SOCIAL_V2-300x300-1.jpg&quot; /&gt;\n\t&lt;meta property=&quot;og:image:width&quot; content=&quot;300&quot; /&gt;\n\t&lt;meta property=&quot;og:image:height&quot; content=&quot;300&quot; /&gt;\n\t&lt;meta property=&quot;og:image:type&quot; content=&quot;image/jpeg&quot; /&gt;\n&lt;meta name=&quot;twitter:card&quot; content=&quot;summary_large_image&quot; /&gt;\n&lt;meta name=&quot;twitter:site&quot; content=&quot;@gruum_hq&quot; /&gt;\n&lt;meta name=&quot;twitter:label1&quot; content=&quot;Estimated reading time&quot; /&gt;\n\t&lt;meta name=&quot;twitter:data1&quot; content=&quot;1 minute&quot; /&gt;\n&lt;script type=&quot;application/ld+json&quot; class=&quot;yoast-schema-graph&quot;&gt;{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@graph&quot;:[{&quot;@type&quot;:[&quot;WebPage&quot;,&quot;ItemPage&quot;],&quot;@id&quot;:&quot;https://gruums1.blz.onl/product/offer-winter-5-secret-sale/&quot;,&quot;url&quot;:&quot;https://gruums1.blz.onl/product/offer-winter-5-secret-sale/&quot;,&quot;name&quot;:&quot;Secret £5 Winter Sale | grüum&quot;,&quot;isPartOf&quot;:{&quot;@id&quot;:&quot;https://blaze.gruum.it/#website&quot;},&quot;datePublished&quot;:&quot;2024-11-27T15:56:45+00:00&quot;,&quot;dateModified&quot;:&quot;2025-05-07T07:09:26+00:00&quot;,&quot;breadcrumb&quot;:{&quot;@id&quot;:&quot;https://gruums1.blz.onl/product/offer-winter-5-secret-sale/#breadcrumb&quot;},&quot;inLanguage&quot;:&quot;en-GB&quot;,&quot;potentialAction&quot;:[{&quot;@type&quot;:&quot;ReadAction&quot;,&quot;target&quot;:[&quot;https://gruums1.blz.onl/product/offer-winter-5-secret-sale/&quot;]}]},{&quot;@type&quot;:&quot;BreadcrumbList&quot;,&quot;@id&quot;:&quot;https://gruums1.blz.onl/product/offer-winter-5-secret-sale/#breadcrumb&quot;,&quot;itemListElement&quot;:[{&quot;@type&quot;:&quot;ListItem&quot;,&quot;position&quot;:1,&quot;name&quot;:&quot;Home&quot;,&quot;item&quot;:&quot;https://gruums1.blz.onl/&quot;},{&quot;@type&quot;:&quot;ListItem&quot;,&quot;position&quot;:2,&quot;name&quot;:&quot;Products&quot;,&quot;item&quot;:&quot;https://gruums1.blz.onl/shop/&quot;},{&quot;@type&quot;:&quot;ListItem&quot;,&quot;position&quot;:3,&quot;name&quot;:&quot;Spring £5 Secret Sale77777&quot;}]},{&quot;@type&quot;:&quot;WebSite&quot;,&quot;@id&quot;:&quot;https://blaze.gruum.it/#website&quot;,&quot;url&quot;:&quot;https://blaze.gruum.it/&quot;,&quot;name&quot;:&quot;grüum&quot;,&quot;description&quot;:&quot;Seriously good skincare and razors for men and women&quot;,&quot;publisher&quot;:{&quot;@id&quot;:&quot;https://blaze.gruum.it/#organization&quot;},&quot;potentialAction&quot;:[{&quot;@type&quot;:&quot;SearchAction&quot;,&quot;target&quot;:{&quot;@type&quot;:&quot;EntryPoint&quot;,&quot;urlTemplate&quot;:&quot;https://blaze.gruum.it/?s={search_term_string}&quot;},&quot;query-input&quot;:{&quot;@type&quot;:&quot;PropertyValueSpecification&quot;,&quot;valueRequired&quot;:true,&quot;valueName&quot;:&quot;search_term_string&quot;}}],&quot;inLanguage&quot;:&quot;en-GB&quot;},{&quot;@type&quot;:&quot;Organization&quot;,&quot;@id&quot;:&quot;https://blaze.gruum.it/#organization&quot;,&quot;name&quot;:&quot;grüum&quot;,&quot;url&quot;:&quot;https://blaze.gruum.it/&quot;,&quot;logo&quot;:{&quot;@type&quot;:&quot;ImageObject&quot;,&quot;inLanguage&quot;:&quot;en-GB&quot;,&quot;@id&quot;:&quot;https://blaze.gruum.it/#/schema/logo/image/&quot;,&quot;url&quot;:&quot;https://www.gruum.com/wp-content/uploads/2016/04/Logo_Mobilex2.png&quot;,&quot;contentUrl&quot;:&quot;https://www.gruum.com/wp-content/uploads/2016/04/Logo_Mobilex2.png&quot;,&quot;width&quot;:168,&quot;height&quot;:48,&quot;caption&quot;:&quot;grüum&quot;},&quot;image&quot;:{&quot;@id&quot;:&quot;https://blaze.gruum.it/#/schema/logo/image/&quot;},&quot;sameAs&quot;:[&quot;https://en-gb.facebook.com/gruumHQ/&quot;,&quot;https://x.com/gruum_hq&quot;,&quot;https://www.instagram.com/gruum_hq/?hl=en&quot;]}]}&lt;/script&gt;\n&lt;!-- / Yoast SEO Premium plugin. --&gt;",
+  "shortDescription": "",
+  "sku": "WINTER-£5-SECRET-SALE",
+  "slug": "offer-winter-5-secret-sale",
+  "stockQuantity": 0,
+  "stockStatus": "instock",
+  "taxonomies": [
+    {
+      "breadcrumbs": [
+        {
+          "name": "bundle",
+          "permalink": "/?product_type=bundle"
+        }
+      ],
+      "childAndParentTerm": "",
+      "filters": "bundle|product_type|bundle||0|/?product_type=bundle||",
+      "metaData": [],
+      "name": "bundle",
+      "nameAndType": "bundle|product_type",
+      "parentTerm": "",
+      "slug": "bundle",
+      "termId": "3300",
+      "type": "product_type",
+      "url": "https://gruums1.blz.onl/?product_type=bundle"
+    },
+    {
+      "breadcrumbs": [
+        {
+          "name": "exclude-from-catalog",
+          "permalink": "/?product_visibility=exclude-from-catalog"
+        }
+      ],
+      "childAndParentTerm": "",
+      "filters": "exclude-from-catalog|product_visibility|exclude-from-catalog||0|/?product_visibility=exclude-from-catalog||",
+      "metaData": [],
+      "name": "exclude-from-catalog",
+      "nameAndType": "exclude-from-catalog|product_visibility",
+      "parentTerm": "",
+      "slug": "exclude-from-catalog",
+      "termId": "2312",
+      "type": "product_visibility",
+      "url": "https://gruums1.blz.onl/?product_visibility=exclude-from-catalog"
+    },
+    {
+      "breadcrumbs": [
+        {
+          "name": "exclude-from-search",
+          "permalink": "/?product_visibility=exclude-from-search"
+        }
+      ],
+      "childAndParentTerm": "",
+      "filters": "exclude-from-search|product_visibility|exclude-from-search||0|/?product_visibility=exclude-from-search||",
+      "metaData": [],
+      "name": "exclude-from-search",
+      "nameAndType": "exclude-from-search|product_visibility",
+      "parentTerm": "",
+      "slug": "exclude-from-search",
+      "termId": "2311",
+      "type": "product_visibility",
+      "url": "https://gruums1.blz.onl/?product_visibility=exclude-from-search"
+    },
+    {
+      "breadcrumbs": [
+        {
+          "name": "Admin",
+          "permalink": "/product-category/admin"
+        }
+      ],
+      "childAndParentTerm": "",
+      "filters": "Admin|product_cat|admin||0|/product-category/admin||",
+      "metaData": [],
+      "name": "Admin",
+      "nameAndType": "Admin|product_cat",
+      "parentTerm": "",
+      "slug": "admin",
+      "termId": "4853",
+      "type": "product_cat",
+      "url": "https://gruums1.blz.onl/product-category/admin"
+    },
+    {
+      "breadcrumbs": [
+        {
+          "name": "Admin",
+          "permalink": "/product-category/admin"
+        },
+        {
+          "name": "Special price kits",
+          "permalink": "/product-category/admin/special-price-kits"
+        }
+      ],
+      "childAndParentTerm": "Special price kits|Admin",
+      "filters": "Special price kits|product_cat|special-price-kits|Admin|0|/product-category/admin/special-price-kits|admin|",
+      "metaData": [],
+      "name": "Special price kits",
+      "nameAndType": "Special price kits|product_cat",
+      "parentTerm": "Admin",
+      "slug": "special-price-kits",
+      "termId": "3291",
+      "type": "product_cat",
+      "url": "https://gruums1.blz.onl/product-category/admin/special-price-kits"
+    }
+  ],
+  "thumbnail": {
+    "altText": "GRUUM_SOCIAL_V2-300x300",
+    "id": 3542607,
+    "src": "https://gruums1.blz.onl/wp-content/uploads/2023/02/GRUUM_SOCIAL_V2-300x300-1.jpg",
+    "title": "GRUUM_SOCIAL_V2-300x300"
+  },
+  "totalSales": 15377,
+  "updatedAt": 1746601776,
+  "attributes": []
+}

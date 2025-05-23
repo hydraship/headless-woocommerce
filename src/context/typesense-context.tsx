@@ -22,7 +22,7 @@ export const TypesenseContext = createContext<TypesenseContextType>({} as Typese
 
 const productTypes = getProductTypesForDisplay();
 const specificSearchParameters: CollectionSearchParameters = {};
-const productQueryByFields = 'name,slug,shortDescription,description,seoFullHead';
+const productQueryByFields = 'name,slug,shortDescription,description,seoFullHead,sku';
 
 const defaultSortBy = getDefaultSortBy();
 let sortBy = 'stockStatus:asc';

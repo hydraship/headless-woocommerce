@@ -1,10 +1,8 @@
 import { BlockAttributes } from '@src/lib/block/types';
 import { BlockComponentProps } from '@src/components/blocks';
 import { getMenuById } from '@src/lib/helpers/menu';
-import { MenuItem } from '@src/components/header/menu/menu-item';
 import { Menu, MenuListItem } from '@src/components/blocks/maxmegamenu/styled-components';
 import { cn } from '@src/lib/helpers/helper';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { MenuLink } from '@src/components/blocks/maxmegamenu/menu-link';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
@@ -13,17 +11,56 @@ import { NormalSubMenu } from '@src/components/blocks/maxmegamenu/normal-sub-men
 import { IconBlock } from '@src/components/blocks/outermost/IconBlock';
 import { convertAttributes } from '@src/lib/block';
 import React from 'react';
+import { Content } from '@src/components/blocks/content';
+
+// Define the type for navigation items
+interface NavigationItem {
+  id: string;
+  name: string;
+  content: string;
+  status: string;
+  updatedAt: number;
+  createdAt: number;
+}
+
+// Import navigation data directly from the JSON file
+// Type assertion to treat the imported JSON as NavigationItem[]
+import rawNavigationData from '@public/navigation.json';
+const navigationData = rawNavigationData as NavigationItem[];
 
 export const Navigation = ({ block }: BlockComponentProps) => {
   const [linkHovered, setLinkHovered] = useState(false);
 
+  // Using any as other components in the codebase do the same
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const attributes = convertAttributes(block.attrs as any) as BlockAttributes;
 
+  // Get the ref from attributes
+  const ref = attributes.ref ? Number(attributes.ref) : null;
+
+  // If we're using the traditional menu approach
   const menuId = (attributes.menu as string) || '';
   const iconBlock = block.innerBlocks.length > 0 ? block.innerBlocks[0] : null;
   const hasChevronDownIcon = attributes.hasChevronDown;
   const color = attributes.color;
 
+  // If we have a ref, find the matching navigation item
+  const navigationItem =
+    ref && navigationData.length > 0
+      ? navigationData.find((item) => item.id === ref.toString())
+      : null;
+
+  // If we found a navigation item with matching ref, render it using Content
+  if (navigationItem) {
+    return (
+      <Content
+        content={navigationItem.content}
+        type="page"
+      />
+    );
+  }
+
+  // Otherwise, fall back to the traditional menu approach
   const mainMenu = getMenuById(parseInt(menuId, 10));
 
   if (!mainMenu) {
@@ -51,7 +88,10 @@ export const Navigation = ({ block }: BlockComponentProps) => {
           >
             <MenuLink
               $fontSize={14}
-              className="flex cursor-pointer items-center gap-2.5 rounded"
+              className={cn(
+                'flex cursor-pointer items-center gap-2.5 rounded',
+                hasChevronDownIcon === true && hasChildMenus === true && 'has-submenu'
+              )}
               href={item.url}
               $backgroundColor={'transparent'}
               $hoverBackgroundColor={'transparent'}

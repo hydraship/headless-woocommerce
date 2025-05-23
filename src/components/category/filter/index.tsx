@@ -22,6 +22,8 @@ import { FilterToggleButton } from '@src/components/category/filter/filter-toggl
 import { ParsedBlock } from '@src/components/blocks';
 import { findBlock } from '@src/lib/block';
 import taxonomyProductCatBlocks from '@public/taxonomy-product-cat.json';
+import { ContentContextProvider } from '@src/context/content-context';
+import type { RealWooCommerceProductCollectionQueryResponse } from '@src/components/blocks/woocommerce/product-collection/real-product-collection';
 
 type Props = {
   pageNo: number;
@@ -29,6 +31,7 @@ type Props = {
   applyFilter: () => void;
   onSortChange: (_e: { target: { value: string } }) => void;
   children: React.ReactNode;
+  globalData?: RealWooCommerceProductCollectionQueryResponse;
 };
 
 export const Filter: React.FC<Props> = (props) => {
@@ -41,15 +44,26 @@ export const Filter: React.FC<Props> = (props) => {
 
   const [filterOpen, setFilterOpen] = taxonomyCtx.slideOverFilter;
   const [sortByOpen, setSortByOpen] = taxonomyCtx.slideOverSort;
+  const [sortByState] = taxonomyCtx.sortByState;
 
   const [selectedSortOption, setSelectedSortOption] = taxonomyCtx.sortByState;
 
   useEffect(() => {
     const sortValue = localStorage.getItem('sortValue') as string;
+    let label,
+      value = null;
 
-    if (!sortValue || sortValue === '') return;
-
-    const { label, value } = JSON.parse(sortValue as string);
+    if (!sortValue || sortValue === '') {
+      if (sortByState?.label && sortByState?.value) {
+        label = sortByState.label;
+        value = sortByState.value;
+      } else {
+        return;
+      }
+    } else {
+      label = JSON.parse(sortValue as string).label;
+      value = JSON.parse(sortValue as string).value;
+    }
 
     if (label && value) {
       setSelectedSortOption({
@@ -208,16 +222,6 @@ export const Filter: React.FC<Props> = (props) => {
           onSortChange={onSortChange}
         />
       </Modal>
-      <div className="product-archive-filter-mobile">
-        <MobileFilterSortButtons
-          handleFilterByClicked={handleFilterByClicked}
-          handleSortByClicked={handleSortByClicked}
-        />
-        <MobileActiveFilters
-          resetFilterAction={resetFilterAction}
-          isFilterSet={isFilterSet}
-        />
-      </div>
 
       <div>
         <Modal
@@ -225,10 +229,15 @@ export const Filter: React.FC<Props> = (props) => {
           setOpen={setFilterOpen}
           position="left"
         >
-          <SidebarFilter
-            applyFilterClicked={applyFilterClicked}
-            resetFilterAction={resetFilterAction}
-          />
+          <ContentContextProvider
+            type="products-query-response"
+            data={props.globalData}
+          >
+            <SidebarFilter
+              applyFilterClicked={applyFilterClicked}
+              resetFilterAction={resetFilterAction}
+            />
+          </ContentContextProvider>
         </Modal>
         {/* <FilterToggleButton handleFilterByClicked={handleFilterByClicked} /> */}
         {/* <aside className="product-archive-filter-desktop">

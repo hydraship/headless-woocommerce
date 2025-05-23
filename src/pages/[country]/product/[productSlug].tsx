@@ -4,6 +4,7 @@ import type { GetStaticPropsContext } from 'next';
 import { GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 import SINGLEPRODUCT_TEMPLATE from '@public/single-product.json';
+import configData from '@public/config.json';
 import Head from 'next/head';
 
 import { cn } from '@src/lib/helpers/helper';
@@ -23,6 +24,16 @@ import { getProductsByIds } from '@src/lib/typesense/product';
 import { SkeletonProductPage } from '@src/components/skeletons/product-page';
 import { parseJsonValue } from '@src/lib/helpers/helper';
 import { MainContentWrapper } from '@src/components/content/main-content-wrapper';
+import { env } from '@src/lib/env';
+
+// Check if it's a true localhost environment (not Vercel preview)
+const { NEXT_PUBLIC_WORDPRESS_SITE_URL } = env();
+const isLocalEnvironment =
+  NEXT_PUBLIC_WORDPRESS_SITE_URL?.includes('localhost') ||
+  NEXT_PUBLIC_WORDPRESS_SITE_URL?.includes('.local');
+
+// Set limits for related products based on environment
+const RELATED_PRODUCTS_LIMIT = isLocalEnvironment ? 4 : 12;
 
 type Props = {
   getLayout?: () => void;
@@ -44,6 +55,7 @@ type Props = {
 export const getStaticPaths: GetStaticPaths<ProductPathsParams<string>> = async () => {
   if (
     process.env.SKIP_BUILD_STATIC_GENERATION == 'true' ||
+    process.env.SKIP_BUILD_STATIC_GENERATION_PRODUCT == 'true' ||
     process.env.NEXT_PUBLIC_MAINTENANCE == 'true'
   ) {
     return {
@@ -57,8 +69,22 @@ export const getStaticPaths: GetStaticPaths<ProductPathsParams<string>> = async 
     const defaultRegion = getDefaultRegion();
     const countries = [defaultRegion?.baseCountry || Country.Australia.code];
 
+    // Get allowedProductPermalinks from config
+    const allowedProductPermalinks: string[] = Array.isArray(configData.allowedProductPermalinks)
+      ? configData.allowedProductPermalinks
+      : [];
+
+    // Filter products if allowedProductPermalinks is not empty
+    let filteredProducts = products;
+    if (allowedProductPermalinks.length > 0) {
+      filteredProducts = products.filter((product) => {
+        // Check if the product permalink is in the allowedProductPermalinks array
+        return allowedProductPermalinks.includes(product.permalink as string);
+      });
+    }
+
     countries.forEach((country) => {
-      const countryProductPaths: ProductPaths<string>[] = products?.map((product) => {
+      const countryProductPaths: ProductPaths<string>[] = filteredProducts?.map((product) => {
         return {
           params: {
             productSlug: product.slug as string,
@@ -142,9 +168,22 @@ export const getProductStaticProps = async (slug: string) => {
     };
   }
 
-  const crossSellProducts = await getProductsByIds(product.crossSellProducts);
-  const relatedProducts = await getProductsByIds(product.relatedProducts);
-  const upsellProducts = await getProductsByIds(product.upsellProducts);
+  // Limit the number of related products in local environment
+  const crossSellIds = isLocalEnvironment
+    ? (product.crossSellProducts || []).slice(0, RELATED_PRODUCTS_LIMIT)
+    : product.crossSellProducts;
+
+  const relatedIds = isLocalEnvironment
+    ? (product.relatedProducts || []).slice(0, RELATED_PRODUCTS_LIMIT)
+    : product.relatedProducts;
+
+  const upsellIds = isLocalEnvironment
+    ? (product.upsellProducts || []).slice(0, RELATED_PRODUCTS_LIMIT)
+    : product.upsellProducts;
+
+  const crossSellProducts = await getProductsByIds(crossSellIds);
+  const relatedProducts = await getProductsByIds(relatedIds);
+  const upsellProducts = await getProductsByIds(upsellIds);
 
   const props = {
     product,
@@ -214,6 +253,7 @@ export const ProductPage = (props: Props) => {
           'variation-product': product.hasVariations,
           'bundle-product': product.hasBundle,
           'composite-product': product.isComposite,
+          'external-product': product.productType === 'external',
           'has-addons': product.hasAddons(),
           'featured-product': product.isFeatured,
         })}

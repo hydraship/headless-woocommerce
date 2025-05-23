@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import { cn } from '@src/lib/utils';
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 
 type Props = {
@@ -25,7 +25,7 @@ export const CollapsableReadMore: React.FC<Props> = ({
   const [isCollapsible, setIsCollapsible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const containerClasses = cx(className, 'relative', {
+  const containerClasses = cn(className, 'relative', {
     ['overflow-hidden mb-4']: !collapsed,
     'mb-10': collapsed,
   });
@@ -35,7 +35,7 @@ export const CollapsableReadMore: React.FC<Props> = ({
     containerStyles.maxHeight = maxHeight;
   }
 
-  const readMoreContainerClasses = cx('absolute inset-0 flex items-end', {
+  const readMoreContainerClasses = cn('absolute inset-0 flex items-end', {
     'bg-gradient-to-t from-white from-0% via-white via-15% bottom-0': !collapsed,
     '-bottom-6': collapsed,
   });

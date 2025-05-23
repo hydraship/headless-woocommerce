@@ -5,8 +5,14 @@ import client from '@src/lib/typesense/client';
 import TS_CONFIG from '@src/lib/typesense/config';
 import TSProduct, { transformToProducts } from '@src/lib/typesense/product';
 
+import { env } from '@src/lib/env';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+
+// Check if it's a true localhost environment (not Vercel preview)
+const { NEXT_PUBLIC_WORDPRESS_SITE_URL } = env();
+const isLocalEnvironment = NEXT_PUBLIC_WORDPRESS_SITE_URL?.includes('localhost') ||
+                          NEXT_PUBLIC_WORDPRESS_SITE_URL?.includes('.local');
 
 interface AttributeParams {
   [key: string]: string;
@@ -78,7 +84,8 @@ export const useFetchProducts = (productIds: number[]) => {
     const pIds = JSON.parse(strProductIds).map((productId: string) => parseInt(productId));
     const searchParameters = TSProduct.generateSearchParamsByProductIds(pIds);
     const searchOptions = {
-      cacheSearchResultsForSeconds: 60,
+      // Increase cache time for local environment to improve performance
+      cacheSearchResultsForSeconds: isLocalEnvironment ? 300 : 60, // 5 minutes for local, 1 minute for production
       abortSignal: controller.signal,
     };
 

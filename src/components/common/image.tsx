@@ -1,10 +1,10 @@
-import cx from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import Img, { ImageProps } from 'next/image';
 import { MouseEvent, TouchEvent, UIEvent, useState } from 'react';
 import { useToggle } from 'usehooks-ts';
 
 import { imageDataBlurUrl } from '@src/lib/helpers/image';
+import { cn } from '@src/lib/utils';
 
 interface Props extends ImageProps {
   showDefault?: Boolean;
@@ -63,7 +63,7 @@ export const Image = (props: Props) => {
 
   const zoomAttributes = {
     ...attributes,
-    className: cx(className, 'pointer-events-none duration-1000 ease-linear object-cover', {
+    className: cn(className, 'pointer-events-none duration-1000 ease-linear object-cover', {
       'opacity-0 md:opacity-100 lg:opacity-100': isClicked || isTouched,
       'opacity-100 group-hover:opacity-0': !isClicked,
     }),
@@ -75,7 +75,7 @@ export const Image = (props: Props) => {
       placeholder: 'blur',
       blurDataURL: imageDataBlurUrl(10, 10),
       onLoadingComplete: () => setLoading(false),
-      className: cx(className),
+      className: cn(className),
     };
   }
   return (
@@ -92,7 +92,7 @@ export const Image = (props: Props) => {
           onTouchStart={() => setIsTouched(true)}
           onTouchEnd={() => setIsTouched(false)}
           style={state}
-          className={cx('group bg-no-repeat w-full h-full object-cover', {
+          className={cn('group bg-no-repeat w-full h-full object-cover', {
             'cursor-zoom-in': isClicked,
             'cursor-zoom-out': !isClicked,
           })}

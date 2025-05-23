@@ -11,15 +11,22 @@ export const AddOnsPriceBreakdown = () => {
     fields,
   } = useProductContext();
   const { addons } = useAddToCartContext();
-  const [items] = addons;
+  const [addonsItems] = addons;
   const [optionalFee, setOptionalFee] = useState<number>(0);
   const [fieldsValue] = fields.value;
   let productPrice = 0.0;
 
   const calculateOptionalCost = useCallback(() => {
-    if (!items) return 0;
+    if (!addonsItems) return 0;
 
-    return items.reduce((total, item) => {
+    // find addonItems that has name attribute "I need custom work"
+    const customWorkItem = addonsItems.find((item) =>
+      ['I NEED CUSTOM WORK', 'CUSTOM WORK'].includes(item.name.toUpperCase())
+    );
+
+    if (customWorkItem?.options?.length === 0) return 0;
+
+    return addonsItems.reduce((total, item) => {
       if (item.isCalculated) {
         if (item?.options && item.options.length > 0) {
           return (
@@ -34,7 +41,7 @@ export const AddOnsPriceBreakdown = () => {
       }
       return total;
     }, 0);
-  }, [items]);
+  }, [addonsItems]);
 
   useEffect(() => {
     setOptionalFee(calculateOptionalCost());

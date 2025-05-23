@@ -1,6 +1,6 @@
 import { Dictionary } from '@reduxjs/toolkit';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
-import { default as classNames, default as cx } from 'classnames';
+import { cn } from '@src/lib/utils';
 
 type Props = {
   classes: string;
@@ -23,7 +23,7 @@ const Wrapper: React.FC<{
 }) => {
   if (style === 'style-1') {
     return (
-      <div className={classNames('relative inline-block', style)}>
+      <div className={cn('relative inline-block', style)}>
         <span style={{ backgroundColor: styleColor }} />
         {children}
         <span style={{ backgroundColor: styleColor }} />
@@ -35,7 +35,7 @@ const Wrapper: React.FC<{
 };
 
 export const Text = ({ classes, text, config }: Props) => {
-  const classNames = cx(classes, 'text-block');
+  const classNames = cn(classes, 'text-block');
   const isCopyRightFooter = text?.includes('©');
   const fontColor = classes?.match(/text-\[(.*)\]/)?.pop();
   const textStyle = {

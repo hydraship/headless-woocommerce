@@ -19,3 +19,10 @@ export type TAddOnItem = {
   display: string;
   className?: string;
 };
+
+export type TBundleItem = {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+};

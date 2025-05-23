@@ -6,5 +6,6 @@ export const PRODUCT_TYPES = [
   'bundle',
   'composite',
   'variation',
+  'external',
   'pw-gift-card',
 ];

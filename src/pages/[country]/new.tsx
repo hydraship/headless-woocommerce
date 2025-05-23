@@ -2,7 +2,7 @@ import { ParsedUrlQuery } from 'querystring';
 
 import { GetStaticProps } from 'next';
 
-import siteSettings from '@public/site.json';
+import siteSettings from '@public/config.json';
 import { TaxonomyItemPage } from '@src/components/content/taxonomy-item-page';
 import { defaultLayout } from '@src/components/layouts/default';
 import { SiteInfo } from '@src/lib/typesense/site-info';

@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import cx from 'classnames';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FiSearch, FiX } from 'react-icons/fi';
@@ -23,6 +22,7 @@ import { getDisplayTypeValues, getMenuById } from '@src/lib/helpers/menu';
 import { Header } from '@src/models/settings/header';
 import { Search as SearchProps } from '@src/models/settings/search';
 import { makeLinkRelative } from '@src/lib/helpers/helper';
+import { cn } from '@src/lib/utils';
 
 export const MobileLayout1 = () => {
   const { settings } = useSiteContext();
@@ -181,7 +181,7 @@ export const MobileLayout1 = () => {
     </>
   );
 
-  const classes = cx({
+  const classes = cn({
     sticky: options?.isSticky,
     'top-0': options?.isSticky,
     'z-20': options?.isSticky,

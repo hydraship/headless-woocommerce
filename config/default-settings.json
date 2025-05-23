@@ -42,6 +42,9 @@
       "outOfStockMessage": "OUT OF STOCK"
     }
   },
+  "category": {
+    "productPerPage": 16
+  },
   "product": {
     "productDetails": {
       "showSku": false,
@@ -293,10 +296,16 @@
   "showFreeShippingBanner": false,
   "showFreeShippingMinicartComponent": false,
   "regions": {
-    "AU": ["AU"]
+    "AU": [
+      "AU"
+    ]
   },
   "homepageSlug": "home",
-  "categoryPageDefaultSort": "{\"sort_option\":\"sort_0\"}",
+  "categoryPageDefaultSort": {
+    "sort_option": null
+  },
   "showVariantAsSeparateProductCards": false,
-  "showShareToPinterestButton": false
+  "showShareToPinterestButton": false,
+  "allowedProductPermalinks": [],
+  "allowedPermalinks": []
 }

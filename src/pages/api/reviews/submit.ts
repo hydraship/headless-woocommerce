@@ -82,6 +82,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         );
     }
   } catch (error) {
-    return res.status(500).json({ message: 'failed' });
+    return (
+      res
+        .status(500)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .json({ message: 'failed', internalError: (error as any)?.message || 'Unknown error' })
+    );
   }
 }

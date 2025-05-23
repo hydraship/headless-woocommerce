@@ -217,7 +217,7 @@ export const MiniCartItem = ({ cartItem }: Props) => {
                       value={currentQuantity || ''}
                       onChange={(e) => setCurrentQuantity(parseInt(e.target.value))}
                       onBlur={updateInputQuantity}
-                      className="w-9 h-[45px] px-2 text-center border-x border-y-0 outline-none flex items-center justify-center border-gray-200 "
+                      className="w-16 h-[45px] px-2 text-center border-x border-y-0 outline-none flex items-center justify-center border-gray-200 "
                     />
                     <div
                       className={cn(

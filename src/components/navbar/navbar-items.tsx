@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import { cn } from '@src/lib/utils';
 
 type NavbarItemsProps = {
   children: React.ReactNode;
@@ -23,7 +23,7 @@ export const NavbarItems = ({
   className,
   style,
 }: NavbarItemsProps) => {
-  const classes = cx(className, {
+  const classes = cn(className, {
     'ml-auto': position === 'right',
     'mr-4 space-x-2.5': position === 'left' && !isVertical,
     'block text-center absolute inset-x-0 py-4': position === 'center',

@@ -14,6 +14,7 @@ export const FormPicker = ({ block }: FormProps) => {
   const { loading, data: formData } = useGetForm(attribute.formId as string);
 
   if (!formData) {
+    // eslint-disable-next-line no-console
     console.error('Could not get gravity form data', formData);
     return null;
   }

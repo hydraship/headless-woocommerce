@@ -69,7 +69,7 @@ export const CartBasketIcon: React.FC<Props> = ({ showText, label, color, iconBl
         </span>
       )}
 
-      {renderCartIcon()}
+      {isClient && renderCartIcon()}
       <span className="hidden lg:inline-block">{showText && label}</span>
     </button>
   );

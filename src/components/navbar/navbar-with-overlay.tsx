@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import cx from 'classnames';
+import { cn } from '@src/lib/utils';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { FiX } from 'react-icons/fi';
@@ -32,7 +32,7 @@ export const NavbarWithOverlay: React.FC<NavbarWithOverlayProps> = ({
   content,
 }) => {
   const [isShowing, setIsShowing] = useState(false);
-  const classes = cx('mx-auto flex items-center relative w-full', className, {
+  const classes = cn('mx-auto flex items-center relative w-full', className, {
     'py-4': !paddingless,
   });
 

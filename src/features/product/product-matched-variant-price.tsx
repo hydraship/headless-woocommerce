@@ -18,7 +18,8 @@ export const ProductMatchedVariantPrice: React.FC<Props> = ({
   isTaxExclusive = true,
   className,
 }) => {
-  const { settings } = useSiteContext();
+  const { settings, location } = useSiteContext();
+  const [locationData] = location;
 
   if (!product) return null;
 
@@ -26,7 +27,7 @@ export const ProductMatchedVariantPrice: React.FC<Props> = ({
 
   const priceDisplaySuffix = settings?.priceDisplaySuffix || '';
 
-  const { price, regularPrice, salePrice } = product;
+  const { regularPrice, salePrice } = product;
   const isOnSale = product.onSale && (product.salePrice?.[currency] as number) > 0;
 
   if (product.isFree(currency)) return null;
@@ -40,13 +41,9 @@ export const ProductMatchedVariantPrice: React.FC<Props> = ({
       );
     }
 
-    if (isTaxExclusive) {
-      renderedResult.push(<span className="price">{formatPrice(price, currency)}</span>);
-    } else {
-      renderedResult.push(
-        <span className="price">{formatPrice(product.metaData?.priceWithTax, currency)}</span>
-      );
-    }
+    renderedResult.push(
+      <span className="price">{formatPrice(product?.getTaxedPrice(locationData), currency)}</span>
+    );
 
     return renderedResult.map((price, i) => {
       return <Fragment key={`simple-product-price-${i}`}>{price}</Fragment>;

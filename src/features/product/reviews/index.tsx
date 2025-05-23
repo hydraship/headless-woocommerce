@@ -1,5 +1,4 @@
 import { Rating, Tooltip } from '@mui/material';
-import classNames from 'classnames';
 import { isEmpty, kebabCase, reduce } from 'lodash';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -373,7 +372,7 @@ export default function Review({ product, sku }: ReviewProps) {
   const renderWooForm = () => {
     return (
       <div
-        className={classNames('w-full transition-all duration-300 ease-in-out', {
+        className={cn('w-full transition-all duration-300 ease-in-out', {
           'max-h-full opacity-100': isShowReviewForm,
           'max-h-0 opacity-0': !isShowReviewForm,
         })}
@@ -441,7 +440,7 @@ export default function Review({ product, sku }: ReviewProps) {
             </label>
             <textarea
               id="review-textarea"
-              className={classNames(
+              className={cn(
                 'shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:ring-0 focus:shadow-outline',
                 {
                   'border-red-500': fieldErrors.body,
@@ -467,7 +466,7 @@ export default function Review({ product, sku }: ReviewProps) {
                 <span className="text-sm text-[#ff0000] font-bold">* </span>Use your name:
               </label>
               <input
-                className={classNames(
+                className={cn(
                   'shadow appearance-none border border-gray-300 rounded w-full md:w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-0 focus:shadow-outline',
                   {
                     'border-red-500': fieldErrors.name,
@@ -492,7 +491,7 @@ export default function Review({ product, sku }: ReviewProps) {
                 <span className="text-sm text-[#ff0000] font-bold">* </span>Email:
               </label>
               <input
-                className={classNames(
+                className={cn(
                   'shadow appearance-none border border-gray-300 rounded w-full md:w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-0 focus:shadow-outline',
                   {
                     'border-red-500': fieldErrors.email,
@@ -512,7 +511,7 @@ export default function Review({ product, sku }: ReviewProps) {
           </div>
           <div className="flex items-center justify-end mt-4">
             <button
-              className={classNames(
+              className={cn(
                 'bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline',
                 {
                   'opacity-50': loading,
@@ -532,7 +531,7 @@ export default function Review({ product, sku }: ReviewProps) {
   const renderYotpoForm = () => {
     return (
       <div
-        className={classNames('w-full transition-all duration-300 ease-in-out', {
+        className={cn('w-full transition-all duration-300 ease-in-out', {
           'max-h-full opacity-100': isShowReviewForm,
           'max-h-0 opacity-0': !isShowReviewForm,
         })}
@@ -620,7 +619,7 @@ export default function Review({ product, sku }: ReviewProps) {
             </label>
             <textarea
               id="review-textarea"
-              className={classNames(
+              className={cn(
                 'shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:ring-0 focus:shadow-outline',
                 {
                   'border-red-500': fieldErrors.body,
@@ -646,7 +645,7 @@ export default function Review({ product, sku }: ReviewProps) {
                 <span className="text-sm text-[#ff0000] font-bold">* </span>Use your name:
               </label>
               <input
-                className={classNames(
+                className={cn(
                   'shadow appearance-none border border-gray-300 rounded w-full md:w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-0 focus:shadow-outline',
                   {
                     'border-red-500': fieldErrors.name,
@@ -671,7 +670,7 @@ export default function Review({ product, sku }: ReviewProps) {
                 <span className="text-sm text-[#ff0000] font-bold">* </span>Email:
               </label>
               <input
-                className={classNames(
+                className={cn(
                   'shadow appearance-none border border-gray-300 rounded w-full md:w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-0 focus:shadow-outline',
                   {
                     'border-red-500': fieldErrors.email,
@@ -691,7 +690,7 @@ export default function Review({ product, sku }: ReviewProps) {
           </div>
           <div className="flex items-center justify-end mt-4">
             <button
-              className={classNames(
+              className={cn(
                 'bg-brand-primary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline',
                 {
                   'opacity-50': loading,
@@ -711,7 +710,7 @@ export default function Review({ product, sku }: ReviewProps) {
   const renderJudgeMeForm = () => {
     return (
       <div
-        className={classNames('w-full transition-all duration-300 ease-in-out', {
+        className={cn('w-full transition-all duration-300 ease-in-out', {
           'max-h-full opacity-100': isShowReviewForm,
           'max-h-0 opacity-0': !isShowReviewForm,
         })}
@@ -729,7 +728,7 @@ export default function Review({ product, sku }: ReviewProps) {
               Name (displayed publicly like {renderNameSelection()} )
             </label>
             <input
-              className={classNames(
+              className={cn(
                 'shadow appearance-none border border-gray-300 focus:border-brand-primary rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
                 {
                   'border-red-500': fieldErrors.name,
@@ -755,7 +754,7 @@ export default function Review({ product, sku }: ReviewProps) {
               Email
             </label>
             <input
-              className={classNames(
+              className={cn(
                 'shadow appearance-none border border-gray-300 focus:border-brand-primary rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
                 {
                   'border-red-500': fieldErrors.email,
@@ -837,7 +836,7 @@ export default function Review({ product, sku }: ReviewProps) {
             </label>
             <textarea
               id="review-textarea"
-              className={classNames(
+              className={cn(
                 'shadow appearance-none border border-gray-300 focus:border-brand-primary rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline',
                 {
                   'border-red-500': fieldErrors.body,
@@ -857,7 +856,7 @@ export default function Review({ product, sku }: ReviewProps) {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className={classNames(
+              className={cn(
                 'bg-brand-primary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline',
                 {
                   'opacity-50': loading,

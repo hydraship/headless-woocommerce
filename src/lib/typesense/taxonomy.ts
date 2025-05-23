@@ -1,9 +1,9 @@
 import { getTypesenseClient } from '@src/lib/typesense';
 import { SubCategory, SubCategorySchema, TaxonomyPermalink } from '@src/schemas/taxonomy-schema';
-import { parseJsonValue, stripTrailingSlash } from '@src/lib/helpers/helper';
+import { stripTrailingSlash } from '@src/lib/helpers/helper';
 import TS_CONFIG from '@src/lib/typesense/config';
 import { IFilterOptionData, TaxonomyPageParams } from '@src/lib/types/taxonomy';
-import siteData from '@public/site.json';
+import siteConfig from '@public/config.json';
 
 import client from '@src/lib/typesense/client';
 import {
@@ -17,7 +17,6 @@ import { ProductTypesenseResponse } from '@src/models/product';
 import { ProductPaths, TaxonomyPaths } from '@src/types';
 import { isEmpty, reduce } from 'lodash';
 import regionalSettings from 'public/region.json';
-import siteSettings from 'public/site.json';
 import {
   SearchResponse,
   SearchResponseFacetCountSchema,
@@ -274,7 +273,7 @@ const generateSearchParams = (queryVars: ITSTaxonomyProductQueryVars) => {
     max_facet_values: 200,
     sort_by: `stockStatus:asc,${queryVars.sortBy}`, // Default sortby totalSales desc
     include_fields:
-      'permalink,attributes,thumbnail,name,onSale,stockStatus,regularPrice,price,sku,salePrice,galleryImages,createdAt,stockQuantity,productType,id,judgemeReviews,publishedAt,daysPassed,yotpoReviews,variations,metaData,taxonomies',
+      'permalink,attributes,thumbnail,name,onSale,stockStatus,regularPrice,price,sku,salePrice,galleryImages,createdAt,stockQuantity,productType,id,judgemeReviews,publishedAt,daysPassed,yotpoReviews,variations,metaData,taxonomies,totalSales',
   };
 
   const hasRefinedSelection = !isEmpty(filterByRefinedSelection);
@@ -389,10 +388,10 @@ export const getTaxonomyPopularProducts = async (
   return results.hits?.map((doc) => doc.document);
 };
 
-export const getDefaultTsQueryVars = () => {
+export const getDefaultTsQueryVars = (perPage = 20) => {
   const queryDefaults = {
     page: 1,
-    perPage: +siteSettings.shop.layout.productCount,
+    perPage: +siteConfig.category.productPerPage,
     sortBy: 'totalSales:desc',
   };
 
@@ -400,12 +399,12 @@ export const getDefaultTsQueryVars = () => {
 };
 
 export const getDefaultSortBy = () => {
-  const defaultSortValue = parseJsonValue(siteData.categoryPageDefaultSort);
+  const defaultSortValue = `${siteConfig.categoryPageDefaultSort.sort_option}`;
   let defaultSortOption = 0;
   let splitSortValue;
 
-  if (!isEmpty(defaultSortValue?.sort_option)) {
-    splitSortValue = defaultSortValue?.sort_option?.split('_');
+  if (!isEmpty(defaultSortValue)) {
+    splitSortValue = defaultSortValue.split('_');
     if (splitSortValue[1]) {
       defaultSortOption = +splitSortValue[1];
     }
@@ -516,7 +515,7 @@ const getNewProductsFilterOptions = (
 
   if (typeof facetData !== 'undefined' && typeof facetData[6] !== 'undefined') {
     let newProductsCount = 0;
-    const newBadgeThreshold = siteSettings?.product?.productGallery?.newProductBadgeThreshold;
+    const newBadgeThreshold = siteConfig?.product?.productGallery?.newProductBadgeThreshold;
 
     facetData[6].counts.map((item) => {
       const isNewProduct = +item.value < +newBadgeThreshold;

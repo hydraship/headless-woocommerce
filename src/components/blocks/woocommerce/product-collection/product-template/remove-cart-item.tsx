@@ -5,9 +5,13 @@ import { getBlockName } from '@src/lib/block';
 import { getSvgContent } from '@src/components/blocks/outermost/IconBlock';
 import { useContentContext } from '@src/context/content-context';
 import { CartItemGlobalProps } from '@src/components/blocks/woocommerce/product-collection/product-template/cart-item';
+import { isFreeProduct } from '@src/lib/helpers/product';
+import { CartItemSkeletonRemoveItem } from '@src/components/blocks/woocommerce/product-collection/product-template/cart-item-skeleton';
+
 type RemoveCartItemButtonProps = {
   block: ParsedBlock;
 };
+
 export const RemoveCartItemButton = ({ block }: RemoveCartItemButtonProps) => {
   const { type, data } = useContentContext();
 
@@ -17,8 +21,9 @@ export const RemoveCartItemButton = ({ block }: RemoveCartItemButtonProps) => {
   }
 
   const { cartItem, removeCartItem, loading } = data as CartItemGlobalProps;
+  if (isFreeProduct(cartItem)) return null;
   if (loading) {
-    return <div className="w-6 h-6 bg-gray-300 rounded-full"></div>;
+    return <CartItemSkeletonRemoveItem />;
   }
   const svgContent = getSvgContent(block.innerHTML);
 

@@ -21,6 +21,10 @@ const WishlistButton = dynamic(() =>
   import('@src/features/wish-list/wish-list-button').then((mod) => mod.WishListButton)
 );
 
+const CustomPrice = dynamic(() =>
+  import('@src/features/product/custom-price').then((mod) => mod.CustomPrice)
+);
+
 export const AddToCartForm = () => {
   const {
     product,
@@ -38,6 +42,7 @@ export const AddToCartForm = () => {
       emailValidation: [isEmailValid],
     },
     addToCartStatus,
+    modifyPrice: [customPrice],
   } = useProductContext();
   const { currentCurrency, settings } = useSiteContext();
   const { layout } = settings?.product as ProductSettings;
@@ -76,6 +81,8 @@ export const AddToCartForm = () => {
       return <UnavailableProduct />;
     }
 
+    if (customPrice !== '') return null;
+
     return (
       <ProductMatchedVariantPrice
         product={matchedVariant}
@@ -86,15 +93,32 @@ export const AddToCartForm = () => {
     );
   };
 
+  if (product.productType === 'external')
+    return (
+      <div className="button-container !pt-0 !border-t-0">
+        <div className="button-wrapper">
+          <a
+            href={product?.metaData?.externalUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="button-add-to-cart"
+          >
+            {product?.metaData?.buttonText}
+          </a>
+        </div>
+      </div>
+    );
+
   return (
     <>
       {renderMatchedVariant()}
+      {customPrice !== '' && <CustomPrice />}
       <div className="button-container">
         <div className="button-wrapper">
           <span className="quantity-label">Qty:</span>
           <div className="quantity">
             <button
-              className={cn('quantity-control', {
+              className={cn('quantity-control decrement-control', {
                 hidden: product?.isGiftCard,
               })}
               onClick={decrementQuantity}
@@ -110,7 +134,7 @@ export const AddToCartForm = () => {
               disabled={product?.isGiftCard}
             />
             <button
-              className={cn('quantity-control', {
+              className={cn('quantity-control increment-control', {
                 hidden: product?.isGiftCard,
               })}
               onClick={incrementQuantity}

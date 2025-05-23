@@ -20,17 +20,17 @@ export const BundlePrice = ({ product, isTaxExclusive }: TBundlePrice) => {
     renderedResult.push(<span className="sale-price">{formatPrice(regularPrice, currency)}</span>);
   }
 
-  if (isTaxExclusive) {
-    renderedResult.push(
-      <span className="price">{formatPrice(product.metaData?.priceWithTax, currency)}</span>
-    );
-  } else if (product.bundleHasSameMinMaxPrice(currency)) {
+  if (product.bundleHasSameMinMaxPrice(currency)) {
     renderedResult.push(
       <span className="price">{formatPrice(product.bundle?.minPrice, currency)}</span>
     );
   } else {
     renderedResult.push(
-      <span className="price">From {formatPrice(product.bundle?.minPrice, currency)}</span>
+      <span className="price">
+        {formatPrice(product.bundle?.minPrice, currency)}
+        {' - '}
+        {product.bundle?.maxPrice && <>{formatPrice(product.bundle?.maxPrice, currency)}</>}
+      </span>
     );
   }
 

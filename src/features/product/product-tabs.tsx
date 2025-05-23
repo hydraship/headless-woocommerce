@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { isArray } from 'lodash';
+import { isArray, unset } from 'lodash';
 
 import { cn } from '@src/lib/helpers/helper';
 import { useProductContext } from '@src/context/product-context';
@@ -8,6 +8,7 @@ import { ACCORDION_TYPE } from '@src/lib/helpers/constants';
 import { ProductSettings } from '@src/models/settings/product';
 import { useReviewsCount } from '@src/lib/hooks';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
+import { useEffect } from 'react';
 
 const Accordion = dynamic(() => import('@src/components/accordion').then((mod) => mod.Accordion));
 
@@ -58,7 +59,7 @@ export const ProductTabs = ({ style, className }: TProductTabs) => {
     );
   }
 
-  const tabData = [];
+  let tabData = [];
 
   if (layout?.descriptionTabLocation === '1') {
     tabData.push(description);
@@ -69,8 +70,22 @@ export const ProductTabs = ({ style, className }: TProductTabs) => {
     tabData.push(
       ...product.additionalTabs.map((tab) => {
         return {
-          title: tab.title + 'asdasd',
-          content: <ReactHTMLParser html={tab.content as string} />,
+          title: tab.title,
+          content: (
+            <>
+              <ReactHTMLParser html={tab.content as string} />
+              {product?.metaData?.acf?.button_link && product?.metaData?.acf?.button_text && (
+                <a
+                  href={product?.metaData?.acf?.button_link}
+                  className="mt-4 inline-block !text-foreground border border-foreground py-2 px-4 font-semibold text-lg leading-7 uppercase hover:!text-primary hover:border-primary"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {product?.metaData?.acf?.button_text}
+                </a>
+              )}
+            </>
+          ),
           isOpen: false,
         };
       })
@@ -85,12 +100,22 @@ export const ProductTabs = ({ style, className }: TProductTabs) => {
     }
   }
 
+  // remove tabs if the tab title is Reviews
+  if (tabData.length > 0) {
+    tabData = tabData.filter((tab) => !tab.title.startsWith('Reviews'));
+  }
+
   switch (style) {
     case ACCORDION_TYPE:
       return (
         <div className={cn(className, 'product-accordion-information')}>
           <Accordion
-            data={tabData}
+            data={tabData.map((tab) => {
+              return {
+                ...tab,
+                isOpen: false,
+              };
+            })}
             tabTitleStyle={{
               fontWeight: settings?.product?.font?.tabs?.weight,
               fontSize: settings?.product?.font?.tabs?.size,

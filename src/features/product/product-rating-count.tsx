@@ -22,22 +22,28 @@ export const ProductRatingCount = ({ id, className }: TProp) => {
   const { judgemeReviews, yotpoReviews, metaData } = product;
 
   return (
-    <div className={cn(id, className, 'product-rating')}>
+    <>
       {reviewService === 'judge.me' && (
-        <a href="#review-tab">
-          <ProductRating stats={judgemeReviews as Stats} />
-        </a>
+        <div className={cn(id, className, 'product-rating')}>
+          <a href="#review-tab">
+            <ProductRating stats={judgemeReviews as Stats} />
+          </a>
+        </div>
       )}
       {reviewService === 'yotpo' && (
-        <a href="#review-tab">
-          <ProductRating stats={yotpoReviews as Stats} />
-        </a>
+        <div className={cn(id, className, 'product-rating')}>
+          <a href="#review-tab">
+            <ProductRating stats={yotpoReviews as Stats} />
+          </a>
+        </div>
       )}
       {reviewService === 'woocommerce_native_reviews' && metaData?.wooProductReviews?.stats && (
-        <a href="#review-tab">
-          <ProductRating stats={metaData.wooProductReviews.stats as Stats} />
-        </a>
+        <div className={cn(id, className, 'product-rating')}>
+          <a href="#review-tab">
+            <ProductRating stats={metaData.wooProductReviews.stats as Stats} />
+          </a>
+        </div>
       )}
-    </div>
+    </>
   );
 };

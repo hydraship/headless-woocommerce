@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { decode } from 'html-entities';
 import { isEmpty } from 'lodash';
 import uniqueId from 'lodash/uniqueId';
@@ -8,6 +7,7 @@ import { v4 } from 'uuid';
 import { useTaxonomyContext } from '@src/context/taxonomy-context';
 import { sortAscending } from '@src/lib/helpers/helper';
 import { IFilterOptionData, IFilterOptionState } from '@src/lib/types/taxonomy';
+import { cn } from '@src/lib/utils';
 
 type Props = {
   name: string;
@@ -68,7 +68,7 @@ export const SingleFilterOptions = (props: Props) => {
             checked
           }
           onChange={onChange}
-          className={classNames('', {
+          className={cn('', {
             hasProduct: (option?.count as number) > 0,
             hasNoProduct: (option?.count as number) === 0,
           })}
@@ -76,7 +76,7 @@ export const SingleFilterOptions = (props: Props) => {
         />
         <label
           htmlFor={uId}
-          className={classNames('', { hasProduct: (option?.count as number) > 0 })}
+          className={cn('', { hasProduct: (option?.count as number) > 0 })}
         >
           <span>{decode(label)}</span>
         </label>

@@ -19,18 +19,22 @@ export const WooCommerceProductTemplate = ({ block }: WooCommerceProductTemplate
   if ('product' === type) {
     const product = data as Product;
     const attributes = block.attrs as BlockAttributes;
+    const productCardClassNames = cn(
+      'product-card gap-3',
+      `product-${product.id}`,
+      attributes.className,
+      {
+        'is-variable': product.hasVariations,
+        'is-simple': product.isSimple,
+        'is-on-sale': product.isOnSale,
+        'is-composite': product.isComposite,
+        'is-bundle': product.hasBundle,
+        'is-gift-card': product.isGiftCard,
+        'is-out-of-stock': product.isOutOfStock,
+      }
+    );
     return (
-      <div
-        className={cn('product-card gap-3', `product-${product.id}`, attributes.className, {
-          'is-variable': product.hasVariations,
-          'is-simple': product.isSimple,
-          'is-on-sale': product.isOnSale,
-          'is-composite': product.isComposite,
-          'is-bundle': product.hasBundle,
-          'is-gift-card': product.isGiftCard,
-          'is-out-of-stock': product.isOutOfStock,
-        })}
-      >
+      <div className={productCardClassNames}>
         <Content
           type="product"
           globalData={product}

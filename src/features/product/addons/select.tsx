@@ -31,8 +31,6 @@ export const AddOnsSelect = ({ product, field }: TProps) => {
       (option) => sanitizeTitle(option.label) === selectedOption
     );
 
-    console.log({ selected: selectedOption, selectedPriceOption, options: field.options });
-
     setAddonItems((prev) => {
       const items = prev.map((item) => {
         if (addonId === item.id) {
@@ -49,6 +47,7 @@ export const AddOnsSelect = ({ product, field }: TProps) => {
 
       return items;
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fieldsValue]);
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

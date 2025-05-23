@@ -1,7 +1,7 @@
-import cx from 'classnames';
 import Image from 'next/image';
 
 import { PrefetchLink } from '@src/components/common/prefetch-link';
+import { cn } from '@src/lib/utils';
 
 type Props = {
   classes: string;
@@ -14,7 +14,7 @@ type Props = {
 export const SingleImage = ({ classes, imageUrl, altText, redirectUrl, redirectType }: Props) => {
   if (!imageUrl) return null;
 
-  const classNames = cx(classes);
+  const classNames = cn(classes);
   const image = (
     <Image
       src={imageUrl}

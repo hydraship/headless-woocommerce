@@ -1,8 +1,13 @@
-import siteSettings from '@public/site.json';
+import { ParsedBlock } from '@src/components/blocks';
 import { useSiteContext } from '@src/context/site-context';
+import { getBlockByName } from '@src/lib/block';
+import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
+import { BlockAttributes } from '@src/lib/block/types';
+import { getCurrencySymbol } from '@src/lib/helpers/helper';
 import { numberFormat } from '@src/lib/helpers/product';
+import siteSettings from '@public/config.json';
 
-export const FreeShippingProgress = () => {
+export const FreeShippingProgress = ({ block }: { block: ParsedBlock }) => {
   const { cart, availableFreeShippingMethod, currentCurrency } = useSiteContext();
 
   if (!siteSettings.showFreeShippingMinicartComponent) return null;
@@ -27,31 +32,50 @@ export const FreeShippingProgress = () => {
     }
   };
 
+  const messageBlock = getBlockByName(block.innerBlocks, 'Message');
+
   const renderMessage = () => {
-    if (cartSubtotal + totalTax >= treshold) {
-      // eslint-disable-next-line quotes
-      return 'Congrats! You get free shipping!';
+    const remaining = Math.floor(treshold - cartSubtotal - totalTax);
+
+    if (messageBlock) {
+      const attr = messageBlock.attrs as BlockAttributes;
+      if (cartSubtotal + totalTax >= treshold) {
+        return <p className={attr.className}>Congrats! You get free shipping!</p>;
+      }
+
+      const htmlMessage = messageBlock.innerHTML.replace(
+        '{{remainingAmount}}',
+        `${getCurrencySymbol(currentCurrency)}${remaining}`
+      );
+      return <ReactHTMLParser html={htmlMessage} />;
     }
 
-    const remaining = Math.floor(treshold - cartSubtotal - totalTax);
-    return `${getCustomerCurrencyMapping()} customers, You're ${numberFormat(
+    let message = `${getCustomerCurrencyMapping()} customers, You're ${numberFormat(
       remaining
     )} away from free shipping!`;
+
+    if (cartSubtotal + totalTax >= treshold) {
+      message = 'Congrats! You get free shipping!';
+    }
+
+    return (
+      <div className="text-black/50 font-bold text-left font-secondary text-base py-4">
+        {message}
+      </div>
+    );
   };
 
   return (
-    <>
-      <div className="text-black/50 font-bold text-left font-secondary text-base py-4">
-        {renderMessage()}
-      </div>
-      <div className="w-full bg-gray-200 h-1.5 mb-4 dark:bg-gray-200">
+    <div className="free-shipping-progress">
+      {renderMessage()}
+      <div className="progress-bar w-full bg-gray-200 h-1.5 mb-4 dark:bg-gray-200">
         <div
-          className="bg-black/80 h-1.5 rounded-md"
+          className="bg-black/80 h-full rounded-md"
           style={{
             width: `${percentage < 100 ? percentage : 100}%`,
           }}
         ></div>
       </div>
-    </>
+    </div>
   );
 };

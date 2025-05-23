@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useLazyQuery } from '@apollo/client';
 import { Dictionary } from '@reduxjs/toolkit';
 import jwtDecode from 'jwt-decode';
 import { find, isEmpty, keyBy } from 'lodash';
@@ -12,18 +12,20 @@ import React, {
   useState,
 } from 'react';
 
-import { useLocalStorage, useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce, useLocalStorage, useUpdateEffect } from 'usehooks-ts';
 
 import regionSettings from '@public/region.json';
-import siteSettings from '@public/site.json';
+import siteSettings from '@public/config.json';
 
 import { GET_CART, UPDATE_CUSTOMER, UPDATE_SHIPPING_METHOD } from '@src/lib/graphql/queries';
 import { useCalculateShipping } from '@src/lib/hooks';
 import { FormattedCart, getFormattedCart } from '@src/lib/hooks/cart';
 import { track } from '@src/lib/track';
+import { toBool } from '@src/lib/helpers';
 import { getCookie, setCookie } from '@src/lib/helpers/cookie';
+import { getWooSession } from '@src/lib/helpers/session';
 import { Settings } from '@src/models/settings';
-import { RegionalData, ShippingMethodRates } from '@src/types';
+import { RegionalData, ShippingMethodRates, TGeoLocationData } from '@src/types';
 import type { CalculateShippingHook } from '@src/lib/hooks';
 import {
   getCurrencyByCountry,
@@ -47,7 +49,7 @@ type SiteContextType = Partial<{
   cart: FormattedCart;
   setCart: Dispatch<SetStateAction<FormattedCart>>;
   setCartUpdating: Dispatch<SetStateAction<boolean>>;
-  wooSession: string | null;
+  wooCustomerId: string | null;
   miniCartState: [boolean, Dispatch<SetStateAction<boolean>>];
   wishListState: [boolean, Dispatch<SetStateAction<boolean>>];
   loginPopupState: [boolean, Dispatch<SetStateAction<boolean>>];
@@ -68,6 +70,7 @@ type SiteContextType = Partial<{
   setShowSearch: Dispatch<SetStateAction<boolean>>;
   showMenu: boolean;
   setShowMenu: Dispatch<SetStateAction<boolean>>;
+  location: [TGeoLocationData, Dispatch<SetStateAction<TGeoLocationData>>];
 };
 
 export const SiteContext = createContext<SiteContextType>({
@@ -78,7 +81,7 @@ export const SiteContext = createContext<SiteContextType>({
   cart: { products: [] },
   cartUpdating: false,
   setCartUpdating: () => {},
-  wooSession: '',
+  wooCustomerId: '',
   miniCartState: [false, () => {}],
   wishListState: [false, () => {}],
   loginPopupState: [false, () => {}],
@@ -97,6 +100,17 @@ export const SiteContext = createContext<SiteContextType>({
   setShowSearch: () => {},
   showMenu: false,
   setShowMenu: () => {},
+  location: [
+    {
+      continentCode: '',
+      countryCode: '',
+      subDivision: '',
+      subDivisionCode: '',
+      city: '',
+      postalCode: '',
+    },
+    () => {},
+  ],
 });
 
 export const SiteContextProvider: React.FC<{ children: React.ReactNode }> = (props) => {
@@ -108,7 +122,14 @@ export const SiteContextProvider: React.FC<{ children: React.ReactNode }> = (pro
 
   const [openLoginPopUp, setOpenLoginPopUp] = useState(false);
 
-  const [settings] = useState<Settings>(Settings.build(siteSettings));
+  const settings: Settings = Settings.build({
+    ...siteSettings,
+    store: {
+      ...siteSettings.store,
+      isCompositeEnabled: toBool(siteSettings.store?.isCompositeEnabled),
+      isAfterpayEnabled: toBool(siteSettings.store?.isAfterpayEnabled),
+    },
+  });
 
   const [wishlistOpen, setWishListOpen] = useState(false);
 
@@ -117,11 +138,47 @@ export const SiteContextProvider: React.FC<{ children: React.ReactNode }> = (pro
   // const [cartKey, setCartKey] = useLocalStorage('woo-cart-key', '');
   const [cart, setCart] = useLocalStorage<FormattedCart>('woo-next-cart', { products: [] });
 
-  const [wooSession, setWooSession] = useState<string | null>('');
+  const [wooCustomerId, setWooCustomerId] = useState<string | null>('');
 
   const [cartUpdating, setCartUpdating] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [locationData, setLocationData] = useState<TGeoLocationData>({
+    continentCode: '',
+    countryCode: getCookie('geoCountry') || getDefaultCountry(),
+    subDivision: '',
+    subDivisionCode: '',
+    city: '',
+    postalCode: '',
+  });
+
+  useEffect(() => {
+    if (!settings.props?.enableGeoRestrictions) return;
+
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      fetch(
+        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setLocationData((prev) => ({
+            ...prev,
+            ...{
+              continentCode: data.continentCode,
+              countryCode: data.countryCode,
+              subDivision: data.principalSubdivision,
+              subDivisionCode: data.principalSubdivisionCode,
+              city: data.city,
+              postalCode: data.postcode,
+            },
+          }));
+        });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [availableShippingMethods, setAvailableShippingMethods] = useState<ShippingMethodRates[]>(
     []
@@ -159,8 +216,8 @@ export const SiteContextProvider: React.FC<{ children: React.ReactNode }> = (pro
 
   const [updateShippingMethod] = useMutation(UPDATE_SHIPPING_METHOD);
 
-  const { loading, refetch } = useQuery(
-    GET_CART(settings?.store?.isCompositeEnabled || false, currentCurrency),
+  const [fetchCart, { loading }] = useLazyQuery(
+    GET_CART(toBool(settings?.store?.isCompositeEnabled), currentCurrency),
     {
       notifyOnNetworkStatusChange: true,
       onCompleted: (data) => {
@@ -178,12 +235,12 @@ export const SiteContextProvider: React.FC<{ children: React.ReactNode }> = (pro
             30
           );
 
-          const sessionToken = getCookie('woo-session');
+          const sessionToken = getWooSession();
 
           if (!isEmpty(sessionToken) && sessionToken !== null) {
             // jtw-decode is an open-source package
             const decoded = jwtDecode<{ data: { customer_id: string } }>(sessionToken);
-            setWooSession(decoded.data.customer_id);
+            setWooCustomerId(decoded.data.customer_id);
             setCookie('woocommerce_customer_session_id', `${decoded.data.customer_id}`, 30);
           }
 
@@ -202,7 +259,7 @@ export const SiteContextProvider: React.FC<{ children: React.ReactNode }> = (pro
         } catch (error: any) {
           // eslint-disable-next-line no-console
           console.error('useEffect: ' + error.message);
-          setWooSession(null);
+          setWooCustomerId(null);
           setCookie('woocommerce_customer_session_id', '', -30);
         }
       },
@@ -210,6 +267,13 @@ export const SiteContextProvider: React.FC<{ children: React.ReactNode }> = (pro
   );
 
   useEffect(() => setCartUpdating(loading), [loading]);
+
+  // Fetch cart data on component mount
+  useEffectOnce(() => {
+    if (cart && cart.totalProductsCount && cart.totalProductsCount >= 1) {
+      fetchCart();
+    }
+  });
 
   useUpdateEffect(() => {
     if (true === miniCartOpen && false === loading) {
@@ -271,7 +335,7 @@ export const SiteContextProvider: React.FC<{ children: React.ReactNode }> = (pro
 
   const onSelectShippingMethod = async (shippingMethod: string) => {
     setSelectedShippingMethod(shippingMethod);
-    await refetch();
+    await fetchCart();
   };
 
   const currencies = keyBy(regionSettings, 'currency');
@@ -292,13 +356,13 @@ export const SiteContextProvider: React.FC<{ children: React.ReactNode }> = (pro
         currencies,
         currentCurrency,
         currentCountry,
-        wooSession,
+        wooCustomerId,
         miniCartState: [miniCartOpen, setMiniCartOpen],
         wishListState: [wishlistOpen, setWishListOpen],
         loginPopupState: [openLoginPopUp, setOpenLoginPopUp],
         cart,
         fetchingCart: loading,
-        fetchCart: refetch,
+        fetchCart: fetchCart,
         calculateShipping: useCalculateShipping(),
         selectedShippingMethod,
         onSelectShippingMethod,
@@ -314,6 +378,7 @@ export const SiteContextProvider: React.FC<{ children: React.ReactNode }> = (pro
         setShowSearch,
         showMenu,
         setShowMenu,
+        location: [locationData, setLocationData],
       }}
     >
       <style

@@ -8,7 +8,8 @@ type TVariablePrice = {
 };
 
 export const VariablePrice = ({ product, isTaxExclusive }: TVariablePrice) => {
-  const { currentCurrency: currency } = useSiteContext();
+  const { currentCurrency: currency, location } = useSiteContext();
+  const [locationData] = location;
   const { regularPrice, salePrice } = product;
   const isOnSale = product.onSale && (product.salePrice?.[currency] as number) > 0;
   // Product or currency is undefined. Ensure both are properly provided.
@@ -32,7 +33,7 @@ export const VariablePrice = ({ product, isTaxExclusive }: TVariablePrice) => {
   // variable product with same min and max price on sale
   const sameMinMaxPrice = isOnSale && salePrice;
   if (!sameMinMaxPrice) {
-    const price = isTaxExclusive ? product.variantMinPrice : product.variantMinPriceWithTax;
+    const price = product.getVariantMinPrice(locationData);
 
     return (
       <span className="variable-product-price-container">

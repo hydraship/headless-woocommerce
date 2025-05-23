@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import { useIntersectionObserver } from 'usehooks-ts';
@@ -10,6 +9,7 @@ import { emptyImagePlaceholder } from '@src/lib/constants/image';
 import { TaxonomyPageParams } from '@src/lib/types/taxonomy';
 import Link from 'next/link';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
+import { cn } from '@src/lib/utils';
 
 interface Props extends ProductCards {
   taxonomies: TaxonomyPageParams;
@@ -63,7 +63,7 @@ export const CategoryCard = (props: Props) => {
         alt={thumbnail?.altText as string}
         width={359}
         height={312}
-        className={cx('absolute opacity-100', {
+        className={cn('absolute opacity-100', {
           'group-hover:opacity-0 group-hover:transition group-hover:ease-linear group-hover:duration-300 ease-linear duration-300':
             thumbnail?.src && typeof thumbnail?.src !== undefined && !imgError,
           'object-center object-cover lg:w-full lg:h-full': !imgError,
@@ -76,7 +76,7 @@ export const CategoryCard = (props: Props) => {
   const renderCardImage = () => {
     return (
       <div
-        className={cx(
+        className={cn(
           'aspect-w-1 relative overflow-hidden mx-auto flex justify-center items-center',
           settings?.productCardAspectRatioClasses,
           {
@@ -92,7 +92,7 @@ export const CategoryCard = (props: Props) => {
             alt={thumbnail?.altText as string}
             width={359}
             height={312}
-            className={cx('absolute opacity-100', {
+            className={cn('absolute opacity-100', {
               // 'group-hover:opacity-0 group-hover:transition group-hover:ease-linear group-hover:duration-300 ease-linear duration-300':
               //   thumbnail?.src && typeof thumbnail?.src !== undefined && !imgError,
               // 'object-center object-cover lg:w-full lg:h-full': !imgError,
@@ -109,7 +109,7 @@ export const CategoryCard = (props: Props) => {
 
   return (
     <div
-      className={cx(
+      className={cn(
         'group relative grid content-between hover:shadow-xl transition-all ease-linear duration-300',
         {
           'border border-solid border-[#CDCDCD] max-w-xs': hasBorders,

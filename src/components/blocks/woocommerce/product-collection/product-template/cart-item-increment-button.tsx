@@ -1,13 +1,11 @@
-import { useMutation } from '@apollo/client';
 import { ParsedBlock } from '@src/components/blocks';
 import { CartItemGlobalProps } from '@src/components/blocks/woocommerce/product-collection/product-template/cart-item';
+import { CartItemSkeletonIncrementButton } from '@src/components/blocks/woocommerce/product-collection/product-template/cart-item-skeleton';
 import { useContentContext } from '@src/context/content-context';
-import { useSiteContext } from '@src/context/site-context';
 import { getBlockName } from '@src/lib/block';
 import { BlockAttributes } from '@src/lib/block/types';
-import { UPDATE_CART_ITEM_QUANTITY } from '@src/lib/graphql/queries';
 import { cn } from '@src/lib/helpers/helper';
-import { ProductCartItem } from '@src/lib/hooks/cart';
+import { isFreeProduct } from '@src/lib/helpers/product';
 
 type CartItemIncrementButtonProps = {
   block: ParsedBlock;
@@ -25,9 +23,10 @@ export const CartItemIncrementButton = ({ block }: CartItemIncrementButtonProps)
 
   if ('product-cart-item' === type) {
     const { cartItem, updateCartItemQuantity, loading } = data as CartItemGlobalProps;
+    if (isFreeProduct(cartItem)) return null;
 
     if (loading) {
-      return <div className="flex items-center justify-center text-xl w-9 h-10 bg-gray-300"></div>;
+      return <CartItemSkeletonIncrementButton />;
     }
 
     return (

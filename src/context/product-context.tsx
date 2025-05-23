@@ -13,9 +13,10 @@ import React, {
 import { useEffectOnce } from 'usehooks-ts';
 import { v4 } from 'uuid';
 
-import siteSettings from '@public/site.json';
+import siteSettings from '@public/config.json';
 import { useSiteContext } from '@src/context/site-context';
 import { useAddToCartMutation } from '@src/lib/actions/add-to-cart';
+import { useAddBundleToCartMutation } from '@src/lib/actions/add-to-cart/bundle';
 import { ADD_COMPOSITE_TO_CART, GET_COMPOSITE_PRODUCT } from '@src/lib/graphql/queries';
 import { track } from '@src/lib/track';
 import { Product } from '@src/models/product';
@@ -51,7 +52,9 @@ type ProductContextType = Partial<{
   fields: {
     required: [string[], Dispatch<SetStateAction<string[]>>];
     value: [ObjectData, Dispatch<SetStateAction<ObjectData>>];
+    extra: [ObjectData, Dispatch<SetStateAction<ObjectData>>];
   };
+  modifyPrice: [string, Dispatch<SetStateAction<string>>];
   addToCartStatus: [boolean, Dispatch<SetStateAction<boolean>>];
   outOfStockStatus: [boolean, Dispatch<SetStateAction<boolean>>];
 };
@@ -167,9 +170,11 @@ export const ProductContext = createContext<ProductContextType>({
   fields: {
     required: [[], () => {}],
     value: [{}, () => {}],
+    extra: [{}, () => {}],
   },
   addToCartStatus: [false, () => {}],
   outOfStockStatus: [false, () => {}],
+  modifyPrice: ['', () => {}],
 });
 
 export const ProductContextProvider: React.FC<{
@@ -209,6 +214,8 @@ export const ProductContextProvider: React.FC<{
   const [disableAddToCart, setDisableAddToCart] = useState(!product.purchasable);
   const [outOfStockStatus, setOutOfStockStatus] = useState(false);
   const [giftProductId, setGiftProductId] = useState<number>(0);
+  const [extraFields, setExtraFields] = useState<ObjectData>({});
+  const [customPrice, setCustomePrice] = useState<string>('');
 
   const router = useRouter();
 
@@ -218,26 +225,6 @@ export const ProductContextProvider: React.FC<{
       track.viewItem(product);
     }
   });
-
-  const findVariationByAttribute = (attributes: { [key: string]: string } | undefined) => {
-    if (typeof attributes === 'undefined') {
-      return undefined;
-    }
-
-    const variation = product.variations?.find((variation) =>
-      Object.keys(attributes).every((key) => {
-        const variationAttr = JSON.parse(JSON.stringify(variation.attributes));
-
-        return (
-          variation.attributes &&
-          typeof variationAttr === 'object' &&
-          key in variationAttr &&
-          (variationAttr[key] === attributes[key] || variationAttr[key] === '')
-        );
-      })
-    );
-    return variation;
-  };
 
   // disable add to cart if product is out of stock ( includes bundle or addons )
   // @TODO need to refactor this because this should be in the product class checking if the product is purchasable or not
@@ -256,7 +243,6 @@ export const ProductContextProvider: React.FC<{
     if (value === '') {
       delete newAttributes[attribute];
     }
-
     setSelectedAttributes(newAttributes);
 
     const missingFields = difference(product.requiredAttributes, Object.keys(newAttributes));
@@ -264,7 +250,8 @@ export const ProductContextProvider: React.FC<{
       setMatchedVariant(undefined);
       return;
     }
-    const matchedVariant = findVariationByAttribute(newAttributes);
+
+    const matchedVariant = product.findVariationByAttribute(newAttributes);
 
     if (typeof matchedVariant === 'undefined' || !matchedVariant.purchasable) {
       // Disable add to cart since there is no matching variant found.
@@ -300,7 +287,7 @@ export const ProductContextProvider: React.FC<{
     onBlur: validateQuantity,
     onGiftCardChange: onGiftCardQuantityChange,
     reset: resetQuantity,
-  } = useQuantity({ max: product?.maxQuantity });
+  } = useQuantity({ max: (matchedVariant || product)?.maxQuantity });
 
   const getAddToCartQueryVariables = () => {
     if (!product.id) return {};
@@ -351,14 +338,51 @@ export const ProductContextProvider: React.FC<{
       extraData.graphqlAddons = pickBy(fieldsValue, (_obj, key) => startsWith(key, 'addon'));
     }
 
+    extraData.woolessGraphqlRequest = { ...extraData.woolessGraphqlRequest, ...extraFields };
+
     inputVariables.extraData = JSON.stringify(extraData);
 
     return inputVariables;
   };
 
   /**
-   * Adding product to cart
-   * Original and should be used is ADD_TO_CART
+   * Get bundle cart variables for the addBundleToCart mutation
+   * This prepares the input for the bundle-specific GraphQL mutation
+   */
+  const getBundleCartVariables = () => {
+    if (!product.id) return {};
+
+    // Get the selected bundle items
+    const selectedBundleItems = selectedBundle;
+
+    // Format the bundle items for the GraphQL request
+    const bundleItems = Object.entries(selectedBundleItems)
+      // Only include items with quantity > 0
+      .filter(([_bundleId, item]) => {
+        const bundleItem = item as { id: number; quantity: number; price: number };
+        return bundleItem.quantity > 0;
+      })
+      // Map to the format expected by the GraphQL mutation
+      .map(([bundleId, item]) => {
+        const bundleItem = item as { id: number; quantity: number; price: number };
+        return {
+          bundleItemId: parseInt(bundleId, 10),
+          quantity: bundleItem.quantity,
+          optionalSelected: true,
+        };
+      });
+
+    // Return the variables for the GraphQL mutation
+    return {
+      clientMutationId: v4(),
+      productId: parseInt(product.id, 10),
+      quantity,
+      bundleItems,
+    };
+  };
+
+  /**
+   * Adding regular product to cart
    */
   const [addToCart, { data: addToCartRes, loading: addToCartLoading, error: addToCartError }] =
     useAddToCartMutation({
@@ -371,6 +395,28 @@ export const ProductContextProvider: React.FC<{
         resetQuantity();
       },
     });
+
+  /**
+   * Adding bundle product to cart using the dedicated bundle mutation
+   */
+  const [addBundleToCart, { loading: addBundleToCartLoading }] = useAddBundleToCartMutation({
+    variables: {
+      input: getBundleCartVariables(),
+    },
+    onCompleted: () => {
+      // Update cart data
+      fetchCart();
+
+      // Show mini cart
+      setMiniCartOpen((prev) => !prev);
+
+      // Reset quantity input
+      resetQuantity();
+
+      // Reset selected bundle items
+      setSelectedBundle({});
+    },
+  });
 
   const { refetch: fetchCompositeProduct } = useQuery(GET_COMPOSITE_PRODUCT, {
     onCompleted: (data) => {
@@ -462,7 +508,7 @@ export const ProductContextProvider: React.FC<{
           quantity,
           addToCart: {
             response: addToCartRes,
-            loading: addToCartLoading || compositeAddToCartLoading,
+            loading: addToCartLoading || compositeAddToCartLoading || addBundleToCartLoading,
             error: addToCartError,
           },
           selectedAttributes,
@@ -472,7 +518,18 @@ export const ProductContextProvider: React.FC<{
           hasLoaded,
         },
         actions: {
-          addToCart,
+          /**
+           * Add to cart action that selects the appropriate mutation based on product type
+           * - For bundle products: Uses addBundleToCart mutation
+           * - For other products: Uses regular addToCart mutation
+           */
+          addToCart: async () => {
+            if (product.hasBundle) {
+              return addBundleToCart();
+            } else {
+              return addToCart();
+            }
+          },
           // TODO: add validateAddToCartForm
           decrementQuantity,
           incrementQuantity,
@@ -507,7 +564,9 @@ export const ProductContextProvider: React.FC<{
         fields: {
           required: [requiredFields, setRequiredFields],
           value: [fieldsValue, setFieldsValue],
+          extra: [extraFields, setExtraFields],
         },
+        modifyPrice: [customPrice, setCustomePrice],
         addToCartStatus: [disableAddToCart, setDisableAddToCart],
         outOfStockStatus: [outOfStockStatus, setOutOfStockStatus],
       }}

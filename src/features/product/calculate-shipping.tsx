@@ -1,9 +1,9 @@
-import cx from 'classnames';
 import { useCallback, useEffect } from 'react';
 
 import { Loader } from '@src/components/loader';
 import { useSiteContext } from '@src/context/site-context';
 import { CalculateShippingProductParam } from '@src/types';
+import { cn } from '@src/lib/utils';
 
 type Props = {
   products: CalculateShippingProductParam[];
@@ -34,6 +34,8 @@ export const CalculateShipping: React.FC<Props> = ({ products, showButton, showR
     onStateChange,
     handleCalculate,
     fetchAvailableCountries,
+    zipCode,
+    setZipCode,
   } = calculateShipping || {};
 
   const calculateCallback = useCallback(() => {
@@ -63,7 +65,7 @@ export const CalculateShipping: React.FC<Props> = ({ products, showButton, showR
 
   return (
     <>
-      <div className={cx('mb-4 relative text-black', { hidden })}>
+      <div className={cn('mb-4 relative text-black', { hidden })}>
         {(isLoading || countries?.length === 0) && <Loader />}
         <p className="text-base font-normal leading-normal mb-4">
           The shipping fee is charged based on the subtotal before taxes, discounts and
@@ -111,6 +113,8 @@ export const CalculateShipping: React.FC<Props> = ({ products, showButton, showR
         <input
           className="w-full border px-3 py-2.5 rounded-sm border-brand-font text-brand-font text-xs"
           placeholder="Zip Code"
+          onChange={(event) => setZipCode && setZipCode(event.target.value)}
+          value={zipCode}
         />
         {showRates && rates && (
           <ul className="my-4 ml-0 pl-0">

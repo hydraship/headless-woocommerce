@@ -8,6 +8,7 @@ import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import { useSiteContext } from '@src/context/site-context';
 import { isDollar } from '@src/lib/helpers/helper';
 import { IFilterOptionData, IFilterOptionState } from '@src/lib/types/taxonomy';
+import { getRegionByCurrency } from '@src/lib/helpers/country';
 
 type Props = {
   min?: number;
@@ -28,6 +29,8 @@ export const PriceRangeSlider: React.FC<Props> = ({
 }) => {
   const { currentCurrency } = useSiteContext();
   const [, , price, setPrice] = disclosureProp;
+  const matchedCurrency = getRegionByCurrency(currentCurrency);
+  const symbol = matchedCurrency?.symbol ?? '$';
 
   const priceValue = (price as IFilterOptionData)?.label.split('-');
   const priceValueMin = priceValue?.[0]?.match(/(\d+)/);
@@ -57,7 +60,7 @@ export const PriceRangeSlider: React.FC<Props> = ({
     const maxValue = (newValue as number[])[1];
     setPrice(() => {
       return {
-        label: `$${minValue} - $${maxValue}`,
+        label: `${symbol}${minValue} - ${symbol}${maxValue}`,
         value: `price.${currentCurrency}:>=${minValue} && price.${currentCurrency}:<=${maxValue}`,
       };
     });
@@ -68,7 +71,7 @@ export const PriceRangeSlider: React.FC<Props> = ({
 
     setPrice(() => {
       return {
-        label: `$${minValue} - $${value[1]}`,
+        label: `${symbol}${minValue} - ${symbol}${value[1]}`,
         value: `price.${currentCurrency}:>=${minValue} && price.${currentCurrency}:<=${value[1]}`,
       };
     });
@@ -79,7 +82,7 @@ export const PriceRangeSlider: React.FC<Props> = ({
 
     setPrice(() => {
       return {
-        label: `$${value[0]} - $${maxValue}`,
+        label: `${symbol}${value[0]} - ${symbol}${maxValue}`,
         value: `price.${currentCurrency}:>=${value[0]} && price.${currentCurrency}:<=${maxValue}`,
       };
     });
@@ -108,6 +111,8 @@ export const PriceRangeSlider: React.FC<Props> = ({
     },
   });
 
+  const currencySymbol = getRegionByCurrency(currentCurrency)?.symbol || '$';
+
   return (
     <>
       <Box
@@ -124,8 +129,8 @@ export const PriceRangeSlider: React.FC<Props> = ({
             valueLabelDisplay="auto"
           />
           <span className="text-[#303030]">
-            {isDollar(currentCurrency) && '$'}
-            {min} - {isDollar(currentCurrency) && '$'}
+            {currencySymbol}
+            {min} - {currencySymbol}
             {max}
           </span>
         </ThemeProvider>

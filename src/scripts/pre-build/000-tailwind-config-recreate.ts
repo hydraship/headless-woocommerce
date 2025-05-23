@@ -43,7 +43,7 @@ const fontFamilyConfig = modifiedFontFamilies
 const tailwindConfig = `module.exports = {
   content: [
     './src/**/*.{js,ts,jsx,tsx}',
-    './public/site.json',
+    './public/config.json',
     './src/styles/styles.css',
     './public/menu.json',
     './public/product.json',
@@ -59,7 +59,7 @@ const tailwindConfig = `module.exports = {
     container: {
       center: true,
       screens: {
-        '2xl': '${wptheme.layout?.contentSize}' || '1280px',
+        '2xl': '${wptheme.layout.contentSize}',
       },
     },
     extend: {
@@ -68,6 +68,7 @@ const tailwindConfig = `module.exports = {
       },
       animation: {
         fade: 'fadeIn 1s ease-in-out',
+        marquee: 'marquee 30s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -78,6 +79,26 @@ const tailwindConfig = `module.exports = {
             opacity: '1',
           },
         },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        'accordion-down': {
+					from: {
+						height: '0'
+					},
+					to: {
+						height: 'var(--radix-accordion-content-height)'
+					}
+				},
+        'accordion-up': {
+					from: {
+						height: 'var(--radix-accordion-content-height)'
+					},
+					to: {
+						height: '0'
+					}
+				}
       },
       colors: {
         'brand-icons': 'var(--colors-brandIcons)',
@@ -127,9 +148,24 @@ const themeVariables = `
 @layer base {
   :root {
     ${colorVars}
-    --container-width: ${wptheme.layout?.contentSize || '1280px'};
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --container-width: ${wptheme.layout.contentSize};
   }
-}`;
+}
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}  
+`;
 
 export default async function execute() {
   try {

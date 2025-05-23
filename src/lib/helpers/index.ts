@@ -92,3 +92,19 @@ export const capitalizeString = (stringVal: string) => {
   }
   return stringVal.charAt(0).toUpperCase() + stringVal.slice(1);
 };
+
+/**
+ * Converts any value to a boolean
+ * - String 'true' or '1' becomes true
+ * - Boolean true remains true
+ * - All other values become their boolean equivalent
+ *
+ * @param value Any value to convert to boolean
+ * @returns A boolean value
+ */
+export const toBool = (value: unknown): boolean => {
+  if (typeof value === 'string') {
+    return value === 'true' || value === '1';
+  }
+  return Boolean(value);
+};

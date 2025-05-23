@@ -10,8 +10,9 @@ type TSimplePrice = {
 };
 
 export const SimplePrice = ({ product, isTaxExclusive }: TSimplePrice) => {
-  const { currentCurrency: currency } = useSiteContext();
-  const { price, regularPrice, salePrice } = product;
+  const { currentCurrency: currency, location } = useSiteContext();
+  const [locationData] = location;
+  const { regularPrice, salePrice } = product;
   const isOnSale = product.onSale && (product.salePrice?.[currency] as number) > 0;
 
   const renderedResult: ReactElement[] = [];
@@ -20,16 +21,12 @@ export const SimplePrice = ({ product, isTaxExclusive }: TSimplePrice) => {
     renderedResult.push(<span className="sale-price">{formatPrice(regularPrice, currency)}</span>);
   }
 
-  if (isTaxExclusive) {
-    renderedResult.push(<span className="price">{formatPrice(price, currency)}</span>);
-  } else {
-    renderedResult.push(
-      <span className="price">{formatPrice(product.metaData?.priceWithTax, currency)}</span>
-    );
-  }
+  renderedResult.push(
+    <span className="price">{formatPrice(product.getTaxedPrice(locationData), currency)}</span>
+  );
 
   return (
-    <span className="simple-product-price">
+    <span className={cn('simple-product-price', { 'on-sale': isOnSale })}>
       {renderedResult.map((price, i) => {
         return <Fragment key={`simple-product-price-${i}`}>{price}</Fragment>;
       })}

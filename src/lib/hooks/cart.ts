@@ -78,6 +78,29 @@ export type FormattedCart = {
   discountTax?: number;
 };
 
+export const calculateBundledItemTotal = (
+  product: ProductCartItem,
+  items: ProductCartItem[],
+  key: keyof ProductCartItem
+) => {
+  if (!items.length) return 0;
+
+  if (typeof items[0][key] === 'undefined') return 0;
+
+  if (typeof product[key] === 'undefined') return 0;
+
+  const mainValue = parseFloat(String(product[key]).replace(/[^0-9.-]+/g, ''));
+
+  const totalSubValue = items.reduce((acc, item) => {
+    if (typeof item[key] === 'undefined') return acc;
+
+    const value = parseFloat(String(item[key]).replace(/[^0-9.-]+/g, ''));
+    return acc + value;
+  }, 0);
+
+  return mainValue + totalSubValue;
+};
+
 /**
  * Returns cart data in the required format.
  * @param {String} data Cart data
@@ -199,6 +222,7 @@ export const getFormattedCart = (data: any): FormattedCart => {
   const productsKeyByCartKey = keyBy(products, 'cartKey');
 
   const finalProducts: ProductCartItem[] = [];
+
   products.forEach((product) => {
     if (
       'BundleCartItem' === product.cartItemType &&
@@ -209,9 +233,25 @@ export const getFormattedCart = (data: any): FormattedCart => {
         return productsKeyByCartKey[cartKey];
       });
 
+      const subTotalTax = `$${calculateBundledItemTotal(
+        product,
+        bundledProductItems,
+        'subTotalTax'
+      )}`;
+
+      const totalPrice = `$${calculateBundledItemTotal(
+        product,
+        bundledProductItems,
+        'totalPrice'
+      )}`;
+
       const modifiedProduct = {
         ...product,
         bundledProductItems,
+        ...{
+          subTotalTax,
+          totalPrice,
+        },
       };
 
       finalProducts.push(modifiedProduct);

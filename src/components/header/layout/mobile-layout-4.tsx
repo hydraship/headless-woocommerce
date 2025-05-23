@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import cx from 'classnames';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FiSearch, FiX } from 'react-icons/fi';
@@ -24,6 +23,7 @@ import { getDisplayTypeValues, getMenuById } from '@src/lib/helpers/menu';
 import { Header } from '@src/models/settings/header';
 import { Search as SearchProps } from '@src/models/settings/search';
 import { makeLinkRelative } from '@src/lib/helpers/helper';
+import { cn } from '@src/lib/utils';
 
 export const MobileLayout4 = () => {
   const { settings } = useSiteContext();
@@ -86,14 +86,14 @@ export const MobileLayout4 = () => {
     return (
       <NavbarItems className="z-[30] flex flex-col">
         <li
-          className={cx('font-normal text-sm flex items-center', {
+          className={cn('font-normal text-sm flex items-center', {
             'is-open': isCourtesyNavOpen,
           })}
           onClick={() => setIsCourtesyNavOpen(!isCourtesyNavOpen)}
         >
           <div className="p-4">ABOUT</div>
           <ChevronDown
-            className={cx('fill-brand-font inline-block ml-auto lg:ml-2', {
+            className={cn('fill-brand-font inline-block ml-auto lg:ml-2', {
               'rotate-180 lg:rotate-0': isCourtesyNavOpen,
             })}
           />
@@ -199,7 +199,7 @@ export const MobileLayout4 = () => {
     </>
   );
 
-  const classes = cx({
+  const classes = cn({
     sticky: options?.isSticky,
     'top-0': options?.isSticky,
     'z-20': options?.isSticky,

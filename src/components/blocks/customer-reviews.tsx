@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
@@ -16,6 +15,7 @@ import { Settings } from '@src/models/settings';
 import { Store } from '@src/models/settings/store';
 import { YotpoReviews } from '@src/lib/types/reviews';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
+import { cn } from '@src/lib/utils';
 
 type Props = {
   classes: string;
@@ -100,7 +100,7 @@ export const CustomerReviews = ({ classes, title }: Props) => {
   const leftArrow = useRef(null);
   const rightArrow = useRef(null);
   const [isMouseDown, setIsMouseDown] = useState(false);
-  const classNames = cx(classes, '');
+  const classNames = cn(classes, '');
   const [gliderPage, setGliderPage] = useState(1);
 
   const isLeftArrowHidden = gliderPage === 1;
@@ -125,7 +125,7 @@ export const CustomerReviews = ({ classes, title }: Props) => {
       <div className="my-12 block w-full relative group">
         <div
           ref={leftArrow}
-          className={cx(
+          className={cn(
             'md:hidden absolute z-10 lg:z-[2] top-1/2 -translate-y-4 cursor-pointer ml-2 md:ml-4 opacity-70 hover:opacity-100',
             {
               'opacity-100': isMouseDown,
@@ -167,7 +167,7 @@ export const CustomerReviews = ({ classes, title }: Props) => {
 
         <div
           ref={rightArrow}
-          className={cx(
+          className={cn(
             'md:hidden absolute z-10 lg:z-0 top-1/2 -translate-y-4 right-0 cursor-pointer mr-2 md:mr-4 opacity-70 hover:opacity-100',
             {
               'opacity-100': isMouseDown,

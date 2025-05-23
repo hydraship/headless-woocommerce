@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { decode } from 'html-entities';
 import { findIndex, isEmpty, remove, some } from 'lodash';
 import uniqueId from 'lodash/uniqueId';
@@ -6,6 +5,8 @@ import { useState } from 'react';
 
 import { useTaxonomyContext } from '@src/context/taxonomy-context';
 import { IFilterOptionData, IFilterOptionState } from '@src/lib/types/taxonomy';
+import { cn } from '@src/lib/utils';
+import { useContentContext } from '@src/context/content-context';
 
 type Props = {
   name?: string;
@@ -16,6 +17,7 @@ type Props = {
 
 export const CategoryFilterOptions = (props: Props) => {
   const taxonomyCtx = useTaxonomyContext();
+  const { data } = useContentContext();
   const { name, option, disclosureProp, title } = props;
   const [, , filterValue, setFilterValue] = disclosureProp;
   const [checked, setChecked] = useState(false);
@@ -65,8 +67,18 @@ export const CategoryFilterOptions = (props: Props) => {
     }
   };
 
+  const renderCount = () => {
+    const currentTotalFound = data?.data?.pageInfo?.totalFound ?? 0;
+
+    if (currentTotalFound < (option?.count ?? 0)) {
+      return currentTotalFound;
+    }
+
+    return option?.count;
+  };
+
   return (
-    <div className="option py-2 flex items-center gap-3">
+    <div className="option flex items-center gap-3 py-1.5">
       <input
         id={uId}
         name={name}
@@ -86,21 +98,30 @@ export const CategoryFilterOptions = (props: Props) => {
           checked
         }
         onChange={onChange}
-        className={classNames('', {
-          hasProduct: (option?.count as number) > 0,
-          hasNoProduct: (option?.count as number) === 0,
-        })}
+        className={cn(
+          `relative peer shrink-0
+  appearance-none w-4 h-4 border-2 border-primary-foreground rounded-sm bg-white
+  checked:bg-primary-foreground checked:border-0
+  focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-primary
+  disabled:border-steel-400 disabled:bg-steel-400`,
+          {
+            hasProduct: (option?.count as number) > 0,
+            hasNoProduct: (option?.count as number) === 0,
+          }
+        )}
         disabled={option?.count === 0 ? true : false}
       />
       <label
         htmlFor={uId}
-        className={classNames('', {
+        className={cn('', {
           hasProduct: (option?.count as number) > 0,
         })}
       >
         {decode(label)}
 
-        {` (${option.count})`}
+        <span className="text-xs text-foreground ml-2 bg-primary rounded-full py-1 px-2">
+          {renderCount()}
+        </span>
       </label>
     </div>
   );

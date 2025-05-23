@@ -10,5 +10,5 @@ export const FreeShippingProgressBlock = ({ block }: FreeShippingProgressProps) 
     return null;
   }
 
-  return <FreeShippingProgress />;
+  return <FreeShippingProgress block={block} />;
 };

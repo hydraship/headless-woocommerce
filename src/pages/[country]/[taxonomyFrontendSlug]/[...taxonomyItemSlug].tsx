@@ -1,6 +1,7 @@
 import { Dictionary } from '@reduxjs/toolkit';
 import { isArray, isEmpty, merge, reduce } from 'lodash';
 import { GetStaticProps } from 'next';
+import categoryBlocks from '@public/taxonomy-product-cat.json';
 
 import { TaxonomyItemPage } from '@src/components/content/taxonomy-item-page';
 import { defaultLayout } from '@src/components/layouts/taxonomy';
@@ -18,6 +19,7 @@ import TSTaxonomy, {
   getTaxonomyPopularProducts,
 } from '@src/lib/typesense/taxonomy';
 import { ITSTaxonomyProductQueryVars, MetaData } from '@src/lib/typesense/types';
+import { findPerPage } from '@src/lib/block/per-page';
 
 TaxonomyItemPage.getLayout = defaultLayout;
 
@@ -26,6 +28,7 @@ export default TaxonomyItemPage;
 export const getStaticPaths = async () => {
   if (
     process.env.SKIP_BUILD_STATIC_GENERATION == 'true' ||
+    process.env.SKIP_BUILD_STATIC_GENERATION_TAXONOMY == 'true' ||
     process.env.NEXT_PUBLIC_MAINTENANCE == 'true'
   ) {
     return {
@@ -53,7 +56,7 @@ export const getTaxonomyItemPageProps = async (
   taxonomyItemSlug: string | string[],
   country: string
 ) => {
-  const pageParams = isArray(taxonomyItemSlug) ? getPageParams(taxonomyItemSlug) : null;
+  const pageParams = isArray(taxonomyItemSlug) ? getPageParams(taxonomyItemSlug) : 1;
 
   let page = 1;
   let termSlug = taxonomyItemSlug[taxonomyItemSlug.length - 1];
@@ -88,7 +91,11 @@ export const getTaxonomyItemPageProps = async (
 
   const defaultSortBy = getDefaultSortBy();
 
-  const defaultQueryVars = TSTaxonomy.getDefaultTsQueryVars();
+  const perPage = findPerPage(categoryBlocks);
+
+  const perPageValue = perPage ?? 20;
+
+  const defaultQueryVars = TSTaxonomy.getDefaultTsQueryVars(perPageValue);
   const taxonomyProductQueryVars: ITSTaxonomyProductQueryVars = {
     ...defaultQueryVars,
     // taxonomySlug: wpTaxSlug,

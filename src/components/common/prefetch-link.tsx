@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { ReactNode, useEffect, useRef } from 'react';
 import { useIntersectionObserver } from 'usehooks-ts';
@@ -6,6 +5,7 @@ import { useIntersectionObserver } from 'usehooks-ts';
 import { RawLink } from '@src/components/common/raw-link';
 import { useSiteContext } from '@src/context/site-context';
 import Link from 'next/link';
+import { cn } from '@src/lib/utils';
 
 type Props = {
   href: string;
@@ -57,7 +57,7 @@ export const PrefetchLink: React.FC<Props> = ({
           onMouseEnter={handleMouseEnter}
         >
           <RawLink
-            className={classNames(className, {
+            className={cn(className, {
               'cursor-pointer': unstyled,
               'text-blue-500 underline h-full cursor-pointer': !unstyled,
             })}

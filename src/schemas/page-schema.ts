@@ -7,7 +7,7 @@ export const PageSchema = z.object({
   name: z.string(),
   slug: z.string(),
   seoFullHead: z.string(),
-  permalink: z.string().optional(),
+  permalink: z.string(),
   type: z.string(),
   thumbnail: MediaItemSchema.optional(),
   // taxonomies @TODO recheck if needed
@@ -22,3 +22,4 @@ export type Page = z.infer<typeof PageSchema>;
 
 export const PagePermalinks = PageSchema.pick({ permalink: true });
 export const PageSlugs = PageSchema.pick({ slug: true });
+export const PageRoute = PageSchema.pick({ permalink: true, slug: true, id: true, type: true });

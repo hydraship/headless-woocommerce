@@ -4,6 +4,7 @@ import { TypesenseMenuItem } from '@src/lib/helpers/menu';
 import { MaxMegaMenuAttributes } from '@src/components/blocks/maxmegamenu/block';
 import React from 'react';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
+import { v4 } from 'uuid';
 
 type Props = {
   mainMenuItems: TypesenseMenuItem[];
@@ -16,7 +17,7 @@ export const NormalMenu: React.FC<Props> = ({ attributes, mainMenuItems }) => {
       {Object.values(mainMenuItems).map((item) => {
         return item.children?.map((child) => (
           <MenuListItem
-            key={child?.url}
+            key={`${child?.url}-${v4()}`}
             className="nav-item flex items-center"
           >
             <MenuLink

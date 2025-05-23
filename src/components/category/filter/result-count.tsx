@@ -1,20 +1,19 @@
 import { isEmpty } from 'lodash';
 import { useRouter } from 'next/router';
-import { useSiteContext } from '@src/context/site-context';
 import { useTaxonomyContext } from '@src/context/taxonomy-context';
-import { Settings } from '@src/models/settings';
+import siteConfig from '@public/config.json';
+import { cn } from '@src/lib/utils';
 
 type Props = {
   productCount: number;
   pageNo: number;
+  className?: string;
 };
 
 export const ResultCount = (props: Props) => {
-  const { settings } = useSiteContext();
   const taxonomyCtx = useTaxonomyContext();
   const { asPath } = useRouter();
   const pathIndex = asPath.split('/');
-  const { shop } = settings as Settings;
   const { productCount, pageNo } = props;
 
   const [, , selectedPriceFilter] = taxonomyCtx.priceFilter;
@@ -36,20 +35,16 @@ export const ResultCount = (props: Props) => {
     !isEmpty(selectedAvailabilityFilter) ||
     !isEmpty(selectedRefinedSelection);
 
-  let loadedResult = pageNo * +(settings?.shop?.layout?.productCount as string);
+  let loadedResult = pageNo * +siteConfig.category.productPerPage;
   if (loadedResult > productCount) {
     loadedResult = productCount;
   }
-
-  const resultCountStyle = {
-    color: (shop?.layout?.resultCount?.color as string) ?? '#000000',
-  };
 
   return (
     <>
       {(pathIndex[1] !== 'brand' || isFilterSet || isSortByChanged) && (
         <>
-          <div className="result-count">
+          <div className={cn('result-count', props.className)}>
             Showing {loadedResult !== 0 && `1 - ${loadedResult} of ${productCount}`}
           </div>
         </>

@@ -49,7 +49,7 @@ export const LoadingModal = (props: LoadingModalProps) => {
                     className="text-lg font-semibold leading-6 text-gray-600 flex"
                   >
                     <svg
-                      className="animate-spin h-28 w-28 text-brand-primary"
+                      className="animate-spin h-12 w-12 text-primary"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"

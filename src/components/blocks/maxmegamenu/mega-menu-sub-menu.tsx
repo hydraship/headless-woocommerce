@@ -1,7 +1,12 @@
 import React from 'react';
 import { filter } from 'lodash';
 
-import { MegaMenu as MegaMenuType, TypesenseMenuItem } from '@src/lib/helpers/menu';
+import {
+  getMenuItemById,
+  MegaMenu as MegaMenuType,
+  TypesenseMenuItem,
+  WPMenuItem,
+} from '@src/lib/helpers/menu';
 import {
   MegaMenuSubMenuColumn,
   MegaMenuSubMenuWrapper,
@@ -19,22 +24,33 @@ type Props = {
   className?: string;
   items: MegaMenuType[];
   originalItems?: TypesenseMenuItem[];
+  menuItems: WPMenuItem[];
 };
 
-export const MegaMenuSubMenu: React.FC<Props> = ({ items, attributes, originalItems }) => {
+export const MegaMenuSubMenu: React.FC<Props> = ({
+  items,
+  attributes,
+  originalItems,
+  menuItems,
+  className,
+}) => {
   return (
     <MegaMenuSubMenuWrapper
       $mainNavigationBackgroundColor={attributes.submenuContainerBackgroundColor}
       $padding={attributes.submenuContainerPadding}
-      className={cn('mega-menu mega-menu-sub-menu-wrapper inset-x-0 flex-col', {
-        'w-full': !!attributes.submenuFullWidth,
-      })}
+      className={cn(
+        'mega-menu mega-menu-sub-menu-wrapper inset-x-0 flex-col w-full',
+        {
+          'w-full': !!attributes.submenuFullWidth,
+        },
+        className
+      )}
     >
       {items?.map((itemRow, rowIndex) => {
         return (
           <div
             key={`item-row-${rowIndex}`}
-            className={cn('mega-menu-row w-full', itemRow.meta.class)}
+            className={cn('mega-menu-row w-full container', itemRow.meta.class)}
             role="mega-menu-row"
           >
             {itemRow.columns.map((column, columnIndex) => {
@@ -85,10 +101,16 @@ export const MegaMenuSubMenu: React.FC<Props> = ({ items, attributes, originalIt
                         </MenuListItem>
                       );
                     } else {
+                      const menuItem = getMenuItemById(columnItem.id, menuItems);
                       return (
                         <MenuListItem
                           key={`item-${rowIndex}-${columnItemIndex}`}
-                          className="mega-menu-widget-content"
+                          className={cn(
+                            'mega-menu-widget-content',
+                            `mega-menu-widget-content-${rowIndex}-${columnItemIndex}`,
+                            columnItem.id,
+                            menuItem?.classes
+                          )}
                           $padding={attributes.submenuLinkPadding}
                         >
                           <ReactHTMLParser html={columnItem.content || ''} />

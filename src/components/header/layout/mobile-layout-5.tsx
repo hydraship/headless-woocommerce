@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import Image from 'next/image';
 
 import { Navbar, NavbarItem, NavbarItems } from '@src/components/navbar';
@@ -9,13 +8,13 @@ import { PrefetchLink } from '@src/components/common/prefetch-link';
 import { LoginMenuPopup } from '@src/components/header/account/login-menu-popup';
 import { MenuItem } from '@src/components/header/menu/menu-item';
 import { Search } from '@src/components/header/search';
-import { EmailIcon } from '@src/components/svg/email';
 import { HamburgerIcon } from '@src/components/svg/hamburger';
 import { PhoneIcon } from '@src/components/svg/phone';
 import { useSiteContext } from '@src/context/site-context';
 import { getDisplayTypeValues, getMenuById } from '@src/lib/helpers/menu';
 import { Header } from '@src/models/settings/header';
 import { Search as SearchProps } from '@src/models/settings/search';
+import { cn } from '@src/lib/utils';
 
 export const MobileLayout5 = () => {
   const { settings } = useSiteContext();
@@ -176,7 +175,7 @@ export const MobileLayout5 = () => {
     </>
   );
 
-  const classes = cx('lg:hidden sticky top-0 z-20');
+  const classes = cn('lg:hidden sticky top-0 z-20');
 
   const hasMobileCustomLogo = header?.logo.mobile?.src;
   const hasDesktopCustomLogo = header?.logo.desktop?.src;

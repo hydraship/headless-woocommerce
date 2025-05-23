@@ -253,6 +253,8 @@ export const AddToCartAddons = () => {
     }
   };
 
+  if (product.productType === 'external') return null;
+
   return (
     <div className="product-addon-container">
       {standAlone.length > 0 &&

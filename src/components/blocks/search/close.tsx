@@ -2,6 +2,7 @@ import { ParsedBlock } from '@wordpress/block-serialization-default-parser';
 
 import { useSearchContext } from '@src/context/search-context';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
+import { getSvgContent } from '@src/components/blocks/outermost/IconBlock';
 
 type SearchCloseProps = {
   block: ParsedBlock;
@@ -10,7 +11,8 @@ type SearchCloseProps = {
 export const SearchClose = ({ block }: SearchCloseProps) => {
   const { showResultState } = useSearchContext();
 
-  if ('core/html' !== block.blockName) {
+  const allowedBlocks = ['outermost/icon-block', 'core/html'];
+  if (block.blockName && !allowedBlocks.includes(block.blockName)) {
     return null;
   }
 
@@ -18,7 +20,13 @@ export const SearchClose = ({ block }: SearchCloseProps) => {
 
   return (
     <button onClick={() => setShowResult((prev) => !prev)}>
-      <ReactHTMLParser html={block.innerHTML} />
+      <ReactHTMLParser
+        html={
+          'outermost/icon-block' === block.blockName
+            ? getSvgContent(block.innerHTML)
+            : block.innerHTML
+        }
+      />
     </button>
   );
 };

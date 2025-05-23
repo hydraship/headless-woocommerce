@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
 
+import { env } from '@src/lib/env';
 import TSTaxonomy from '../typesense/taxonomy';
 import { ITSProductQueryResponse, ITSTaxonomyProductQueryVars } from '../typesense/types';
+
+// Check if it's a true localhost environment (not Vercel preview)
+const { NEXT_PUBLIC_WORDPRESS_SITE_URL } = env();
+const isLocalEnvironment = NEXT_PUBLIC_WORDPRESS_SITE_URL?.includes('localhost') ||
+                          NEXT_PUBLIC_WORDPRESS_SITE_URL?.includes('.local');
 
 export const useFetchTsTaxonomyProducts = (
   queryVars: ITSTaxonomyProductQueryVars,
@@ -20,7 +26,8 @@ export const useFetchTsTaxonomyProducts = (
     setIsFetched(false);
     const searchParameters = TSTaxonomy.generateSearchParams(queryVars);
     const searchOptions = {
-      cacheSearchResultsForSeconds: 60,
+      // Increase cache time for local environment to improve performance
+      cacheSearchResultsForSeconds: isLocalEnvironment ? 300 : 60, // 5 minutes for local, 1 minute for production
       abortSignal: controller.signal,
     };
 

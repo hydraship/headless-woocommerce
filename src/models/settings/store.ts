@@ -52,4 +52,6 @@ export type Store = {
     jugmeSettings?: { [key: string]: unknown };
     businessReviewsBundleSettings?: { [key: string]: unknown };
   };
+  productPageSettings?: { [key: string]: unknown };
+  enableOverrideBestSeller?: boolean;
 };

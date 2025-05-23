@@ -10,7 +10,7 @@ import type {
   ImageAttributes,
   ProductMetaData,
   ProductPrice,
-  ProductStocStatuses,
+  ProductStockStatuses,
   ProductTabs,
   ProductTaxonomy,
   ProductBundleConfiguration,
@@ -21,12 +21,13 @@ import type {
 import { AccordionItem } from '@src/components/accordion';
 import { MAX_QUERY_LIMIT, WoolessTypesense } from '@src/lib/typesense';
 import { GIFT_CARD_TYPE } from '@src/lib/constants/giftcards';
-import { formatTextWithNewline } from '@src/lib/helpers/helper';
+import { formatTextWithNewline, getPriceFromTaxMap } from '@src/lib/helpers/helper';
 import { ProductElement, Settings, Store } from '@src/lib/typesense/types';
 import { getProductTypesForDisplay, transformToProducts } from '@src/lib/typesense/product';
 import { PRODUCT_TYPES } from '@src/lib/constants/product';
 import { htmlParser } from '@src/lib/block/react-html-parser';
 import { isImage } from '@src/lib/helpers/helper';
+import { TGeoLocationData } from '@src/types';
 
 export type ProductBackorderStatus = 'yes' | 'no' | 'notify';
 
@@ -80,7 +81,7 @@ export type ProductTypesenseResponse = Partial<{
   slug: string;
   stats: Stats;
   stockQuantity: number;
-  stockStatus: ProductStocStatuses;
+  stockStatus: ProductStockStatuses;
   store: Store;
   tagLinks: [];
   tagNames: [];
@@ -146,7 +147,7 @@ export class Product {
   readonly slug?: string;
   readonly stats?: Stats;
   readonly stockQuantity?: number;
-  readonly stockStatus?: ProductStocStatuses;
+  readonly stockStatus?: ProductStockStatuses;
   readonly store?: Store;
   readonly tagLinks?: [];
   readonly tagNames?: [];
@@ -239,27 +240,103 @@ export class Product {
     return this.variations?.filter((variation) => variation.purchasable);
   }
 
-  getAvailableAttributes() {
-    const availableAttributes: Attributes = [];
-    if (this.variations) {
-      if (!isArray(this.attributes)) {
-        return [];
-      }
+  findVariationByAttribute = (attributes: { [key: string]: string } | undefined) => {
+    if (typeof attributes === 'undefined') {
+      return undefined;
+    }
 
-      const currentAttributes: Attribute[] = this.attributes?.map((attribute) => {
-        const sortedOptions = (attribute.options as AttributeOptions[]).sort((a, b) =>
-          a.label.localeCompare(b.label)
+    const variation = this.variations?.find((variation) =>
+      Object.keys(attributes).every((key) => {
+        const variationAttr = JSON.parse(JSON.stringify(variation.attributes));
+
+        return (
+          variation.attributes &&
+          typeof variationAttr === 'object' &&
+          key in variationAttr &&
+          (variationAttr[key] === attributes[key] || variationAttr[key] === '')
         );
+      })
+    );
+    return variation;
+  };
+
+  getAvailableAttributesBasedOnSelection(selectedAttributes: { [key: string]: string }) {
+    const availableAttributes: Attributes = [];
+    if (!this.variations) return availableAttributes;
+
+    if (!isArray(this.attributes)) return [];
+
+    const initialAttributes = this.getAvailableAttributes();
+
+    if (Object.keys(selectedAttributes).length === 0) return initialAttributes;
+
+    const updatedAttributes = initialAttributes.map((attribute, attributeIndex) => {
+      if (attributeIndex === 0) {
+        return attribute;
+      } else {
+        const newOptions = attribute.options.map((option) => {
+          const attributeName = attribute.name;
+          const optionName = option.name;
+
+          const findProduct = this.findVariationByAttribute({
+            ...selectedAttributes,
+            [attributeName]: optionName,
+          }) as Product;
+
+          return {
+            ...option,
+            isAvailable: findProduct !== undefined && findProduct.stockStatus !== 'outofstock',
+          };
+        });
+
         return {
           ...attribute,
-          options: sortedOptions,
+          options: newOptions,
+        };
+      }
+    });
+
+    return updatedAttributes;
+  }
+
+  getAvailableAttributes() {
+    const availableAttributes: Attributes = [];
+    if (!this.variations) return availableAttributes;
+
+    if (!isArray(this.attributes)) return availableAttributes;
+
+    const currentAttributes: Attribute[] = this.attributes?.map((attribute) => {
+      const sortedOptions = (attribute.options as AttributeOptions[]).sort((a, b) => {
+        const parseValue = (value: string): number | string => {
+          // Check if the value is a valid number or currency
+          const numericValue = parseFloat(value.replace(/[^0-9.-]+/g, ''));
+          return isNaN(numericValue) ? value : numericValue;
+        };
+
+        const valueA = parseValue(a.label);
+        const valueB = parseValue(b.label);
+
+        if (typeof valueA === 'number' && typeof valueB === 'number') {
+          return valueA - valueB;
+        }
+
+        return valueA.toString().localeCompare(valueB.toString());
+      });
+
+      const optionsWithAvailability = sortedOptions.map((option) => {
+        return {
+          ...option,
+          isAvailable: true,
         };
       });
 
-      return currentAttributes;
-    }
+      return {
+        ...attribute,
+        options: optionsWithAvailability,
+      };
+    });
 
-    return availableAttributes;
+    return currentAttributes;
   }
 
   static buildFromResponse(props: ProductTypesenseResponse) {
@@ -457,6 +534,56 @@ export class Product {
     return this.price && this.price[currency] ? this.price[currency] : 0;
   }
 
+  variablePriceForDisplay(currency: string, isTaxExclusive: boolean) {
+    const isOnSale = this.onSale && (this.salePrice?.[currency] as number) > 0;
+    if (!this.hasSameMinMaxPrice(currency)) {
+      return isTaxExclusive ? this.variantMaxPrice : this.variantMaxPriceWithTax;
+    }
+
+    const sameMinMaxPrice = isOnSale && this.salePrice;
+    if (!sameMinMaxPrice) {
+      return isTaxExclusive ? this.variantMinPrice : this.variantMinPriceWithTax;
+    }
+
+    return isTaxExclusive ? this.salePrice : this.metaData?.priceWithTax;
+  }
+
+  bundlePriceForDisplay(currency: string, isTaxExclusive: boolean) {
+    if (isTaxExclusive) {
+      return this.metaData?.priceWithTax;
+    }
+    return this.bundle?.minPrice;
+  }
+
+  giftCardPriceForDisplay(currency: string, isTaxExclusive: boolean) {
+    const prices = this.giftCardPrice;
+    if (!prices) return 0;
+
+    const [minPrice, maxPrice] = prices;
+    if (minPrice !== maxPrice) {
+      return maxPrice;
+    }
+    const isOnSale = this.onSale && (this.salePrice?.[currency] as number) > 0;
+    const sameMinMaxPrice = isOnSale && this.salePrice;
+    if (!sameMinMaxPrice) {
+      return isTaxExclusive ? this.variantMinPrice : this.variantMinPriceWithTax;
+    }
+
+    return isTaxExclusive ? this.salePrice : this.metaData?.priceWithTax;
+  }
+
+  priceForDisplay(currency: string, isTaxExclusive: boolean) {
+    if (this.hasVariations) {
+      return this.variablePriceForDisplay(currency, isTaxExclusive);
+    } else if (this.hasBundle) {
+      return this.bundlePriceForDisplay(currency, isTaxExclusive);
+    } else if (this.isGiftCard) {
+      return this.giftCardPriceForDisplay(currency, isTaxExclusive);
+    }
+
+    return isTaxExclusive ? this.price : this.metaData?.priceWithTax;
+  }
+
   get variantMinPrice() {
     return this.variations?.reduce<ProductPrice>((carry, currentValue) => {
       for (const key in currentValue.price) {
@@ -474,6 +601,29 @@ export class Product {
 
       return carry;
     }, {});
+  }
+
+  getVariantMinPrice(locationData: TGeoLocationData) {
+    return this.variations?.reduce<ProductPrice>((carry, currentValue) => {
+      for (const key in currentValue.price) {
+        const price = getPriceFromTaxMap(locationData, currentValue).regularPrice;
+
+        if (!Object.prototype.hasOwnProperty.call(carry, key)) {
+          carry[key] = price;
+          continue;
+        }
+
+        if (price && (carry[key] as number) > price) {
+          carry[key] = price;
+        }
+      }
+
+      return carry;
+    }, {});
+  }
+
+  getTaxedPrice(locationData: TGeoLocationData) {
+    return getPriceFromTaxMap(locationData, this).regularPrice;
   }
 
   get variantMinPriceWithTax() {
@@ -590,6 +740,22 @@ export class Product {
 
   hasAddons() {
     return this.addons && this.addons.length > 0;
+  }
+
+  hasSubscriptionsATT() {
+    if (!this?.metaData?.subscriptionsATT) return false;
+
+    if (!this?.metaData?.subscriptionsATT?.has_scheme) return false;
+
+    return true;
+  }
+
+  get subscriptionsATT() {
+    if (!this?.metaData?.subscriptionsATT) return null;
+
+    if (!this?.metaData?.subscriptionsATT?.has_scheme) return null;
+
+    return this.metaData.subscriptionsATT.schemes;
   }
 
   get bundleHasPricedIndividually() {
@@ -713,6 +879,8 @@ export class Product {
 
     const adjustmentRules: ProductDiscountRuleRange[] = [];
 
+    if (!discountAdjustment.ranges) return null;
+
     Object.keys(discountAdjustment.ranges).forEach((key) => {
       const { from, to, type, value, label } = discountAdjustment.ranges[key];
       adjustmentRules.push({
@@ -737,5 +905,28 @@ export class Product {
     };
 
     return rule;
+  }
+
+  get variableColors(): { [key: string]: string } | null {
+    if (this.productType !== 'variable') return null;
+
+    if (!isArray(this.attributes)) return null;
+
+    const colorAttribute = this.attributes.find((attribute) => attribute.type === 'color');
+
+    if (!colorAttribute) return null;
+
+    const colors: { [key: string]: string } = {};
+
+    colorAttribute.options.forEach((option) => {
+      // Check if value is a valid hex color (starts with # and is 4 or 7 chars long)
+      const isValidHex = option.value && /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(option.value);
+      if (isValidHex) {
+        colors[option.name] = option.value;
+      }
+    });
+
+    // Return null if no valid colors were found
+    return Object.keys(colors).length > 0 ? colors : null;
   }
 }

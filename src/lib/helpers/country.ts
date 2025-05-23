@@ -38,3 +38,7 @@ export const getCurrencyByCountry = (countryCode: string) => {
   const region = regionSettings.find((item) => item.baseCountry === countryCode);
   return region ? region.currency : 'AU';
 };
+
+export const getRegionByCurrency = (currency: string) => {
+  return regionSettings.find((item) => item.currency === currency);
+};

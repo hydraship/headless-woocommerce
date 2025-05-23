@@ -300,6 +300,52 @@ export interface WooCommerceProductCollectionAttributes {
     orderBy: 'title' | 'date' | 'price' | 'sales' | 'rating' | 'menu_order' | 'random';
     featured?: boolean;
   };
+  collection?: string;
+}
+
+export interface IconBlockAttributes {
+  iconName?: string;
+  linkUrl?: string;
+  label?: string;
+}
+
+export interface SiteIcons {
+  iconName?: string;
+  slideText?: string;
+  slideUrl?: string;
+  blockVisibility?: {
+    hideBlock?: boolean;
+  };
+}
+
+export interface AddToCartButtonAttributes {
+  product?: {
+    value: number;
+    label: string;
+    name: string;
+    in_stock_default_label: string;
+    type: string;
+  };
+  overrideInStockButtonText: boolean;
+  inStockButtonText: string;
+  useAjax: boolean;
+  showMinicart: boolean;
+  nextUrl: string;
+  clearCart: boolean;
+  applyCoupon: boolean;
+  coupon: string;
+}
+
+export interface NavigationSubmenu {
+  label?: string;
+  type?: string;
+  opensInNewTab?: boolean;
+  url?: string;
+  kind?: string;
+}
+
+export interface NavigationLink extends NavigationSubmenu {
+  isTopLevelLink?: boolean;
 }
 
 export interface BlockAttributes
@@ -324,7 +370,11 @@ export interface BlockAttributes
     GroupAttributes,
     CoverAttributes,
     ListItemsAttributes,
-    WooCommerceProductCollectionAttributes {
+    WooCommerceProductCollectionAttributes,
+    IconBlockAttributes,
+    SiteIcons,
+    AddToCartButtonAttributes,
+    NavigationLink {
   variantRole?: string;
 
   textColor?: string;

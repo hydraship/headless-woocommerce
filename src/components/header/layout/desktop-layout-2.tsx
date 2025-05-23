@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import Image from 'next/image';
 
@@ -19,6 +18,7 @@ import { useSiteContext } from '@src/context/site-context';
 import { getDisplayTypeValues } from '@src/lib/helpers/menu';
 import { Header } from '@src/models/settings/header';
 import { Search as SearchProps } from '@src/models/settings/search';
+import { cn } from '@src/lib/utils';
 
 export const DesktopLayout2 = () => {
   const { settings } = useSiteContext();
@@ -117,7 +117,7 @@ export const DesktopLayout2 = () => {
     );
   };
 
-  const classes = cx('hidden lg:block', {
+  const classes = cn('hidden lg:block', {
     sticky: options?.isSticky,
     'top-0': options?.isSticky,
     'z-10': options?.isSticky,
@@ -128,7 +128,7 @@ export const DesktopLayout2 = () => {
   const shouldUseCustomColors = customColors.enabled;
   const primaryBackground = customColors?.background?.primary;
   const linkColor = customColors?.link?.color;
-  const navbarClasses = cx('h-24 flex lg:px-10 xl:px-0', {
+  const navbarClasses = cn('h-24 flex lg:px-10 xl:px-0', {
     'bg-brand-primary': !shouldUseCustomColors || !primaryBackground,
     'text-white': !shouldUseCustomColors || !linkColor,
     'bg-white': !shouldUseCustomColors && !primaryBackground,

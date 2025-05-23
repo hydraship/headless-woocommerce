@@ -130,7 +130,7 @@ export const ProductDialogs = ({ type }: TProp) => {
 
   return (
     <>
-      <div className={`product-dialogs ${type}`}>
+      <div className={`product-dialogs .vertical lg:${type}`}>
         {listData.map((item) => (
           <a
             href={item.link ? item.link : '#'}
@@ -143,6 +143,10 @@ export const ProductDialogs = ({ type }: TProp) => {
               }
             }}
             style={dialogLinkIconStyle}
+            className="relative flex items-center gap-1 
+            before:content-[''] before:h-[29px] before:w-px before:bg-border 
+            before:absolute before:left-[-10px] before:top-1/2 before:-translate-y-1/2 
+            first:before:hidden"
           >
             {!!item.icon && item.icon}
             <span

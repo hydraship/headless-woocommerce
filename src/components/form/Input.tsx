@@ -1,5 +1,4 @@
 import { cn } from '@src/lib/helpers/helper';
-import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import React from 'react';
 
@@ -26,7 +25,7 @@ export const Input: React.FC<Props> = ({
   value,
   onChange,
 }) => {
-  const labelClasses = cx('absolute transition-all duration-75 ease-linear', {
+  const labelClasses = cn('absolute transition-all duration-75 ease-linear', {
     'top-2 left-2 peer-focus:-top-4 peer-focus:left-0 peer-focus:text-xs': isEmpty(value),
     '-top-4 left-0 text-xs': !isEmpty(value),
   });

@@ -1,7 +1,9 @@
 import { CiCircleInfo, CiDeliveryTruck, CiLock, CiViewList } from 'react-icons/ci';
-import { FiLock, FiPackage, FiTruck } from 'react-icons/fi';
+import { FiLock } from 'react-icons/fi';
 import { GoShieldCheck } from 'react-icons/go';
 import { BsExclamationOctagon } from 'react-icons/bs';
+import { TruckIcon } from './svg/truck-icon';
+import { PackageIcon } from './svg/package-icon';
 
 export interface DynamicIconLoaderProps {
   name:
@@ -25,11 +27,11 @@ export const DynamicIconLoader = ({ name, ...rest }: DynamicIconLoaderProps) => 
     case 'CiViewList':
       return <CiViewList {...rest} />;
     case 'FiTruck':
-      return <FiTruck {...rest} />;
+      return <TruckIcon {...rest} />;
     case 'FiLock':
       return <FiLock {...rest} />;
     case 'FiPackage':
-      return <FiPackage {...rest} />;
+      return <PackageIcon {...rest} />;
     case 'GoShieldCheck':
       return <GoShieldCheck {...rest} />;
     case 'BsExclamationOctagon':

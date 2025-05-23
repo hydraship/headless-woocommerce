@@ -21,7 +21,8 @@ export const SearchResultContainer = ({ block }: SearchResultContainerProps) => 
   return (
     <div
       className={cn(
-        ' rounded-xl mt-2 w-screen max-w-[1465px] absolute md:-right-1 z-20 shadow-lg border left-0  bg-white',
+        // TODO: adjust max width to be controlled tbrough blocks
+        'w-screen max-w-[1200px] absolute md:-right-1 z-20 shadow-lg border left-0  bg-white',
         attribute.className
       )}
     >

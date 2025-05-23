@@ -1,7 +1,9 @@
 import { Product, ProductTypesenseResponse } from '@src/models/product';
+import { useSiteContext } from '@src/context/site-context';
 import { ProductMetaData } from '@src/models/product/types';
-import { sortBy } from 'lodash';
-import siteSettings from 'public/site.json';
+import { find, sortBy } from 'lodash';
+import siteSettings from '@public/site.json';
+import { Settings } from '@src/models/settings';
 
 export const numberFormat = (value: number) =>
   parseFloat(`${value}`)
@@ -58,4 +60,32 @@ export const getProductRatingStats = (product: Product) => {
   };
 
   return getStats();
+};
+
+export const shouldCheckLocation = (product: any) => {
+  if (!product?.metaData?.acf) return false;
+
+  if (!product?.metaData?.acf?.geo_restriction) return false;
+
+  return (
+    product?.metaData?.acf?.geo_restriction !== 'no-restriction' &&
+    product?.metaData?.acf?.geo_restriction !== ''
+  );
+};
+
+export const isFreeProduct = (cartItem: any) =>
+  find(cartItem.extraData, ['key', 'free_product'])?.value === '1';
+
+export const isHotSale = (product: Product, settings: Settings): boolean => {
+  const { store } = settings as Settings;
+
+  if (store?.enableOverrideBestSeller) {
+    if (product?.metaData?.bestSeller) return true;
+  } else {
+    const minHotSale = parseInt(String(store?.productPageSettings?.hotSale));
+    const isHotSale =
+      minHotSale > 0 && product?.totalSales && product.totalSales >= minHotSale ? true : false;
+    return isHotSale;
+  }
+  return false;
 };

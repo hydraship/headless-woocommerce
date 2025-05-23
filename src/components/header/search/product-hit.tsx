@@ -44,15 +44,15 @@ export const ProductHit = ({ hit }: any) => {
       ref={ref}
       onMouseEnter={handleMouseEnter}
       onClick={handleMouseClick}
-      className="flex gap-4 lg:flex-col justify-start group cursor-pointer mb-2.5 hover:bg-[#F2F2F2]"
+      className="flex gap-4 lg:flex-col justify-start group cursor-pointer mb-2.5 hover:bg-[#F2F2F2] product-hit"
     >
-      <div>
+      <div className="image-container">
         <div className="w-[63px] h-[55px] lg:w-[173px] lg:h-[173px]  overflow-hidden  group-hover:opacity-75 ml-1">
           {thumbnail?.src ? (
             <Image
               src={thumbnail.src}
               alt={decode(thumbnail.altText)}
-              className="w-full h-full object-center object-cover border rounded-lg"
+              className="w-full h-full object-center object-cover border rounded-lg hit-product-image"
               width={253}
               height={280}
             />
@@ -62,18 +62,22 @@ export const ProductHit = ({ hit }: any) => {
               alt="Thumbnail"
               width={253}
               height={280}
-              className="h-full w-full p-2.5 bg-gray-200 object-contain object-center border rounded-lg"
+              className="h-full w-full p-2.5 bg-gray-200 object-contain object-center border rounded-lg hit-product-image placeholder-image"
             />
           )}
         </div>
       </div>
 
       <div className="space-y-2">
-        <p className={cn('mb-1 mt-0.5 text-[#000180] text-sm font-bold leading-[21px]')}>
+        <p
+          className={cn(
+            'mb-1 mt-0.5 text-foreground text-sm font-bold leading-[21px] hit-product-name'
+          )}
+        >
           {decode(hit.name)}
         </p>
         {!isFree && (
-          <p>
+          <p className="hit-product-price">
             {isOnSale ? (
               <>
                 <span

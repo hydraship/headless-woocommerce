@@ -1,5 +1,4 @@
 import { useMutation } from '@apollo/client';
-import cx from 'classnames';
 import { useState } from 'react';
 import { v4 } from 'uuid';
 
@@ -8,6 +7,7 @@ import { ChevronDown } from '@src/components/svg/chevron-down';
 import { useSiteContext } from '@src/context/site-context';
 import { APPLY_COUPON } from '@src/lib/graphql/queries';
 import { parseApolloError } from '@src/lib/helpers';
+import { cn } from '@src/lib/utils';
 
 export const CouponCode = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,12 +43,12 @@ export const CouponCode = () => {
   return (
     <div className="pt-0 px-4 sm:px-6">
       <div
-        className={cx(
+        className={cn(
           'button-coupon-code border-y py-4 flex justify-between items-center cursor-pointer font-secondary text-lg font-bold text-black/80 '
         )}
         onClick={onCouponTriggerClick}
       >
-        Coupon Code <ChevronDown className={cx({ 'rotate-180 text-black/80': isOpen })} />
+        Coupon Code <ChevronDown className={cn({ 'rotate-180 text-black/80': isOpen })} />
       </div>
       {isOpen && (
         <div className="border-t py-4 w-full">
@@ -66,7 +66,7 @@ export const CouponCode = () => {
           <button
             onClick={handleApplyCoupon}
             disabled={applyCouponLoading}
-            className={cx(
+            className={cn(
               'button-apply-coupon-code border border-black/20 hover:border-secondary bg-background text-black/80 hover:bg-secondary hover:text-secondary-foreground  rounded-md w-full py-2 mt-2 text-center text-sm font-bold leading-normal h-10',
               {
                 'opacity-50': applyCouponLoading,

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { kebabCase } from 'lodash';
-import siteData from '@public/site.json';
+import siteData from '@public/config.json';
 
 import { env } from '@src/lib/env';
 import {

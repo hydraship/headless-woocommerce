@@ -17,7 +17,7 @@ export const Menu = styled.ul<{
   ${(props) =>
     props.$isFullWidth &&
     `
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 100%;
   `}
 
@@ -32,8 +32,9 @@ export const MegaMenuSubMenuWrapper = styled.div<{
   top: 100%;
   z-index: 100;
   display: none;
-  border-top: 1px solid #0000001a;
-  border-bottom: 1px solid #0000001a;
+  background-color: ${(props) => props.$mainNavigationBackgroundColor || '#fff'};
+  // border-top: 1px solid #0000001a;
+  // border-bottom: 1px solid #0000001a;
 
   ${(props) => {
     if (!props.$padding) return null;
@@ -48,12 +49,25 @@ export const MegaMenuSubMenuWrapper = styled.div<{
   `;
   }}
 
+  /* Mobile styles */
+  .mobile-navigation & {
+    width: 100%;
+    position: relative;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  /* When parent is open in mobile */
+  .mobile-navigation .is-open & {
+    max-height: 1000px; /* Large enough to accommodate content */
+  }
+
   @media (min-width: 1280px) {
     position: absolute;
     box-shadow: 0px 10px 40px 0px #0000001a;
     border-top: unset;
     border-bottom: unset;
-    background-color: ${(props) => props.$mainNavigationBackgroundColor || '#fff'};
   }
 `;
 
@@ -93,7 +107,7 @@ export const MenuListItem = styled.li<{
       }
     `;
   }}
-  
+
   &.is-open {
     svg.chevron-down {
       transform: rotate(180deg);
@@ -101,6 +115,15 @@ export const MenuListItem = styled.li<{
 
     ${MegaMenuSubMenuWrapper} {
       display: flex;
+    }
+  }
+
+  /* Mobile styles for open submenus */
+  .mobile-navigation & {
+    &.is-open {
+      ${MegaMenuSubMenuWrapper} {
+        display: flex;
+      }
     }
   }
 `;

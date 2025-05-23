@@ -7,7 +7,7 @@
 }
 
 .wishlist.wishlist-dialog .product-card figure {
-  @apply lg:w-full lg:!h-48;
+  @apply lg:w-full;
 }
 
 .wishlist.wishlist-dialog .product-card .add-to-cart-container .add-to-cart-button {

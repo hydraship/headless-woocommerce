@@ -1,10 +1,8 @@
 import { Product } from '@src/models/product';
 import { ITSBreadcrumbs } from '@src/lib/typesense/types';
-import { from } from '@apollo/client';
-
 export type ObjectData = Record<string, unknown>;
 
-export type ProductStocStatuses = 'instock' | 'outofstock';
+export type ProductStockStatuses = 'instock' | 'outofstock';
 
 // We should append all supported currencies here
 export type ProductPrice = Record<string, number>;
@@ -51,6 +49,7 @@ export type AttributeOptions = {
   slug: string;
   term_id: string;
   value: string;
+  isAvailable?: boolean;
 };
 
 export type Attribute = {
@@ -114,15 +113,16 @@ export type ProductVariationBundle = {
 export type ProductBundleSettings = {
   defaultQuantity: number;
   description: string;
-  discountPercent: number;
+  discountPercent?: number;
   hideThumbnail: boolean;
-  maxQuantity: number;
+  maxQuantity?: number;
   minQuantity: number;
   optional: boolean;
   overrideTitle: boolean;
   priceVisible: boolean;
   pricedIndividually: boolean;
   productVisible: boolean;
+  showDiscountedPrice: boolean;
   shippedIndividually: boolean;
   title: string;
 };
@@ -130,25 +130,46 @@ export type ProductBundleSettings = {
 export type ProductBundle = {
   product: {
     id: number;
-    stockStatus: ProductStocStatuses;
+    stockStatus: ProductStockStatuses;
     bundleId: number;
     image?: string;
+    name?: string;
+    status?: string;
+    price?: ProductPrice;
+    link?: string;
+    shortDescription?: string;
+    sku?: string;
+    slug?: string;
+    stockQuantity?: number;
+    type?: string;
+    description?: string;
   };
   settings: ProductBundleSettings;
   variations?: ProductVariationBundle[];
 };
 
 export type ProductBundleConfiguration = {
+  bundleInfo?: {
+    description?: string;
+    id?: number;
+    image?: string;
+    name?: string;
+    permalink?: string;
+    productType?: string;
+    sku?: string;
+    slug?: string;
+    stockStatus?: ProductStockStatuses;
+  };
   products: ProductBundle[];
   settings: {
     editInCart: boolean;
     formLocation: string;
     layout: string;
-    maxBundleSize: number | null;
-    minBundleSize: number | null;
+    maxBundleSize?: number | null;
+    minBundleSize?: number | null;
   };
-  minPrice: { [key: string]: number };
-  maxPrice: { [key: string]: number };
+  minPrice: ProductPrice;
+  maxPrice: ProductPrice;
 };
 
 export type ProductAddonsPriceType = 'flat_fee' | 'quantity_based' | 'percentage_based';

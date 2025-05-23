@@ -6,13 +6,16 @@ import { useProductContext } from '@src/context/product-context';
 import { Attribute, Image as ImageType } from '@src/models/product/types';
 import { cn } from '@src/lib/helpers/helper';
 import { useAttributeParams } from '@src/lib/hooks/product';
+import { useEffectOnce } from 'usehooks-ts';
 
 type Props = {
   attribute: Attribute;
   image?: ImageType[];
+  onChange: (attributeName: string, optionValue: string) => void;
+  firstOption?: boolean;
 };
 
-export const ImageVariant: React.FC<Props> = ({ attribute }) => {
+export const ImageVariant: React.FC<Props> = ({ attribute, onChange, firstOption }) => {
   const attributeParams = useAttributeParams();
 
   const {
@@ -35,11 +38,21 @@ export const ImageVariant: React.FC<Props> = ({ attribute }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attributeParams]);
 
+  useEffectOnce(() => {
+    if (firstOption) {
+      const firstOption = options[0];
+      if (firstOption) {
+        setCurrentAttributeLabel(firstOption.label);
+        onAttributeSelect(name, firstOption.name);
+      }
+    }
+  });
+
   if (isEmpty(product?.variantImageSrc)) return null;
 
   const handleOnClick = (variantImageSrc: ImageType, variantName: string, variantLabel: string) => {
     setCurrentAttributeLabel(variantLabel);
-    onAttributeSelect(name, variantName);
+    onChange(name, variantName);
   };
 
   return (

@@ -12,7 +12,7 @@ import { Shop } from '@src/models/settings/shop';
 import { cn } from '@src/lib/helpers/helper';
 
 const DynamicDefaultProductCard = dynamic(() =>
-  import('@src/features/product/cards/default').then((mod) => mod.DefaultProductCard)
+  import('@src/features/product/cards/old-way').then((mod) => mod.DefaultProductCard)
 );
 
 import { transformProductsForDisplay } from '@src/lib/helpers/product';
@@ -114,11 +114,14 @@ export const ProductSlides = (props: IProductGridProps) => {
                 return (
                   <DynamicDefaultProductCard
                     key={index}
-                    showRating={true}
-                    product={data as Product}
                     {...layout?.productCards}
-                    hasAddToCart={false}
-                    showWishlistButton={settings?.store?.wishlist?.enabled}
+                    showRating={true}
+                    cardShadow={false}
+                    hasBorders={true}
+                    product={data as Product}
+                    hasAddToCart={true}
+                    showBadge={true}
+                    showWishlistButton={true}
                     saleBadgeColor="#393939"
                     saleBadgeType={4}
                   />

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { useEffectOnce } from 'usehooks-ts';
 import { Gallery } from '@src/features/product/gallery';
 import { useSiteContext } from '@src/context/site-context';
 import { useProductContext } from '@src/context/product-context';
@@ -5,6 +7,9 @@ import { Settings } from '@src/models/settings';
 import { ProductSettings } from '@src/models/settings/product';
 import { Shop, ProductCards } from '@src/models/settings/shop';
 import { toDateTime, isWithInMonthsAgo } from '@src/lib/helpers/date';
+import { isHotSale } from '@src/lib/helpers/product';
+import { Image as ImageType } from '@src/models/product/types';
+import siteConfig from '@public/config.json';
 
 type TProps = {
   className?: string;
@@ -14,10 +19,30 @@ type TProps = {
 export const ProductGallery = ({ className, id }: TProps) => {
   const { product } = useProductContext();
   const { settings } = useSiteContext();
+  const [images, setImages] = useState<ImageType[]>([]);
+
+  useEffectOnce(() => {
+    if (!product?.galleryImages) return;
+
+    if (!product?.metaData?.acf?.video_link) {
+      setImages(product.galleryImages as ImageType[]);
+      return;
+    }
+
+    const images = product.galleryImages as ImageType[];
+    const videoSrc: ImageType = {
+      src: product.metaData.acf.video_link,
+    };
+
+    //add videoSrc to the second position of the images array
+    setImages([images[0], videoSrc, ...images.slice(1)]);
+
+    // setImages([videoSrc, ...images]);
+  });
 
   if (!product) return null;
 
-  const { productGallery } = (settings as Settings).product as ProductSettings;
+  const { productGallery } = siteConfig.product;
   const { shop } = settings as Settings;
   const { layout } = shop as Shop;
   const { productCards } = layout;
@@ -34,9 +59,10 @@ export const ProductGallery = ({ className, id }: TProps) => {
     <Gallery
       id={id}
       className={className}
-      images={product.galleryImages}
+      images={images}
       onSale={product.onSale}
       isNew={isTwoMonthsAgo}
+      isHotSale={isHotSale(product, settings as Settings)}
       isGrid={productGallery?.isGrid}
       zoomType={productGallery?.zoomType}
       badgeType={badgeType}

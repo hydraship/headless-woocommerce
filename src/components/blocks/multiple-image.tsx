@@ -1,10 +1,10 @@
 import { Dictionary } from '@reduxjs/toolkit';
-import { default as classNames, default as cx } from 'classnames';
 import { isEmpty } from 'lodash';
 import Image from 'next/image';
 import { v4 } from 'uuid';
 
 import { PrefetchLink } from '@src/components/common/prefetch-link';
+import { cn } from '@src/lib/utils';
 
 type ImageItem = {
   classes?: string;
@@ -22,7 +22,7 @@ type Props = {
 export const MultipleImage = ({ images, config }: Props) => {
   if (isEmpty(images)) return null;
 
-  const containerClass = classNames(config?.containerClass, {
+  const containerClass = cn(config?.containerClass, {
     'grid grid-cols-3 md:flex gap-y-8 gap-x-6 w-full relative md:px-4': !config?.containerClass,
   });
 
@@ -31,7 +31,7 @@ export const MultipleImage = ({ images, config }: Props) => {
       {images?.map((image) => {
         if (isEmpty(image)) return null;
 
-        const classNames = cx(image?.classes);
+        const classNames = cn(image?.classes);
         const splitSrc = image?.imageUrl?.split('/');
         const srcName = splitSrc?.[splitSrc?.length - 1];
         const newImageUrl = `/images/homepage/${srcName}`;

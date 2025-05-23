@@ -15,7 +15,7 @@
 }
 
 .product-popup-holder .product-popup-container .product-popup .popup-title {
-  @apply font-bold text-2xl pb-2 mb-2 border-b border-[#ddd];
+  @apply font-bold text-2xl pb-2 mb-2 border-b border-[#ddd] text-primary font-secondary;
 }
 
 .product-popup-holder .product-popup-container .product-popup .popup-content-container {
@@ -27,7 +27,7 @@
   .product-popup
   .popup-content-container
   .popup-content {
-  @apply text-[#777] leading-6 text-base;
+  @apply text-foreground leading-6 text-base;
 }
 
 .product-popup-holder
@@ -36,5 +36,5 @@
   .popup-content-container
   .popup-content
   a {
-  @apply text-[#000180];
+  @apply text-foreground;
 }

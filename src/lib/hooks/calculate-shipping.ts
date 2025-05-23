@@ -37,11 +37,14 @@ export type CalculateShippingHook = {
   selectedShippingMethod: string;
   onSelectShippingMethod: (_shippingMethod: string) => void;
   fetchAvailableCountries: () => void;
+  zipCode: string;
+  setZipCode: (_zipCode: string) => void;
 };
 
 export const useCalculateShipping = (): CalculateShippingHook => {
   const [rates, setRates] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [zipCode, setZipCode] = useLocalStorage('wooless-zip-code-product', '');
   const [countries, setCountries] = useLocalStorage<Country[]>('wooless-countries-product', []);
   const [selectedCountry, setSelectedCountry] = useLocalStorage(
     'wooless-selected-country-product',
@@ -92,8 +95,9 @@ export const useCalculateShipping = (): CalculateShippingHook => {
       country: selectedCountry,
       state: selectedState,
       products,
+      post_code: zipCode,
     };
-    const response = await axios.post('/api/calculate-shipping', data);
+    const response = await axios.post('/api/calculate-shipping/', data);
     setRates(response.data.rates);
     setIsLoading(false);
   };
@@ -119,5 +123,7 @@ export const useCalculateShipping = (): CalculateShippingHook => {
     selectedShippingMethod,
     onSelectShippingMethod,
     fetchAvailableCountries,
+    zipCode,
+    setZipCode,
   };
 };

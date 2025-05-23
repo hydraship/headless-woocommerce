@@ -10,6 +10,8 @@ import { RecentlyViewed } from '@src/features/product/recently-viewed';
 import { ShortcodeProductInstallment } from '@src/components/shortcodes/product-installment';
 import { Wishlist } from '@src/components/shortcodes/wishlist';
 import { ProductStockStatus as StockStatus } from '@src/features/product/product-stock-status';
+import { WPSLStoreLocator } from '@src/features/store-locator';
+import { ProductMeta } from '@src/components/shortcodes/product-meta';
 
 /**
  * Below are the blocks we currently support that is parseable by our codebase
@@ -25,8 +27,10 @@ export const shortcodes = {
   blz_installment_info: ShortcodeProductInstallment,
   blz_dialog: ProductDialogs,
   blz_popup: ProductInfoPopup,
+  blz_product_meta: ProductMeta,
   ti_wishlistsview: Wishlist,
   blz_product_stock: StockStatus,
+  wpsl: WPSLStoreLocator,
 };
 
 // Define type alias for block names

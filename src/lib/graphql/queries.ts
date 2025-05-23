@@ -1,8 +1,17 @@
 import { gql } from '@apollo/client';
-import siteData from '@public/site.json';
+import siteData from '@public/config.json';
 
-const BUNDLE_FRAGMENT = siteData.isBundleProductEnabled
+// Use optional chaining and type assertion to safely access the property
+const BUNDLE_FRAGMENT = (siteData as any)?.isBundleProductEnabled
   ? ` ... on BundleProduct {
+        price(format: RAW)
+        stockQuantity
+      }`
+  : '';
+
+// Use optional chaining and type assertion to safely access the property
+const SUBSCRIPTION_FRAGMENT = (siteData as any)?.isSubscriptionEnabled
+  ? ` ... on SubscriptionProduct {
         price(format: RAW)
         stockQuantity
       }`
@@ -54,6 +63,7 @@ cart${currency ? `(currency: "${currency}")` : ''} {
               stockQuantity
             }
             ${BUNDLE_FRAGMENT}
+            ${SUBSCRIPTION_FRAGMENT}
           }
         }
         variation {
@@ -421,6 +431,41 @@ export const ADD_TO_WISHLIST = gql`
       added
       productId
       error
+    }
+  }
+`;
+
+export const ADD_BUNDLE_TO_CART = gql`
+  mutation AddBundleToCart($input: AddBundleToCartInput!) {
+    addBundleToCart(input: $input) {
+      cart {
+        contents {
+          nodes {
+            key
+            quantity
+            product {
+              node {
+                id
+                name
+              }
+            }
+            ... on BundleCartItem {
+              bundledItems {
+                bundleItemId
+                discount
+                optionalSelected
+                quantity
+                product {
+                  node {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      clientMutationId
     }
   }
 `;

@@ -48,7 +48,7 @@ export const AddOnsFileUpload = ({ field, product }: TProps) => {
         setBinaryFile(binaryStr);
       };
 
-      reader.readAsArrayBuffer(theFile);
+      reader.readAsDataURL(theFile);
     }
   };
 

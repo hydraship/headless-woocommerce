@@ -8,13 +8,8 @@ import { PageSeo } from '@src/components/page-seo';
 import { Banner } from '@src/components/category/banner';
 import { Description } from '@src/components/category/description';
 import { Filter } from '@src/components/category/filter';
-import { ResultCount } from '@src/components/category/filter/result-count';
 import { LoadingModal } from '@src/components/common/loading-modal';
 import { BreadCrumbs } from '@src/features/product/breadcrumbs';
-import { DefaultProductCard as ProductCard } from '@src/features/product/cards/default';
-import { SkeletonCategory } from '@src/components/skeletons/skeleton-category';
-import { LoadMoreButton } from '@src/components/category/load-more-button';
-import { ProductGrid } from '@src/features/product/grids/product-grid';
 import { useSiteContext } from '@src/context/site-context';
 import { useTaxonomyContext } from '@src/context/taxonomy-context';
 import { Product } from '@src/models/product';
@@ -25,12 +20,122 @@ import { IFilterOptionData, ITaxonomyContentProps } from '@src/lib/types/taxonom
 import { ITSPaginationInfo, ITSTaxonomyProductQueryVars } from '@src/lib/typesense/types';
 import { stripSlashes } from '@src/lib/helpers/helper';
 import { getPageParams } from '@src/lib/helpers';
-import { transformProductsForDisplay } from '@src/lib/helpers/product';
 import { ParsedBlock } from '@src/components/blocks';
 import taxonomyProductCatBlocks from '@public/taxonomy-product-cat.json';
 import { Content } from '@src/components/blocks/content';
 import { BlockAttributes } from '@src/lib/block/types';
 import { RealWooCommerceProductCollectionQueryResponse } from '@src/components/blocks/woocommerce/product-collection/real-product-collection';
+
+interface IRenderBlocksProps {
+  blocks: ParsedBlock[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any;
+  props: ITaxonomyContentProps;
+  bannerStyle?: {
+    [key: string]: string;
+  };
+  loading: boolean;
+  productsData: Product[];
+  isFetched: boolean;
+  tsQueryVars: ITSTaxonomyProductQueryVars;
+  setTsQueryVars: React.Dispatch<React.SetStateAction<ITSTaxonomyProductQueryVars>>;
+  tsPaginationInfo: ITSPaginationInfo;
+  applyFilter: () => void;
+  onSortChange: (_e: { target: { value: string } }) => void;
+}
+
+const renderBlocks = ({
+  blocks,
+  data,
+  props,
+  bannerStyle,
+  loading,
+  productsData,
+  isFetched,
+  tsQueryVars,
+  setTsQueryVars,
+  tsPaginationInfo,
+  applyFilter,
+  onSortChange,
+}: IRenderBlocksProps) => {
+  return blocks.map((block) => {
+    switch (true) {
+      case block.blockName === 'woocommerce/breadcrumbs': {
+        return (
+          <BreadCrumbs
+            className={block.attrs.className}
+            separator="&gt;"
+            crumbs={props?.taxonomyData?.breadcrumbs}
+          />
+        );
+      }
+      case block.blockName === 'core/query-title': {
+        return (
+          <Banner
+            {...props.hero}
+            className={block.attrs.className}
+            style={bannerStyle}
+          />
+        );
+      }
+      case block.blockName === 'woocommerce/product-collection': {
+        const attributes = block.attrs as BlockAttributes;
+        const globalData: RealWooCommerceProductCollectionQueryResponse = {
+          block: block,
+          loading,
+          products: productsData,
+          isFetched,
+          queryState: [tsQueryVars, setTsQueryVars],
+          data: {
+            ...data,
+            pageInfo: tsPaginationInfo,
+          },
+        };
+
+        return (
+          <div className="container">
+            <Filter
+              pageNo={tsPaginationInfo.page}
+              productCount={tsPaginationInfo.totalFound}
+              applyFilter={applyFilter}
+              onSortChange={onSortChange}
+              globalData={globalData}
+            >
+              <div className={attributes.className}>
+                <Content
+                  type="products-query-response"
+                  globalData={globalData}
+                  content={block.innerBlocks}
+                />
+              </div>
+            </Filter>
+          </div>
+        );
+      }
+      case block.blockName === 'core/group':
+      default: {
+        return (
+          <div className={block.attrs.className}>
+            {renderBlocks({
+              blocks: block.innerBlocks,
+              data,
+              props,
+              bannerStyle,
+              loading,
+              productsData,
+              isFetched,
+              tsQueryVars,
+              setTsQueryVars,
+              tsPaginationInfo,
+              applyFilter,
+              onSortChange,
+            })}
+          </div>
+        );
+      }
+    }
+  });
+};
 
 export const TaxonomyContent = (props: ITaxonomyContentProps) => {
   const { settings } = useSiteContext();
@@ -66,7 +171,7 @@ export const TaxonomyContent = (props: ITaxonomyContentProps) => {
   const [tsQueryVars, setTsQueryVars] = useState(props.tsFetchedData?.queryVars ?? {});
   const cachedTsQueryVars = useMemo(() => tsQueryVars, [tsQueryVars]);
 
-  const { loading, data, isFetched } = useFetchTsTaxonomyProducts(cachedTsQueryVars);
+  const { loading, data, isFetched } = useFetchTsTaxonomyProducts(cachedTsQueryVars, true);
 
   const searchQuery = props.searchQuery;
   const showBreadCrumbs = !searchQuery || searchQuery === '*';
@@ -169,6 +274,7 @@ export const TaxonomyContent = (props: ITaxonomyContentProps) => {
     return () => {
       window.removeEventListener('popstate', handlePopState);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateDataOnRouterChange = () => {
@@ -185,6 +291,7 @@ export const TaxonomyContent = (props: ITaxonomyContentProps) => {
     return () => {
       router.events.off('routeChangeComplete', updateDataOnRouterChange);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.events]);
 
   useEffect(() => {
@@ -333,76 +440,34 @@ export const TaxonomyContent = (props: ITaxonomyContentProps) => {
     marginTop: shop?.layout?.bannerMarginTop ? `${shop?.layout?.bannerMarginTop}px` : '0px',
   };
 
-  const renderBlocks = (blocks: ParsedBlock[]) => {
-    return blocks.map((block) => {
-      switch (true) {
-        case block.blockName === 'woocommerce/breadcrumbs': {
-          return (
-            <BreadCrumbs
-              className={block.attrs.className}
-              separator="&gt;"
-              crumbs={props?.taxonomyData?.breadcrumbs}
-            />
-          );
-        }
-        case block.blockName === 'core/query-title': {
-          return (
-            <Banner
-              {...props.hero}
-              className={block.attrs.className}
-              style={bannerStyle}
-            />
-          );
-        }
-        case block.blockName === 'woocommerce/product-collection': {
-          const attributes = block.attrs as BlockAttributes;
-
-          const globalData: RealWooCommerceProductCollectionQueryResponse = {
-            block: block,
-            loading,
-            products: productsData,
-            isFetched,
-            queryState: [tsQueryVars, setTsQueryVars],
-            data,
-          };
-
-          return (
-            <div className="container">
-              <Filter
-                pageNo={tsPaginationInfo.page}
-                productCount={tsPaginationInfo.totalFound}
-                applyFilter={applyFilter}
-                onSortChange={onSortChange}
-              >
-                <div className={attributes.className}>
-                  <Content
-                    type="products-query-response"
-                    globalData={globalData}
-                    content={block.innerBlocks}
-                  />
-                </div>
-              </Filter>
-            </div>
-          );
-        }
-        case block.blockName === 'core/group':
-        default: {
-          return <div className={block.attrs.className}>{renderBlocks(block.innerBlocks)}</div>;
-        }
-      }
-    });
-  };
-
   return (
     <>
       {props.fullHead && <PageSeo seoFullHead={props.fullHead} />}
       <LoadingModal isOpen={loading} />
 
-      {renderBlocks(taxonomyProductCatBlocks as ParsedBlock[])}
+      {renderBlocks({
+        blocks: taxonomyProductCatBlocks as ParsedBlock[],
+        data,
+        props,
+        bannerStyle,
+        loading,
+        productsData,
+        isFetched,
+        tsQueryVars,
+        setTsQueryVars,
+        tsPaginationInfo,
+        applyFilter,
+        onSortChange,
+      })}
 
-      <div className="container">
-        <div className="py-10 category-description">
-          <Description description={props.taxonomyDescription} />
+      <div className="p-4 md:px-6 xl:px-16">
+        <div className="container">
+          <div className="category-description">
+            <div></div>
+            <div>
+              <Description description={props.taxonomyDescription} />
+            </div>
+          </div>
         </div>
       </div>
     </>

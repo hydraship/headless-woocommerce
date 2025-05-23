@@ -10,15 +10,13 @@ import {
   addIds,
   cssContentParser,
   generateJsonDataBySlug,
-  generatePostJsonDataBySlug,
   maybeCreateDir,
   parseJSON,
 } from '@src/scripts/utils';
 import { ParsedBlock as NewParsedBlock } from '@src/components/blocks';
 import { getPageSlugs } from '@src/lib/typesense/page';
 
-import postSlugs from '@public/post-slugs.json';
-import siteData from '@public/site.json';
+import siteData from '@public/config.json';
 
 /**
  * This process the post and pages styles blocks
@@ -50,7 +48,7 @@ const processPostAndPageStyles = async () => {
 const processTemplatesStyles = async () => {
   const templateData = [
     {
-      key: 'site-footer',
+      key: 'site-template-footer',
       file: 'footer.json',
     },
     {
@@ -78,7 +76,7 @@ const processTemplatesStyles = async () => {
       file: 'taxonomy-product-cat.json',
     },
     {
-      key: 'site-header',
+      key: 'site-template-header',
       file: 'header.json',
     },
     {
@@ -88,6 +86,10 @@ const processTemplatesStyles = async () => {
     {
       key: 'site-wp-custom-template-mini-cart',
       file: 'minicart.json',
+    },
+    {
+      key: 'site-wp-custom-template-cart',
+      file: 'cart.json',
     },
     {
       key: 'site-wp-custom-template-wish-list-sidebar',

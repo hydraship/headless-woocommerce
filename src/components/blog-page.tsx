@@ -2,7 +2,7 @@ import { Content } from '@src/components/blocks/content';
 import { defaultLayout } from '@src/components/layouts/default';
 import { PageSeo } from '@src/components/page-seo';
 import { ITSPage } from '@src/lib/typesense/types';
-import siteData from '@public/site.json';
+import siteData from '@public/config.json';
 
 import type { NextPageWithLayout } from '@src/pages/_app';
 import { GetStaticPropsContext } from 'next';

@@ -103,3 +103,12 @@ export type CountryPathsParams = {
 export type CountryPaths = {
   params: CountryPathsParams;
 };
+
+export type TGeoLocationData = {
+  continentCode: string;
+  countryCode: string;
+  subDivision: string;
+  subDivisionCode: string;
+  city: string;
+  postalCode: string;
+};

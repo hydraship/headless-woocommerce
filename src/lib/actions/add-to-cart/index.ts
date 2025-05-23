@@ -11,6 +11,8 @@ import { CartItemSchema } from '@src/lib/actions/add-to-cart/schema';
 import { ADD_TO_CART } from '@src/lib/graphql/queries';
 import { track } from '@src/lib/track';
 
+export { useAddBundleToCartMutation } from '@src/lib/actions/add-to-cart/bundle';
+
 export const useAddToCartMutation = (
   options:
     | MutationHookOptions<any, OperationVariables, DefaultContext, ApolloCache<any>>

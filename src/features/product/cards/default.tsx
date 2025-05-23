@@ -1,8 +1,8 @@
-import { find } from 'lodash';
+import { find, isEmpty } from 'lodash';
 import { useRouter } from 'next/router';
 import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import siteData from '@public/site.json';
+import siteData from '@public/config.json';
 import { useEffectOnce, useIntersectionObserver } from 'usehooks-ts';
 
 import { CardRating } from '@src/features/product/card-elements/rating';
@@ -20,6 +20,7 @@ import type { ProductCards } from '@src/models/settings/shop';
 import { GliderMethods } from 'react-glider/dist/types';
 import productCards from '@public/product-cards.json';
 import { PinterestSaveButton } from '@src/features/pinterest-save-button';
+import { ParsedBlock } from '@src/components/blocks';
 
 const CardGalleryThumbnail = dynamic(() =>
   import('@src/features/product/card-elements/slideshow-thumbnail').then(
@@ -132,7 +133,11 @@ export const DefaultProductCard = (props: Props) => {
   }
 
   const renderProductCardsFromTemplate = () => {
-    const productCardTemplate = productCards[0];
+    const productCardTemplate = productCards[0] as ParsedBlock;
+    if (!productCardTemplate) {
+      return null;
+    }
+
     return productCardTemplate.innerBlocks.map((block) => {
       switch (block.blockName) {
         case 'woocommerce/product-image': {

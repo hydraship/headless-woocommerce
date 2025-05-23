@@ -2,25 +2,18 @@ import { ParsedBlock, processBlockData } from '@src/components/blocks';
 import { Content } from '@src/components/blocks/content';
 import { defaultLayout } from '@src/components/layouts/default';
 import { PageSeo } from '@src/components/page-seo';
-import { getAttributeValue, isBlockA } from '@src/lib/block';
-import { BlockAttributes } from '@src/lib/block/types';
-import { getAllBaseContries } from '@src/lib/helpers/country';
-import { getPageBySlug, PageTypesenseResponse } from '@src/lib/typesense/page';
-import { getTaxonomyItemPageProps } from '@src/pages/[country]/[taxonomyFrontendSlug]/[...taxonomyItemSlug]';
-
 import type { NextPageWithLayout } from '@src/pages/_app';
 
 import { ParsedUrlQuery } from 'querystring';
-import { Page as TypesensePage } from '@src/lib/typesense/page';
-import { find, isEmpty } from 'lodash';
 import { PageContextProvider } from '@src/context/page-context';
 
 import PAGE_TEMPLATE from '@public/page.json';
-import pageSlugs from '@public/page-slugs.json';
+
 import { ITSPage } from '@src/lib/typesense/types';
 import { GetStaticProps, GetStaticPropsContext } from 'next/dist/types';
 import { parse } from '@wordpress/block-serialization-default-parser';
 import { addIds } from '@src/scripts/utils';
+import { getPageBySlug } from '@src/lib/typesense/page';
 
 interface Props {
   country: string;
@@ -34,17 +27,9 @@ interface Params extends ParsedUrlQuery {
 }
 
 export const getStaticPaths = async () => {
-  const countries = getAllBaseContries();
-
-  const paths = countries.flatMap((country) =>
-    pageSlugs.map((pageSlug) => ({
-      params: { country, pageSlug },
-    }))
-  );
-
   return {
-    paths,
-    fallback: false,
+    paths: [],
+    fallback: true,
   };
 };
 
@@ -82,7 +67,7 @@ const Page: NextPageWithLayout<Props> = (props: {
   }
 
   return (
-    <div className="page">
+    <div className={`page ${props.page.slug}`}>
       {props.page.seoFullHead && <PageSeo seoFullHead={props.page.seoFullHead} />}
       <PageContextProvider page={props.page}>
         <Content

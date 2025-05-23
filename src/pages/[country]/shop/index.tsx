@@ -1,16 +1,17 @@
 import { ParsedUrlQuery } from 'querystring';
-import siteData from '@public/site.json';
-
+import siteData from '@public/config.json';
 import { GetStaticProps } from 'next';
 
 import { TaxonomyItemPage } from '@src/components/content/shop';
 import { shopLayout } from '@src/components/layouts/shop';
 import { SiteInfo } from '@src/lib/typesense/site-info';
 import { getAllBaseContries } from '@src/lib/helpers/country';
-import TSTaxonomy, { getProducts } from '@src/lib/typesense/taxonomy';
+import TSTaxonomy, { getProducts, getDefaultSortBy } from '@src/lib/typesense/taxonomy';
 import { ITSTaxonomyProductQueryVars } from '@src/lib/typesense/types';
 import { getPageBySlug } from '@src/lib/typesense/page';
 import { meta } from '@src/lib/constants/meta';
+import categoryBlocks from '@public/taxonomy-product-cat.json';
+import { findPerPage } from '@src/lib/block/per-page';
 
 interface Props {
   country: string;
@@ -49,13 +50,18 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async (context) => {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const params = context.params!;
   const { country } = params;
   const pageData = await getPageBySlug(siteData.shopPageSlug);
-  const defaultQueryVars: ITSTaxonomyProductQueryVars = TSTaxonomy.getDefaultTsQueryVars();
+
+  const perPage = findPerPage(categoryBlocks);
+
+  const perPageValue = perPage ?? 20;
+  const defaultQueryVars: ITSTaxonomyProductQueryVars =
+    TSTaxonomy.getDefaultTsQueryVars(perPageValue);
 
   const tsFetchedData = await getProducts(defaultQueryVars);
+  const defaultSortBy = getDefaultSortBy();
 
   const filterOptionContent = await SiteInfo.find('product_filters_content');
   let contents;
@@ -64,6 +70,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (context) => 
   } catch (e) {
     contents = [];
   }
+
   return {
     props: {
       country,
@@ -75,6 +82,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (context) => 
         sourceUrl: pageData?.thumbnail?.src || '',
       },
       tsFetchedData: tsFetchedData ?? null,
+      defaultSortBy,
       contents,
       searchQuery: '*',
     },

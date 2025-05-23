@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { maybeDeleteFile, toHttps } from '@src/scripts/utils';
-import siteData from '@public/site.json';
+import siteData from '@public/config.json';
 import * as fs from 'fs';
 import path from 'path';
 import https from 'https';
@@ -13,11 +13,11 @@ export default async function execute() {
       async (ext) => await maybeDeleteFile(path.resolve(process.cwd(), 'public', `favicon.${ext}`))
     );
 
-    if (siteData.store.favicon) {
+    if (siteData?.siteIconUrl) {
       const faviconPath = path.join(process.cwd(), 'public');
       const faviconFile = path.resolve(faviconPath, 'favicon.ico');
       https
-        .get(toHttps(siteData.store.favicon), (res) => {
+        .get(toHttps(siteData.siteIconUrl), (res) => {
           const fileStream = fs.createWriteStream(faviconFile);
           res.pipe(fileStream);
           fileStream.on('finish', () => {

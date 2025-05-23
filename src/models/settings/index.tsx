@@ -64,6 +64,7 @@ export type SettingProps = Partial<{
   showFreeShippingBanner: boolean;
   showFreeShippingMinicartComponent: boolean;
   showVariantAsSeparateProductCards: boolean;
+  enableGeoRestrictions: boolean;
 }>;
 
 export class Settings {
@@ -263,6 +264,10 @@ export class Settings {
         return this.props?.store?.review?.businessReviewsBundleSettings;
         break;
     }
+  }
+
+  get productPageSettings() {
+    return this.store?.productPageSettings;
   }
 
   static build(props: SettingProps) {

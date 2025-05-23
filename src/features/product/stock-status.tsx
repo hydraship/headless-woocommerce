@@ -15,13 +15,14 @@ export const StockStatus: React.FC<Props> = ({ product, settings }) => {
     if (!product?.stockQuantity) return 'In Stock';
 
     const { stockDisplayFormat } = settings.product?.productDetails || {};
+
     switch (true) {
       case stockDisplayFormat === 'always':
         return `${product.stockQuantity.toString()} in stock`;
       case stockDisplayFormat === 'low_amount' && product.stockQuantity <= 2:
-        return `Only ${product.stockQuantity.toString()} left in stock`;
+        return `Only ${product.stockQuantity.toString()} left in stock (can be backordered)`;
       default:
-        return 'In Stock';
+        return 'In Stock (available on backorder)';
     }
   };
 
@@ -55,8 +56,27 @@ export const StockStatus: React.FC<Props> = ({ product, settings }) => {
       }
       break;
     default:
+      statusMarkup = <span className="instock">Available on backorder</span>;
       break;
   }
 
-  return <div className="stock-status">{statusMarkup}</div>;
+  return (
+    <>
+      <div className="stock-status">{statusMarkup}</div>
+      <div className="stock-status-label">
+        {product.stockStatus === 'instock' && (
+          <span className="stock-status-label-text">
+            <label>Stock: </label>
+            {product?.stockQuantity && product.stockQuantity > 0
+              ? product.stockQuantity
+              : 'Available on backorder'}
+          </span>
+        )}
+        <span className="stock-status-label-text">
+          <label>SKU: </label>
+          {product.sku || 'N/A'}
+        </span>
+      </div>
+    </>
+  );
 };

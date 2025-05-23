@@ -9,7 +9,7 @@
 }
 
 .single-product .add-to-cart-form .button-container .button-wrapper .quantity-label {
-  @apply items-center text-sm text-black font-bold hidden md:flex;
+  @apply items-center text-sm text-black font-bold hidden;
 }
 
 .single-product .add-to-cart-form .button-container .button-wrapper .quantity {
@@ -21,7 +21,7 @@
 }
 
 .single-product .add-to-cart-form .button-container .button-wrapper .button-add-to-cart {
-  @apply flex items-center justify-center bg-primary hover:bg-primary/90 text-primary-foreground hover:text-primary-foreground flex-grow px-4 py-2 text-sm font-bold rounded-md disabled:bg-muted disabled:text-muted-foreground;
+  @apply flex items-center justify-center bg-secondary hover:bg-primary text-background hover:text-foreground flex-grow p-3 py-2 text-lg font-semibold rounded disabled:bg-muted disabled:text-muted-foreground;
 }
 
 .single-product .add-to-cart-form .button-container .button-wrapper .button-add-to-cart[disabled] {

@@ -24,11 +24,14 @@ export const WooCommerceProductSalePriceTemplate = ({
   const attribute = block.attrs as BlockAttributes;
 
   if ('product-cart-item' === type) {
-    const { cartItem } = data as CartItemGlobalProps;
-    if (!cartItem.onSale) {
+    const { cartItem, loading } = data as CartItemGlobalProps;
+    if (!cartItem.onSale || cartItem.type === 'BUNDLE') {
       return null;
     }
 
+    if (loading) {
+      return <div className="w-28 h-4 bg-gray-300"></div>;
+    }
     return (
       <span
         className={cn(

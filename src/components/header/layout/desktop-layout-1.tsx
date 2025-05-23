@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import cx from 'classnames';
 import Image from 'next/image';
 
 import { Navbar, NavbarItems, NavbarLink } from '@src/components/navbar';
@@ -22,6 +21,7 @@ import { useSiteContext } from '@src/context/site-context';
 import { getDisplayTypeValues } from '@src/lib/helpers/menu';
 import { Header } from '@src/models/settings/header';
 import { Search as SearchProps } from '@src/models/settings/search';
+import { cn } from '@src/lib/utils';
 
 export const DesktopLayout1 = () => {
   const { settings } = useSiteContext();
@@ -121,7 +121,7 @@ export const DesktopLayout1 = () => {
     );
   };
 
-  const navbarContainerClasses = cx('hidden lg:block', {
+  const navbarContainerClasses = cn('hidden lg:block', {
     sticky: options?.isSticky,
     'top-0': options?.isSticky,
     'z-10': options?.isSticky,
@@ -130,7 +130,7 @@ export const DesktopLayout1 = () => {
   const shouldUseCustomColors = customColors.enabled;
   const primaryBackground = customColors?.background?.primary;
   const linkColor = customColors?.link?.color;
-  const navbarClasses = cx('text-white h-24 flex lg:px-10 xl:px-0', {
+  const navbarClasses = cn('text-white h-24 flex lg:px-10 xl:px-0', {
     'bg-brand-primary': !shouldUseCustomColors || !primaryBackground,
     'text-white': !shouldUseCustomColors || !linkColor,
     'border-b': header?.layout?.navbarSeparator,

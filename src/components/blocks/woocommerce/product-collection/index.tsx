@@ -1,6 +1,7 @@
 import { ParsedBlock } from '@src/components/blocks';
 import { CartItemsProductCollection } from '@src/components/blocks/woocommerce/product-collection/cart-items';
 import { CartItemsProductRecommendation } from '@src/components/blocks/woocommerce/product-collection/cart-items-product-recommendation';
+import { ProductCarouselProductCollection } from '@src/components/blocks/woocommerce/product-collection/product-carousel';
 import { RealWooCommerceProductCollection } from '@src/components/blocks/woocommerce/product-collection/real-product-collection';
 import { RecentlyViewedProductCollection } from '@src/components/blocks/woocommerce/product-collection/recently-viewed';
 import { WishlistProductCollection } from '@src/components/blocks/woocommerce/product-collection/wishlist';
@@ -11,6 +12,7 @@ export const productCollectionPlaceHolderBlocks = {
   WishlistProducts: WishlistProductCollection,
   CartItems: CartItemsProductCollection,
   CartItemsProductRecommendation: CartItemsProductRecommendation,
+  ProductCarousel: ProductCarouselProductCollection,
 };
 
 export const WooCommerceProductCollection = ({ block }: { block: ParsedBlock }) => {
@@ -19,6 +21,7 @@ export const WooCommerceProductCollection = ({ block }: { block: ParsedBlock }) 
   }
 
   const blockName = getBlockName(block);
+
   const GutenbergBlock =
     productCollectionPlaceHolderBlocks[
       blockName as keyof typeof productCollectionPlaceHolderBlocks

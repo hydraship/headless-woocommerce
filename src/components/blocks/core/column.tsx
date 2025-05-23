@@ -8,7 +8,7 @@ export const Column = ({ block }: BlockComponentProps) => {
   }
 
   return (
-    <div className={cn(`_${block.id} ${block.attrs?.className}`, 'core-column')}>
+    <div className={cn('core-column', block.attrs?.className)}>
       <Content content={block.innerBlocks} />
     </div>
   );

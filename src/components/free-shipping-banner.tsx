@@ -1,4 +1,4 @@
-import siteSettings from '@public/site.json';
+import siteSettings from '@public/config.json';
 import { useSiteContext } from '@src/context/site-context';
 import { numberFormat } from '@src/lib/helpers/product';
 

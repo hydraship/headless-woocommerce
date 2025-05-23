@@ -3,6 +3,8 @@ import { ParsedBlock } from '@wordpress/block-serialization-default-parser';
 import { useSearchContext } from '@src/context/search-context';
 import { ReactHTMLParser } from '@src/lib/block/react-html-parser';
 import { useRouter } from 'next/router';
+import { getSvgContent } from '@src/components/blocks/outermost/IconBlock';
+import { BlockAttributes } from '@src/lib/block/types';
 
 type SearchIconProps = {
   block: ParsedBlock;
@@ -14,7 +16,8 @@ export const SearchIcon = ({ block }: SearchIconProps) => {
 
   const [searchTerm] = searchTermState;
 
-  if ('core/html' !== block.blockName) {
+  const allowedBlocks = ['outermost/icon-block', 'core/html'];
+  if (block.blockName && !allowedBlocks.includes(block.blockName)) {
     return null;
   }
 
@@ -29,10 +32,19 @@ export const SearchIcon = ({ block }: SearchIconProps) => {
       }
     }
   };
-
+  const attributes = block.attrs as BlockAttributes;
   return (
-    <button onClick={handleClick}>
-      <ReactHTMLParser html={block.innerHTML} />
+    <button
+      onClick={handleClick}
+      className={attributes.className}
+    >
+      <ReactHTMLParser
+        html={
+          'outermost/icon-block' === block.blockName
+            ? getSvgContent(block.innerHTML)
+            : block.innerHTML
+        }
+      />
     </button>
   );
 };

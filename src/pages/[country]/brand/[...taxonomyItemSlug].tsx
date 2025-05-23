@@ -1,6 +1,7 @@
 import { Dictionary } from '@reduxjs/toolkit';
 import { reduce } from 'lodash';
 import { GetStaticProps } from 'next';
+import categoryBlocks from '@public/taxonomy-product-cat.json';
 
 import { TaxonomyItemPage } from '@src/components/content/taxonomy-item-page';
 import { defaultLayout } from '@src/components/layouts/default';
@@ -11,6 +12,7 @@ import { RegionalData, TaxonomyPaths } from '@src/types';
 import { TaxonomyPathsParams } from '@src/lib/types/taxonomy';
 import TSTaxonomy, { getProducts, getTaxonomyPopularProducts } from '@src/lib/typesense/taxonomy';
 import { ITSTaxonomyProductQueryVars, MetaData } from '@src/lib/typesense/types';
+import { findPerPage } from '@src/lib/block/per-page';
 
 TaxonomyItemPage.getLayout = defaultLayout;
 
@@ -68,7 +70,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const defaultSortBy = TSTaxonomy.sortOptions()[1];
 
-  const defaultQueryVars = TSTaxonomy.getDefaultTsQueryVars();
+  const perPage = findPerPage(categoryBlocks);
+
+  const perPageValue = perPage ?? 20;
+
+  const defaultQueryVars = TSTaxonomy.getDefaultTsQueryVars(perPageValue);
   const taxonomyProductQueryVars: ITSTaxonomyProductQueryVars = {
     ...defaultQueryVars,
     // taxonomySlug: wpTaxSlug,

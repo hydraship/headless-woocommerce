@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import path from 'path';
 import wpTheme from '@public/wp-theme.json';
 import { slugify } from '@src/scripts/utils';
+import { getFonts } from '@src/scripts/pre-build/003-download-fonts';
 
 const defaultColors = [
   {
@@ -112,6 +113,8 @@ const mergeColors = (defaultColors: ColorItem[], userColors: ColorItem[]): Color
   // Create a map from the user's colors for quick lookup by slug
   const userColorMap = new Map(userColors.map((color) => [color.slug, color]));
 
+  console.log('userColor', userColorMap);
+
   // Merge the arrays, overwriting default colors with user colors when slugs match
   const mergedColors = defaultColors.map(
     (defaultColor) => userColorMap.get(defaultColor.slug) || defaultColor
@@ -143,16 +146,17 @@ export default async function execute() {
     );
     const themeColors = mergeColors(defaultColors, mergedThemeColors as ColorItem[]);
 
+    const fontFamilies = getFonts();
     const themeObject = {
       colorVars: themeColors.reduce((acc, { color, name }) => {
         acc[`--${slugify(name)}`] = color;
         return acc;
       }, {} as Record<string, string>),
       colorClasses: themeColors.reduce((acc, { name }) => {
-        acc[`${slugify(name)}`] = `var(--${name})`;
+        acc[`${slugify(name)}`] = `var(--${slugify(name)})`;
         return acc;
       }, {} as Record<string, string>),
-      fontFamilies: wpTheme.typography?.fontFamilies?.theme.reduce((acc, { slug }) => {
+      fontFamilies: fontFamilies.reduce((acc, { slug }) => {
         acc[`${slug}`] = `var(--font-${slug})`;
         return acc;
       }, {} as Record<string, string>),

@@ -4,7 +4,7 @@ import { Product, ProductTypesenseResponse } from '@src/models/product';
 import { ContentBlockMetaData } from '@src/types';
 import client from '@src/lib/typesense/client';
 import TS_CONFIG from '@src/lib/typesense/config';
-import siteSettings from 'public/site.json';
+import siteSettings from '@public/config.json';
 
 import { SearchResponse, SearchResponseHit } from 'typesense/lib/Typesense/Documents';
 import { PRODUCT_TYPES } from '@src/lib/constants/product';
@@ -124,7 +124,7 @@ export const getVariations = async (productId: number) => {
     query_by: 'name',
     filter_by: `parentId:=${productId}`,
     sort_by: '_text_match:desc',
-    per_page: 250,
+    per_page: 100,
   };
 
   const results = await client

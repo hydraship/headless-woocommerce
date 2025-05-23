@@ -12,6 +12,9 @@ import { ProceedToCheckoutButton } from '@src/components/blocks/woocommerce/mini
 import { CouponFormApplyButton } from '@src/components/blocks/woocommerce/mini-cart/coupon/coupon-form-applly-button';
 import { AppliedCouponName } from '@src/components/blocks/woocommerce/mini-cart/applied-coupon-name';
 import { AppliedCartDiscountTotal } from '@src/components/blocks/woocommerce/mini-cart/applied-cart-discount-total';
+import { RemoveAppliedCoupon } from '@src/components/blocks/woocommerce/mini-cart/remove-applied-cart-discount';
+import { WooCommerceProductBrandTitleTemplate } from '@src/components/blocks/woocommerce/product-collection/product-template/product-brand-title';
+import { RemoveCartItemButton } from '@src/components/blocks/woocommerce/mini-cart/remove-cart-item';
 
 type ParagraphProps = {
   block: ParsedBlock;
@@ -22,12 +25,15 @@ const placeHolderBlocks = {
   CartItemsCount: CartItemsCount,
   WishlistItemsCount: WishlistItemsCount,
   ProductReviewsCount: WooCommerceProductReviewCountTemplate,
+  ProductBrandTitle: WooCommerceProductBrandTitleTemplate,
   CartDiscountTotal: CartDiscountTotal,
   CartSubTotal: CartSubTotal,
   ProceedToCheckoutButton: ProceedToCheckoutButton,
   CouponFormApplyButton: CouponFormApplyButton,
   AppliedCouponName: AppliedCouponName,
   AppliedCartDiscountTotal: AppliedCartDiscountTotal,
+  RemoveAppliedCoupon,
+  RemoveCartItem: RemoveCartItemButton,
 };
 
 export const Paragraph = ({ block }: ParagraphProps) => {

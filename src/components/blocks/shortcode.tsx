@@ -1,5 +1,5 @@
 import { ParsedBlock } from '@wordpress/block-serialization-default-parser';
-import { WPShortcodes } from '@src/lib/helpers/shortcode';
+import { WPShortcodes, IResult, IShortcode } from '@src/lib/helpers/shortcode';
 import { ShortcodeName, shortcodes } from '@src/components/shortcodes';
 import React from 'react';
 
@@ -15,6 +15,10 @@ type ShortcodeData = {
   attributes: ShortcodeAttribute[];
   code: string;
   raw: string;
+  attributeKeys: string[];
+  attributeString: string;
+  attributeStringWithoutHTML: string;
+  attributeStringWithoutValues: string;
 };
 
 export const Shortcode = ({ block }: EmbedProps) => {
@@ -22,7 +26,7 @@ export const Shortcode = ({ block }: EmbedProps) => {
     return null;
   }
 
-  const checkShortcodes = WPShortcodes(block.innerHTML);
+  const checkShortcodes: IResult = WPShortcodes(block.innerHTML);
 
   if (typeof checkShortcodes === 'undefined') return null;
 

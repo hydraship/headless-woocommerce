@@ -33,7 +33,7 @@
 }
 
 .single-product .add-to-cart-form .product-addon-container .addon-field-title {
-  @apply text-foreground text-base md:text-lg leading-6;
+  @apply text-foreground text-base md:text-lg leading-7 font-semibold;
 }
 
 .single-product .add-to-cart-form .product-addon-container .addon-field-description {
@@ -45,7 +45,7 @@
 }
 
 .single-product .add-to-cart-form .product-addon-container .addon-field-options .addon-option {
-  @apply py-2 px-4 border-2 border-solid border-[#ddd] cursor-pointer text-xs font-normal leading-6 text-[#333] text-center;
+  @apply py-1 px-4 border-2 border-solid border-[#ddd] font-normal cursor-pointer text-base md:text-lg  leading-7 text-[#333] text-center;
 }
 
 .single-product
@@ -54,7 +54,7 @@
   .checkbox-group
   .addon-field-options
   .addon-option {
-  @apply p-0 border-none flex gap-2 justify-start items-center text-base md:text-lg leading-6 text-foreground;
+  @apply p-0 border-none flex gap-2 justify-start items-center text-base md:text-lg leading-7 text-foreground;
 }
 
 .single-product
@@ -62,7 +62,7 @@
   .product-addon-container
   .addon-field-options
   .addon-option.selected {
-  @apply border-foreground text-foreground;
+  @apply border-primary text-primary;
 }
 
 .single-product .add-to-cart-form .product-addon-container .addon-field-options input {
